@@ -1,0 +1,60 @@
+media:
+  input: img
+  output: img
+
+content:
+  - name: datos
+    label: Editar Mi Sitio Web
+    path: datos.json
+    type: file
+    fields:
+      - name: inicio
+        label: Página de Inicio
+        type: object
+        fields:
+          - { name: tituloPrincipal, label: Título Grande, type: string }
+          - { name: subtitulo, label: Subtítulo, type: string }
+          - { name: imagenHero, label: Imagen Principal (Banner), type: image }
+          - { name: textoHero, label: Texto si no hay imagen, type: text }
+      - name: musaMedia
+        label: Imágenes del Micrositio MUSA
+        type: object
+        fields:
+          - { name: logo, label: Logotipo de MUSA (Manos), type: image }
+          - { name: portada, label: Foto Portada MUSA, type: image }
+          - { name: fotoQuienes, label: Foto ¿Quiénes somos?, type: image }
+          - { name: fotoEnfermeria, label: Foto Equipo Enfermería, type: image }
+          - { name: fotoEje1, label: Foto Eje 1 (Intervenciones Creativas), type: image }
+          - { name: fotoEje2, label: Foto Eje 2 (Educación para la Salud), type: image }
+          - { name: fotoEje3, label: Foto Eje 3 (Brigadas de Arteterapia), type: image }
+      - name: blog
+        label: Entradas del Blog y MUSA
+        type: object
+        list: true
+        fields:
+          - { name: titulo, label: Título de la Publicación, type: string }
+          - { name: fecha, label: Fecha, type: string }
+          - name: tags
+            label: Etiquetas (Tags)
+            type: select
+            options:
+              multiple: true
+              creatable: true
+              values:
+                - MUSA
+                - ARTÍCULO
+                - POST
+                - DESTACADO
+          - { name: imagen, label: Imagen de Portada, type: image }
+          - { name: resumen, label: Info Rápida (Carrusel y Tarjeta), type: text }
+          - { name: contenido, label: Contenido Completo, type: rich-text }
+      - name: proyectos
+        label: Proyectos y Micrositios (Carrusel Proyectos)
+        type: object
+        list: true
+        fields:
+          - { name: nombre, label: Nombre del Proyecto, type: string }
+          - { name: etiqueta, label: Subtítulo / Institución, type: string }
+          - { name: imagen, label: Imagen del Proyecto, type: image }
+          - { name: resumen, label: Info Rápida del Proyecto, type: text }
+          - { name: enlace, label: Archivo del Micrositio (ej. musa.html), type: string }

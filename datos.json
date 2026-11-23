@@ -1,0 +1,52 @@
+{
+  "inicio": {
+    "tituloPrincipal": "ALEX C. TEXEIRA",
+    "subtitulo": "Enfermería · Educación para la Salud · Arteterapia",
+    "imagenHero": "",
+    "textoHero": "Bienvenido a mi espacio profesional y creativo. Aquí comparto mi trayectoria en enfermería, promoción de la salud y proyectos de arteterapia."
+  },
+  "musaMedia": {
+    "logo": "",
+    "portada": "",
+    "fotoQuienes": "",
+    "fotoEnfermeria": "",
+    "fotoEje1": "",
+    "fotoEje2": "",
+    "fotoEje3": ""
+  },
+  "blog": [
+    {
+      "titulo": "El arte nuestro lenguaje, la salud nuestro mensaje: arteterapia en enfermería",
+      "fecha": "Noviembre 2026",
+      "tags": ["MUSA", "ARTÍCULO", "DESTACADO"],
+      "imagen": "",
+      "resumen": "Cómo integrar la expresión artística en el cuidado holístico fortalece el vínculo terapéutico y la promoción de la salud.",
+      "contenido": "En la formación tradicional de enfermería solemos centrar la mirada en los parámetros fisiológicos y los procedimientos técnicos. Sin embargo, el cuidado integral exige atender también la dimensión emocional y simbólica de la persona.\n\nA través de **MUSA** en la Universidad La Salle Bajío, hemos comprobado que las intervenciones de arteterapia funcionan como puentes de comunicación y autocuidado."
+    },
+    {
+      "titulo": "Bioseguridad y guías rápidas en la práctica clínica pediátrica",
+      "fecha": "Noviembre 2026",
+      "tags": ["ARTÍCULO", "DESTACADO"],
+      "imagen": "",
+      "resumen": "Apuntes sobre la inducción hospitalaria y herramientas digitales para reducir errores en la administración de medicamentos.",
+      "contenido": "La transición del aula al entorno hospitalario de alta especialidad requiere manuales operativos claros y herramientas de apoyo para el cálculo preciso de dosis y goteo."
+    },
+    {
+      "titulo": "Crónica de brigada comunitaria: Jardín MUSA y acompañamiento emocional",
+      "fecha": "Noviembre 2026",
+      "tags": ["MUSA", "POST"],
+      "imagen": "",
+      "resumen": "Experiencia interdisciplinaria combinando artes plásticas y música coral en beneficio de la salud comunitaria.",
+      "contenido": "El trabajo conjunto entre estudiantes de enfermería y expresión artística permite construir entornos seguros donde las personas expresan sus emociones mediante procesos creativos guiados."
+    }
+  ],
+  "proyectos": [
+    {
+      "nombre": "MUSA · Arteterapia y Salud",
+      "etiqueta": "Grupo Estudiantil · Universidad La Salle Bajío",
+      "imagen": "",
+      "resumen": "Grupo Estudiantil de Promoción y Educación en Salud a través de la Arteterapia como Intervención de Enfermería. Conoce nuestras brigadas, talleres y bitácora.",
+      "enlace": "musa.html"
+    }
+  ]
+}
