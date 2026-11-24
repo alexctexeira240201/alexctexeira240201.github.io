@@ -9,7 +9,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Montserrat:wght@800;900&display=swap" rel="stylesheet">
   <style>
     :root {
-      /* Paleta Pastel del Portafolio (Verde, Azul, Lila, Rojo/Coral) */
       --pastel-green: #e7f6ea;
       --green-accent: #2e8b57;
       --pastel-blue: #e5f1fc;
@@ -32,7 +31,6 @@
       line-height: 1.65;
     }
 
-    /* Barra superior estilo píldora igual al inicio */
     .nav-bar {
       background-color: var(--pastel-green);
       padding: 1.25rem 1.5rem;
@@ -61,14 +59,8 @@
       color: #ffffff;
     }
 
-    /* Contenedores por sección */
-    .band {
-      padding: 3.25rem 1.5rem;
-    }
-    .inner {
-      max-width: 980px;
-      margin: 0 auto;
-    }
+    .band { padding: 3.25rem 1.5rem; }
+    .inner { max-width: 980px; margin: 0 auto; }
     .band-title {
       font-family: 'Montserrat', sans-serif;
       font-weight: 900;
@@ -79,7 +71,7 @@
       letter-spacing: 0.02em;
     }
 
-    /* 1. SOBRE MÍ (VERDE PASTEL) */
+    /* 1. SOBRE MÍ */
     .band-sobre-mi { background-color: var(--pastel-green); }
     .band-sobre-mi .band-title { color: #1b4332; }
 
@@ -89,9 +81,7 @@
       gap: 1.5rem;
       align-items: stretch;
     }
-    @media (max-width: 760px) {
-      .asymmetric-top { grid-template-columns: 1fr; }
-    }
+    @media (max-width: 760px) { .asymmetric-top { grid-template-columns: 1fr; } }
 
     .photo-card {
       background-color: #ffffff;
@@ -104,12 +94,7 @@
       justify-content: center;
       box-shadow: 0 8px 24px rgba(46, 139, 87, 0.1);
     }
-    .photo-card img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
+    .photo-card img { width: 100%; height: 100%; object-fit: cover; display: block; }
     .photo-placeholder {
       text-align: center;
       padding: 1.5rem;
@@ -142,14 +127,10 @@
       font-size: 0.95rem;
       margin-bottom: 1rem;
     }
-    .bio-card p {
-      color: #2d3e34;
-      font-size: 0.98rem;
-      margin-bottom: 0.85rem;
-    }
+    .bio-card p { color: #2d3e34; font-size: 0.98rem; margin-bottom: 0.85rem; }
     .bio-card p:last-child { margin-bottom: 0; }
 
-    /* 2. FORMACIÓN ACADÉMICA (AZUL PASTEL - 3 TARJETAS) */
+    /* 2. FORMACIÓN ACADÉMICA */
     .band-formacion { background-color: var(--pastel-blue); }
     .band-formacion .band-title { color: #1e3a5f; }
 
@@ -181,25 +162,11 @@
       margin-bottom: 0.75rem;
       text-transform: uppercase;
     }
-    .edu-card h3 {
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 900;
-      font-size: 1.12rem;
-      color: #1e3a5f;
-      margin-bottom: 0.45rem;
-    }
-    .edu-inst {
-      font-weight: 700;
-      font-size: 0.9rem;
-      color: var(--blue-accent);
-      margin-bottom: 0.65rem;
-    }
-    .edu-card p {
-      font-size: 0.91rem;
-      color: var(--text-muted);
-    }
+    .edu-card h3 { font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 1.12rem; color: #1e3a5f; margin-bottom: 0.45rem; }
+    .edu-inst { font-weight: 700; font-size: 0.9rem; color: var(--blue-accent); margin-bottom: 0.65rem; }
+    .edu-card p { font-size: 0.91rem; color: var(--text-muted); }
 
-    /* 3. LIDERAZGO Y PROYECTOS (LILA PASTEL - IMAGEN + TEXTO) */
+    /* 3. LIDERAZGO Y PROYECTOS */
     .band-liderazgo { background-color: var(--pastel-lilac); }
     .band-liderazgo .band-title { color: #3c1f6e; }
 
@@ -209,9 +176,7 @@
       gap: 1.5rem;
       align-items: stretch;
     }
-    @media (max-width: 760px) {
-      .asymmetric-lead { grid-template-columns: 1fr; }
-    }
+    @media (max-width: 760px) { .asymmetric-lead { grid-template-columns: 1fr; } }
     .lead-img-card {
       background-color: #ffffff;
       border: 3px solid #d8b4fe;
@@ -223,12 +188,7 @@
       justify-content: center;
       box-shadow: 0 8px 22px rgba(126, 87, 194, 0.1);
     }
-    .lead-img-card img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
+    .lead-img-card img { width: 100%; height: 100%; object-fit: cover; display: block; }
     .lead-text-card {
       background-color: #ffffff;
       border: 3px solid #d8b4fe;
@@ -236,29 +196,12 @@
       padding: 1.9rem 2.1rem;
       box-shadow: 0 8px 22px rgba(126, 87, 194, 0.08);
     }
-    .lead-item {
-      margin-bottom: 1.1rem;
-      padding-bottom: 1.1rem;
-      border-bottom: 1.5px solid #f3e8ff;
-    }
-    .lead-item:last-child {
-      margin-bottom: 0;
-      padding-bottom: 0;
-      border-bottom: none;
-    }
-    .lead-item h3 {
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 800;
-      font-size: 1.05rem;
-      color: #3c1f6e;
-      margin-bottom: 0.25rem;
-    }
-    .lead-item p {
-      font-size: 0.93rem;
-      color: var(--text-muted);
-    }
+    .lead-item { margin-bottom: 1.1rem; padding-bottom: 1.1rem; border-bottom: 1.5px solid #f3e8ff; }
+    .lead-item:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
+    .lead-item h3 { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 1.05rem; color: #3c1f6e; margin-bottom: 0.25rem; }
+    .lead-item p { font-size: 0.93rem; color: var(--text-muted); }
 
-    /* 4. EXPERIENCIA Y CERTIFICACIONES (ROJO / CORAL PASTEL) */
+    /* 4. EXPERIENCIA Y CERTIFICACIONES */
     .band-experiencia { background-color: var(--pastel-coral); }
     .band-experiencia .band-title { color: #6b1d2f; }
 
@@ -271,34 +214,12 @@
       padding: 2rem 2.2rem;
       box-shadow: 0 8px 24px rgba(217, 83, 111, 0.09);
     }
-    .exp-row {
-      margin-bottom: 1.15rem;
-      padding-bottom: 1.15rem;
-      border-bottom: 1.5px solid #ffe4e6;
-    }
-    .exp-row:last-child {
-      margin-bottom: 0;
-      padding-bottom: 0;
-      border-bottom: none;
-    }
-    .exp-row h3 {
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 800;
-      font-size: 1.05rem;
-      color: #6b1d2f;
-    }
-    .exp-place {
-      font-size: 0.86rem;
-      font-weight: 700;
-      color: var(--coral-accent);
-      margin-bottom: 0.3rem;
-    }
-    .exp-row p {
-      font-size: 0.93rem;
-      color: var(--text-muted);
-    }
+    .exp-row { margin-bottom: 1.15rem; padding-bottom: 1.15rem; border-bottom: 1.5px solid #ffe4e6; }
+    .exp-row:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
+    .exp-row h3 { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 1.05rem; color: #6b1d2f; }
+    .exp-place { font-size: 0.86rem; font-weight: 700; color: var(--coral-accent); margin-bottom: 0.3rem; }
+    .exp-row p { font-size: 0.93rem; color: var(--text-muted); }
 
-    /* 3 Cápsulas de Certificaciones */
     .cert-pills-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -312,34 +233,13 @@
       text-align: center;
       box-shadow: 0 6px 18px rgba(217, 83, 111, 0.08);
     }
-    .cert-capsule h4 {
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 900;
-      font-size: 0.95rem;
-      color: #6b1d2f;
-      margin-bottom: 0.2rem;
-    }
-    .cert-capsule span {
-      font-size: 0.82rem;
-      color: var(--coral-accent);
-      font-weight: 600;
-    }
+    .cert-capsule h4 { font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 0.95rem; color: #6b1d2f; margin-bottom: 0.2rem; }
+    .cert-capsule span { font-size: 0.82rem; color: var(--coral-accent); font-weight: 600; }
 
-    /* 5. HERRAMIENTAS (PALABRAS FLOTANTES INTERACTIVAS SIN TAPAR TÍTULO) */
-    .band-herramientas {
-      background-color: var(--pastel-green);
-      border-top: 3px solid #b7e4c7;
-    }
-    .band-herramientas .band-title {
-      color: #1b4332;
-      margin-bottom: 0.45rem;
-    }
-    .tools-hint {
-      text-align: center;
-      font-size: 0.92rem;
-      color: #2d4a39;
-      margin-bottom: 1.5rem;
-    }
+    /* 5. HERRAMIENTAS */
+    .band-herramientas { background-color: var(--pastel-green); border-top: 3px solid #b7e4c7; }
+    .band-herramientas .band-title { color: #1b4332; margin-bottom: 0.45rem; }
+    .tools-hint { text-align: center; font-size: 0.92rem; color: #2d4a39; margin-bottom: 1.5rem; }
 
     .floating-arena {
       position: relative;
@@ -365,22 +265,14 @@
       transition: transform 0.2s, box-shadow 0.2s;
       user-select: none;
     }
-    .float-word:hover {
-      transform: scale(1.07);
-      z-index: 10;
-    }
-    .float-word.selected {
-      outline: 3px solid #141e30;
-      z-index: 12;
-    }
+    .float-word:hover { transform: scale(1.07); z-index: 10; }
+    .float-word.selected { outline: 3px solid #141e30; z-index: 12; }
 
-    /* Colores pastel para las burbujas flotantes */
     .fw-green { background: #d8f3dc; color: #1b4332; }
     .fw-blue  { background: #dbeafe; color: #1e3a8a; }
     .fw-lilac { background: #f3e8ff; color: #581c87; }
     .fw-coral { background: #ffe4e6; color: #881337; }
 
-    /* Cuadrito explicativo al hacer clic en una herramienta */
     .tool-detail-popover {
       margin-top: 1.25rem;
       background-color: #ffffff;
@@ -394,23 +286,10 @@
       gap: 1rem;
       box-shadow: 0 8px 24px rgba(59, 125, 216, 0.12);
     }
-    .tool-detail-popover h4 {
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 900;
-      font-size: 1.08rem;
-      color: #1e3a5f;
-      margin-bottom: 0.25rem;
-    }
-    .tool-detail-popover p {
-      font-size: 0.94rem;
-      color: var(--text-muted);
-    }
+    .tool-detail-popover h4 { font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 1.08rem; color: #1e3a5f; margin-bottom: 0.25rem; }
+    .tool-detail-popover p { font-size: 0.94rem; color: var(--text-muted); }
 
-    /* Botón Google Drive para CV */
-    .drive-row {
-      text-align: center;
-      margin-top: 2.25rem;
-    }
+    .drive-row { text-align: center; margin-top: 2.25rem; }
     .btn-drive-cv {
       display: inline-block;
       background-color: #1e3a5f;
@@ -424,30 +303,20 @@
       box-shadow: 0 4px 14px rgba(30, 58, 95, 0.2);
       transition: background-color 0.2s, transform 0.15s;
     }
-    .btn-drive-cv:hover {
-      background-color: #2e5485;
-      transform: translateY(-2px);
-    }
+    .btn-drive-cv:hover { background-color: #2e5485; transform: translateY(-2px); }
 
-    footer {
-      background-color: #1e3a5f;
-      color: #ffffff;
-      text-align: center;
-      padding: 1.5rem 1rem;
-      font-size: 0.86rem;
-    }
+    footer { background-color: #1e3a5f; color: #ffffff; text-align: center; padding: 1.5rem 1rem; font-size: 0.86rem; }
   </style>
 </head>
 <body>
 
-  <!-- Menú Superior -->
   <nav class="nav-bar">
     <a href="index.html" class="nav-pill">Inicio</a>
     <a href="index.html?vista=blog" class="nav-pill">Blog</a>
     <a href="sobre-mi.html" class="nav-pill active">Sobre Mí</a>
   </nav>
 
-  <!-- 1. SOBRE MÍ (VERDE PASTEL) -->
+  <!-- 1. SOBRE MÍ -->
   <section class="band band-sobre-mi">
     <div class="inner">
       <h1 class="band-title">Sobre Mí</h1>
@@ -467,7 +336,7 @@
     </div>
   </section>
 
-  <!-- 2. FORMACIÓN ACADÉMICA (AZUL PASTEL - 3 TARJETAS) -->
+  <!-- 2. FORMACIÓN ACADÉMICA -->
   <section class="band band-formacion">
     <div class="inner">
       <h2 class="band-title">Formación Académica</h2>
@@ -475,7 +344,7 @@
     </div>
   </section>
 
-  <!-- 3. LIDERAZGO Y PROYECTOS (LILA PASTEL - IMAGEN + TEXTO) -->
+  <!-- 3. LIDERAZGO Y PROYECTOS -->
   <section class="band band-liderazgo">
     <div class="inner">
       <h2 class="band-title">Liderazgo y Proyectos</h2>
@@ -488,7 +357,7 @@
     </div>
   </section>
 
-  <!-- 4. EXPERIENCIA Y CERTIFICACIONES (ROJO / CORAL PASTEL) -->
+  <!-- 4. EXPERIENCIA Y CERTIFICACIONES -->
   <section class="band band-experiencia">
     <div class="inner">
       <h2 class="band-title">Experiencia</h2>
@@ -499,7 +368,7 @@
     </div>
   </section>
 
-  <!-- 5. HERRAMIENTAS (PALABRAS FLOTANTES INTERACTIVAS) -->
+  <!-- 5. HERRAMIENTAS -->
   <section class="band band-herramientas">
     <div class="inner">
       <h2 class="band-title">Herramientas</h2>
@@ -610,21 +479,18 @@
       let sm = defaultSobreMi;
       try {
         const res = await fetch('datos.json?v=' + Date.now());
-        const data = await res.json();
-        if (data.sobreMi) {
-          sm = { ...defaultSobreMi, ...data.sobreMi };
+        if (res.ok) {
+          const data = await res.json();
+          if (data.sobreMi) {
+            sm = { ...defaultSobreMi, ...data.sobreMi };
+          }
         }
-      } catch (e) { /* Usa datos por defecto si aún no se edita en CMS */ }
+      } catch (e) { console.warn('Usando datos de respaldo en Sobre Mí:', e); }
 
-      // 1. Perfil y enlace Drive CV
-      document.getElementById('sm-nombre').textContent = sm.nombre;
-      document.getElementById('sm-rol').textContent = sm.rol;
-      if (sm.enlaceDriveCV) {
-        document.getElementById('sm-cv-drive-link').href = sm.enlaceDriveCV;
-      }
-      if (sm.fotoPerfil) {
-        document.getElementById('sm-photo-box').innerHTML = `<img src="${sm.fotoPerfil}" alt="${sm.nombre}">`;
-      }
+      document.getElementById('sm-nombre').textContent = sm.nombre || defaultSobreMi.nombre;
+      document.getElementById('sm-rol').textContent = sm.rol || defaultSobreMi.rol;
+      if (sm.enlaceDriveCV) document.getElementById('sm-cv-drive-link').href = sm.enlaceDriveCV;
+      if (sm.fotoPerfil) document.getElementById('sm-photo-box').innerHTML = `<img src="${sm.fotoPerfil}" alt="${sm.nombre}">`;
       if (sm.biografia) {
         document.getElementById('sm-bio-text').innerHTML = sm.biografia
           .split('\n')
@@ -633,55 +499,46 @@
           .join('');
       }
 
-      // 2. Formación
-      if (Array.isArray(sm.formacion)) {
-        document.getElementById('sm-formacion-grid').innerHTML = sm.formacion.map(f => `
-          <article class="edu-card">
-            <div>
-              ${f.etiqueta ? `<span class="edu-tag">${f.etiqueta}</span>` : ''}
-              <h3>${f.titulo}</h3>
-              <div class="edu-inst">${f.institucion}</div>
-            </div>
-            <p>${f.detalle}</p>
-          </article>
-        `).join('');
-      }
-
-      // 3. Liderazgo
-      if (sm.fotoProyectos) {
-        document.getElementById('sm-lead-img-box').innerHTML = `<img src="${sm.fotoProyectos}" alt="Liderazgo y Proyectos">`;
-      }
-      if (Array.isArray(sm.liderazgo)) {
-        document.getElementById('sm-liderazgo-list').innerHTML = sm.liderazgo.map(l => `
-          <div class="lead-item">
-            <h3>${l.titulo}</h3>
-            <p>${l.descripcion}</p>
+      const formacionList = (Array.isArray(sm.formacion) && sm.formacion.length) ? sm.formacion : defaultSobreMi.formacion;
+      document.getElementById('sm-formacion-grid').innerHTML = formacionList.map(f => `
+        <article class="edu-card">
+          <div>
+            ${f.etiqueta ? `<span class="edu-tag">${f.etiqueta}</span>` : ''}
+            <h3>${f.titulo}</h3>
+            <div class="edu-inst">${f.institucion}</div>
           </div>
-        `).join('');
-      }
+          <p>${f.detalle}</p>
+        </article>
+      `).join('');
 
-      // 4. Experiencia y Certificaciones
-      if (Array.isArray(sm.experiencia)) {
-        document.getElementById('sm-experiencia-list').innerHTML = sm.experiencia.map(ex => `
-          <div class="exp-row">
-            <h3>${ex.puesto}</h3>
-            <div class="exp-place">${ex.lugar}</div>
-            <p>${ex.detalle}</p>
-          </div>
-        `).join('');
-      }
+      if (sm.fotoProyectos) document.getElementById('sm-lead-img-box').innerHTML = `<img src="${sm.fotoProyectos}" alt="Liderazgo y Proyectos">`;
+      const liderazgoList = (Array.isArray(sm.liderazgo) && sm.liderazgo.length) ? sm.liderazgo : defaultSobreMi.liderazgo;
+      document.getElementById('sm-liderazgo-list').innerHTML = liderazgoList.map(l => `
+        <div class="lead-item">
+          <h3>${l.titulo}</h3>
+          <p>${l.descripcion}</p>
+        </div>
+      `).join('');
 
-      if (Array.isArray(sm.certificaciones)) {
-        document.getElementById('sm-certificaciones-grid').innerHTML = sm.certificaciones.map(c => `
-          <div class="cert-capsule">
-            <h4>${c.nombre}</h4>
-            <span>${c.emisor}</span>
-          </div>
-        `).join('');
-      }
+      const expList = (Array.isArray(sm.experiencia) && sm.experiencia.length) ? sm.experiencia : defaultSobreMi.experiencia;
+      document.getElementById('sm-experiencia-list').innerHTML = expList.map(ex => `
+        <div class="exp-row">
+          <h3>${ex.puesto}</h3>
+          <div class="exp-place">${ex.lugar}</div>
+          <p>${ex.detalle}</p>
+        </div>
+      `).join('');
 
-      // 5. Herramientas Flotantes
-      initFloatingWords(sm.herramientas && sm.herramientas.length ? sm.herramientas : defaultSobreMi.herramientas);
+      const certList = (Array.isArray(sm.certificaciones) && sm.certificaciones.length) ? sm.certificaciones : defaultSobreMi.certificaciones;
+      document.getElementById('sm-certificaciones-grid').innerHTML = certList.map(c => `
+        <div class="cert-capsule">
+          <h4>${c.nombre}</h4>
+          <span>${c.emisor}</span>
+        </div>
+      `).join('');
+
+      const toolsList = (Array.isArray(sm.herramientas) && sm.herramientas.length) ? sm.herramientas : defaultSobreMi.herramientas;
+      initFloatingWords(toolsList);
     }
 
     function initFloatingWords(tools) {
