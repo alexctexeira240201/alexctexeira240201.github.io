@@ -6,284 +6,381 @@
   <title>Manual de Integración Clínica HEPL | Alex C. Texeira</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Montserrat:wght@800;900&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   <style>
     :root {
-      --hepl-navy: #1e3a5f;
-      --hepl-blue: #3b6998;
-      --hepl-soft-blue: #e8f1fa;
-      --hepl-bg: #f7f9fc;
-      --surface: #ffffff;
-      --text-dark: #162436;
-      --text-muted: #4b5d73;
-      --border-line: #d4e2f0;
+      --navy-deep: #17224d;
+      --royal-blue: #2e3c8c;
+      --sky-pill: #38b6ff;
+      --sky-hover: #1ea1ed;
+      --slate-section: #c8d2dc;
+      --white: #ffffff;
+      --text-dark: #141e30;
+      --text-muted: #475569;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
       font-family: 'Inter', sans-serif;
-      background-color: var(--hepl-bg);
+      background-color: var(--navy-deep);
       color: var(--text-dark);
-      line-height: 1.68;
+      line-height: 1.65;
+      overflow-x: hidden;
     }
 
-    /* Barra superior */
+    /* Barra superior discreta */
     .topbar {
-      background: var(--surface);
-      padding: 0.95rem 1.5rem;
+      background-color: var(--navy-deep);
+      padding: 0.85rem 1.5rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      border-bottom: 2px solid var(--border-line);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
       position: sticky;
       top: 0;
-      z-index: 40;
+      z-index: 50;
     }
     .back-link {
+      color: #ffffff;
       text-decoration: none;
       font-family: 'Montserrat', sans-serif;
       font-weight: 800;
-      font-size: 0.85rem;
-      color: var(--hepl-navy);
+      font-size: 0.82rem;
+      opacity: 0.9;
     }
-    .inst-tag {
-      font-size: 0.8rem;
-      font-weight: 700;
-      color: var(--hepl-blue);
-      letter-spacing: 0.02em;
+    .back-link:hover { opacity: 1; color: var(--sky-pill); }
+    .top-tag {
+      color: var(--sky-pill);
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: 0.78rem;
+      letter-spacing: 0.04em;
     }
 
-    /* Cabecera Editorial */
-    .hero-editorial {
-      background-color: var(--surface);
-      border-bottom: 2px solid var(--border-line);
-      padding: 3.25rem 1.5rem 3rem;
+    /* Separadores de Onda SVG */
+    .wave-divider {
+      display: block;
+      width: 100%;
+      line-height: 0;
     }
-    .hero-container {
-      max-width: 980px;
+    .wave-divider svg {
+      display: block;
+      width: 100%;
+      height: 48px;
+    }
+
+    /* 1. HERO AZUL MARINO */
+    .hero-section {
+      background-color: var(--navy-deep);
+      color: #ffffff;
+      padding: 3.25rem 1.5rem 2.25rem;
+    }
+    .section-inner {
+      max-width: 960px;
       margin: 0 auto;
     }
-    .kicker {
-      display: inline-block;
-      background-color: var(--hepl-soft-blue);
-      color: var(--hepl-navy);
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 800;
-      font-size: 0.76rem;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      padding: 0.35rem 0.85rem;
-      border-radius: 6px;
-      margin-bottom: 1rem;
-    }
-    .hero-editorial h1 {
+    .hero-section h1 {
       font-family: 'Montserrat', sans-serif;
       font-weight: 900;
-      font-size: clamp(1.9rem, 4vw, 2.75rem);
-      color: var(--hepl-navy);
-      line-height: 1.18;
+      font-size: clamp(1.9rem, 4.5vw, 2.85rem);
+      line-height: 1.15;
       margin-bottom: 0.85rem;
     }
-    .hero-desc {
+    .hero-section p {
       font-size: 1.05rem;
-      color: var(--text-muted);
-      max-width: 780px;
-      margin-bottom: 1.5rem;
-    }
-    .credits-strip {
-      background-color: var(--hepl-bg);
-      border-left: 4px solid var(--hepl-navy);
-      padding: 0.85rem 1.15rem;
-      border-radius: 0 10px 10px 0;
-      font-size: 0.9rem;
-      color: var(--text-dark);
+      color: rgba(255, 255, 255, 0.9);
+      max-width: 720px;
       margin-bottom: 1.75rem;
     }
-
-    /* Botones Google Drive */
-    .drive-row {
+    .hero-pills {
       display: flex;
       flex-wrap: wrap;
-      gap: 0.85rem;
+      gap: 0.9rem;
     }
-    .btn-primary-hepl {
-      background-color: var(--hepl-navy);
-      color: #ffffff;
+    .pill-sky {
+      background-color: var(--sky-pill);
+      color: #0b192c;
       text-decoration: none;
       font-family: 'Montserrat', sans-serif;
-      font-weight: 700;
-      font-size: 0.88rem;
-      padding: 0.8rem 1.5rem;
-      border-radius: 10px;
-      transition: background-color 0.2s;
+      font-weight: 900;
+      font-size: 0.82rem;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      padding: 0.85rem 1.65rem;
+      border-radius: 999px;
+      transition: transform 0.15s, background-color 0.2s;
     }
-    .btn-primary-hepl:hover { background-color: #152b47; }
+    .pill-sky:hover { background-color: var(--sky-hover); transform: translateY(-2px); }
 
-    .btn-outline-hepl {
-      background-color: var(--surface);
-      color: var(--hepl-navy);
-      border: 2px solid var(--hepl-navy);
+    .pill-white {
+      background-color: #ffffff;
+      color: #0b192c;
       text-decoration: none;
       font-family: 'Montserrat', sans-serif;
-      font-weight: 700;
-      font-size: 0.88rem;
-      padding: 0.75rem 1.45rem;
-      border-radius: 10px;
-      transition: background-color 0.2s;
+      font-weight: 900;
+      font-size: 0.82rem;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      padding: 0.85rem 1.65rem;
+      border-radius: 999px;
+      transition: transform 0.15s, background-color 0.2s;
     }
-    .btn-outline-hepl:hover { background-color: var(--hepl-soft-blue); }
+    .pill-white:hover { background-color: #f1f5f9; transform: translateY(-2px); }
 
-    /* Contenedor principal */
-    .main-wrap {
-      max-width: 980px;
-      margin: 2.25rem auto 4rem;
-      padding: 0 1.25rem;
+    /* 2. SECCIÓN ¡BIENVENIDO! (FONDO BLANCO) */
+    .welcome-section {
+      background-color: #ffffff;
+      color: var(--navy-deep);
+      padding: 2.25rem 1.5rem 2rem;
     }
-
-    /* Navegación de bloques */
-    .section-nav {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-      border-bottom: 2px solid var(--border-line);
-      padding-bottom: 0.85rem;
-      margin-bottom: 2rem;
-    }
-    .nav-tab {
-      background: var(--surface);
-      border: 1.5px solid var(--border-line);
-      color: var(--text-muted);
+    .welcome-section h2 {
       font-family: 'Montserrat', sans-serif;
-      font-weight: 700;
-      font-size: 0.83rem;
-      padding: 0.65rem 1.1rem;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: all 0.2s;
+      font-weight: 900;
+      font-size: clamp(1.75rem, 4vw, 2.35rem);
+      margin-bottom: 0.65rem;
+      color: var(--navy-deep);
     }
-    .nav-tab.active {
-      background: var(--hepl-navy);
-      border-color: var(--hepl-navy);
-      color: #ffffff;
+    .welcome-section p {
+      font-size: 1.02rem;
+      color: #27364f;
+      max-width: 820px;
     }
-    .tab-panel { display: none; }
-    .tab-panel.active { display: block; }
 
-    /* Tarjetas editoriales */
-    .editorial-card {
-      background: var(--surface);
-      border: 1.5px solid var(--border-line);
-      border-radius: 14px;
-      padding: 1.85rem;
+    /* 3. SECCIÓN CONOCE AL HEPL (FONDO AZUL MARINO) */
+    .conoce-section {
+      background-color: var(--navy-deep);
+      color: #ffffff;
+      padding: 2.5rem 1.5rem 3.25rem;
+    }
+    .conoce-section h2 {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: clamp(1.65rem, 3.8vw, 2.2rem);
+      text-align: center;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      margin-bottom: 1.15rem;
+    }
+    .conoce-section p {
+      font-size: 1.02rem;
+      color: rgba(255, 255, 255, 0.92);
+      max-width: 820px;
+      margin: 0 auto 1rem;
+    }
+
+    /* 4. SECCIÓN INDUCCIÓN Y REGLAMENTO (FONDO GRIS AZULADO #c8d2dc) */
+    .induccion-section {
+      background-color: var(--slate-section);
+      color: var(--text-dark);
+      padding: 3rem 1.5rem 3.5rem;
+    }
+    .section-title-black {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: clamp(1.65rem, 3.8vw, 2.25rem);
+      text-align: center;
+      text-transform: uppercase;
+      color: #0b1120;
+      margin-bottom: 0.5rem;
+    }
+    .section-sub-dark {
+      text-align: center;
+      color: #2c3a4f;
+      font-size: 0.96rem;
+      max-width: 720px;
+      margin: 0 auto 2rem;
+    }
+
+    /* Tarjetas estilo PDF dentro de Inducción */
+    .pdf-card {
+      background: #ffffff;
+      border-radius: 16px;
+      padding: 1.75rem;
       margin-bottom: 1.5rem;
+      box-shadow: 0 6px 20px rgba(15, 23, 42, 0.08);
     }
-    .editorial-card h2 {
+    .pdf-card h3 {
       font-family: 'Montserrat', sans-serif;
-      font-weight: 800;
-      font-size: 1.35rem;
-      color: var(--hepl-navy);
-      margin-bottom: 0.45rem;
+      font-weight: 900;
+      font-size: 1.25rem;
+      color: var(--navy-deep);
+      margin-bottom: 1rem;
+      border-bottom: 2px solid #e2e8f0;
+      padding-bottom: 0.5rem;
     }
-    .card-intro {
-      color: var(--text-muted);
-      font-size: 0.95rem;
-      margin-bottom: 1.35rem;
-    }
-
-    /* Grid de Sí / No */
     .two-col {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       gap: 1.25rem;
     }
-    .col-box {
-      border-radius: 10px;
-      padding: 1.35rem;
-      border: 1.5px solid;
+    .rule-box {
+      border-radius: 12px;
+      padding: 1.3rem;
+      border: 2px solid;
     }
-    .col-do { background-color: #f4faf7; border-color: #b7dfd0; }
-    .col-dont { background-color: #fdf5f6; border-color: #ecc6cb; }
-    .col-box h3 {
+    .rule-si { background: #f0fdf4; border-color: #86efac; }
+    .rule-no { background: #fef2f2; border-color: #fca5a5; }
+    .rule-box h4 {
       font-family: 'Montserrat', sans-serif;
-      font-weight: 800;
+      font-weight: 900;
       font-size: 1rem;
-      margin-bottom: 0.75rem;
-      color: var(--hepl-navy);
+      margin-bottom: 0.65rem;
     }
-    .col-box ul { padding-left: 1.2rem; font-size: 0.93rem; }
-    .col-box li { margin-bottom: 0.55rem; }
+    .rule-si h4 { color: #166534; }
+    .rule-no h4 { color: #991b1b; }
+    .rule-box ul { padding-left: 1.15rem; font-size: 0.92rem; }
+    .rule-box li { margin-bottom: 0.5rem; }
 
     /* Semáforo de faltas */
     .semaforo-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(265px, 1fr));
-      gap: 1.15rem;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.1rem;
     }
-    .falta-card {
-      background: var(--hepl-bg);
-      border-radius: 10px;
-      padding: 1.3rem;
-      border: 1px solid var(--border-line);
-      border-top: 5px solid;
+    .falta-box {
+      border-radius: 12px;
+      padding: 1.25rem;
+      background: #f8fafc;
+      border: 1.5px solid #e2e8f0;
+      border-top: 6px solid;
     }
-    .falta-leve { border-top-color: #d9a016; }
-    .falta-moderada { border-top-color: #d96b27; }
-    .falta-grave { border-top-color: #b83232; }
-    .falta-card h4 {
+    .f-leve { border-top-color: #eab308; }
+    .f-mod { border-top-color: #f97316; }
+    .f-grave { border-top-color: #dc2626; }
+    .falta-box h4 {
       font-family: 'Montserrat', sans-serif;
       font-weight: 800;
       font-size: 0.96rem;
-      color: var(--text-dark);
-      margin-bottom: 0.65rem;
+      margin-bottom: 0.6rem;
+      color: var(--navy-deep);
     }
-    .falta-card ul { padding-left: 1.15rem; font-size: 0.9rem; color: var(--text-muted); }
-    .falta-card li { margin-bottom: 0.45rem; }
+    .falta-box ul { padding-left: 1.1rem; font-size: 0.89rem; color: var(--text-muted); }
+    .falta-box li { margin-bottom: 0.4rem; }
 
     /* Acordeón FAQs */
     details.faq-row {
-      border: 1px solid var(--border-line);
+      background: #f1f5f9;
       border-radius: 10px;
-      padding: 0.95rem 1.2rem;
-      margin-bottom: 0.7rem;
-      background: var(--hepl-bg);
+      padding: 0.95rem 1.15rem;
+      margin-bottom: 0.65rem;
+      border: 1px solid #cbd5e1;
     }
     details.faq-row summary {
-      font-weight: 700;
-      color: var(--hepl-navy);
+      font-weight: 800;
+      color: var(--navy-deep);
       cursor: pointer;
     }
     details.faq-row p {
-      margin-top: 0.6rem;
-      font-size: 0.93rem;
-      color: var(--text-muted);
+      margin-top: 0.55rem;
+      font-size: 0.92rem;
+      color: #334155;
     }
 
-    /* Selectores por Color (Aislamientos y Códigos) */
+    /* 5. SECCIÓN MANUAL DIGITAL (FONDO AZUL REY #2e3c8c) */
+    .manual-digital-section {
+      background-color: var(--royal-blue);
+      padding: 3rem 1.5rem 4rem;
+      border-top: 14px solid var(--navy-deep);
+    }
+    .manual-digital-section h2.md-title {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: clamp(1.75rem, 4vw, 2.35rem);
+      text-align: center;
+      text-transform: uppercase;
+      color: #0b1120;
+      margin-bottom: 1.5rem;
+    }
+
+    /* Botonera tipo píldora igual al mockup */
+    .md-pills-wrap {
+      max-width: 780px;
+      margin: 0 auto 2.25rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.95rem;
+    }
+    .md-pills-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.85rem;
+    }
+    .md-pill-btn {
+      border: none;
+      background-color: var(--sky-pill);
+      color: #0b1120;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 0.82rem;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      padding: 0.9rem 1.65rem;
+      border-radius: 999px;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18);
+      transition: all 0.2s;
+    }
+    .md-pill-btn:hover {
+      transform: translateY(-2px);
+      background-color: #63c7ff;
+    }
+    .md-pill-btn.active {
+      background-color: #ffffff;
+      color: var(--navy-deep);
+      box-shadow: 0 0 0 4px var(--sky-pill);
+    }
+
+    /* Contenedor blanco donde se despliega cada herramienta del Manual Digital */
+    .md-workspace {
+      background: #ffffff;
+      border-radius: 20px;
+      padding: 2rem;
+      box-shadow: 0 12px 32px rgba(10, 17, 40, 0.28);
+    }
+    .md-panel { display: none; }
+    .md-panel.active { display: block; }
+
+    .md-workspace h3 {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 1.35rem;
+      color: var(--navy-deep);
+      margin-bottom: 0.4rem;
+    }
+    .md-lead {
+      color: var(--text-muted);
+      font-size: 0.94rem;
+      margin-bottom: 1.35rem;
+    }
+
+    /* Selectores de color (Aislamientos y Códigos) */
     .color-selector {
       display: flex;
       flex-wrap: wrap;
-      gap: 0.6rem;
+      gap: 0.55rem;
       margin-bottom: 1.35rem;
     }
     .color-pill {
       display: inline-flex;
       align-items: center;
-      gap: 0.5rem;
-      background: var(--hepl-bg);
-      border: 1.5px solid var(--border-line);
+      gap: 0.45rem;
+      background: #f1f5f9;
+      border: 1.5px solid #cbd5e1;
       color: var(--text-dark);
       font-family: 'Montserrat', sans-serif;
-      font-weight: 700;
-      font-size: 0.83rem;
-      padding: 0.6rem 1rem;
-      border-radius: 8px;
+      font-weight: 800;
+      font-size: 0.8rem;
+      padding: 0.58rem 0.95rem;
+      border-radius: 999px;
       cursor: pointer;
       transition: all 0.15s;
     }
     .color-pill.active {
-      background: var(--hepl-navy);
-      border-color: var(--hepl-navy);
+      background: var(--navy-deep);
+      border-color: var(--navy-deep);
       color: #ffffff;
     }
     .dot {
@@ -295,520 +392,501 @@
     }
 
     .detail-panel {
-      background: var(--hepl-bg);
-      border: 1.5px solid var(--border-line);
-      border-left: 6px solid #b83232;
-      border-radius: 12px;
-      padding: 1.5rem;
+      background: #f8fafc;
+      border: 1.5px solid #cbd5e1;
+      border-left: 7px solid #dc2626;
+      border-radius: 14px;
+      padding: 1.45rem;
     }
     .detail-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 0.95rem;
-      margin-top: 1rem;
+      grid-template-columns: repeat(auto-fit, minmax(215px, 1fr));
+      gap: 0.9rem;
+      margin-top: 0.9rem;
     }
     .detail-cell {
-      background: var(--surface);
-      border: 1px solid var(--border-line);
-      border-radius: 8px;
-      padding: 1rem;
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 0.95rem;
     }
     .detail-cell span.label {
       display: block;
       font-family: 'Montserrat', sans-serif;
-      font-size: 0.75rem;
+      font-size: 0.74rem;
       font-weight: 800;
       text-transform: uppercase;
-      color: var(--hepl-blue);
-      margin-bottom: 0.35rem;
+      color: var(--royal-blue);
+      margin-bottom: 0.3rem;
     }
-    .detail-cell p { font-size: 0.91rem; color: var(--text-dark); }
+    .detail-cell p { font-size: 0.9rem; color: var(--text-dark); }
 
-    /* Guías Rápidas (Bloque 4) */
+    /* Guías rápidas */
+    .guide-block-title {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 1.12rem;
+      color: var(--royal-blue);
+      margin: 1.65rem 0 0.85rem;
+      padding-bottom: 0.35rem;
+      border-bottom: 2px solid #e2e8f0;
+    }
+    .guide-block-title:first-of-type { margin-top: 0; }
     .steps-list {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 1rem;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 0.95rem;
     }
     .step-item {
-      background: var(--hepl-bg);
-      border: 1px solid var(--border-line);
-      border-radius: 10px;
-      padding: 1.15rem;
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 12px;
+      padding: 1.1rem;
     }
     .step-num {
       display: inline-block;
-      background: var(--hepl-navy);
+      background: var(--navy-deep);
       color: #ffffff;
       font-family: 'Montserrat', sans-serif;
       font-weight: 800;
-      font-size: 0.78rem;
+      font-size: 0.75rem;
       padding: 0.2rem 0.6rem;
-      border-radius: 6px;
-      margin-bottom: 0.45rem;
+      border-radius: 999px;
+      margin-bottom: 0.4rem;
     }
     .step-item h4 {
       font-family: 'Montserrat', sans-serif;
       font-weight: 800;
-      font-size: 0.96rem;
-      color: var(--hepl-navy);
-      margin-bottom: 0.35rem;
+      font-size: 0.94rem;
+      color: var(--navy-deep);
+      margin-bottom: 0.3rem;
     }
-    .step-item p { font-size: 0.89rem; color: var(--text-muted); }
+    .step-item p { font-size: 0.88rem; color: var(--text-muted); }
 
-    /* Calculadora Pediátrica (Bloque 5) */
+    /* Calculadora Pediátrica */
     .pending-banner {
-      background: var(--hepl-soft-blue);
-      border: 1.5px dashed var(--hepl-blue);
-      border-radius: 10px;
-      padding: 1.15rem 1.35rem;
-      margin-bottom: 1.75rem;
-      font-size: 0.93rem;
-      color: var(--hepl-navy);
+      background: #eff6ff;
+      border: 1.5px dashed var(--royal-blue);
+      border-radius: 12px;
+      padding: 1.1rem 1.3rem;
+      margin-bottom: 1.6rem;
+      font-size: 0.92rem;
+      color: var(--navy-deep);
     }
     .calc-form {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
-      gap: 1rem;
-      background: var(--hepl-bg);
-      border: 1px solid var(--border-line);
-      padding: 1.4rem;
-      border-radius: 12px;
-      margin-bottom: 1.35rem;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 0.95rem;
+      background: #f1f5f9;
+      border: 1px solid #cbd5e1;
+      padding: 1.35rem;
+      border-radius: 14px;
+      margin-bottom: 1.3rem;
     }
     .form-group label {
       display: block;
       font-family: 'Montserrat', sans-serif;
-      font-size: 0.78rem;
+      font-size: 0.76rem;
       font-weight: 800;
-      color: var(--hepl-navy);
+      color: var(--navy-deep);
       text-transform: uppercase;
       margin-bottom: 0.35rem;
     }
     .form-group input, .form-group select {
       width: 100%;
       padding: 0.7rem 0.85rem;
-      border: 1.5px solid var(--border-line);
-      border-radius: 8px;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 10px;
       font-family: 'Inter', sans-serif;
-      font-size: 0.94rem;
-      background: var(--surface);
-      color: var(--text-dark);
+      font-size: 0.93rem;
+      background: #ffffff;
     }
     .calc-result {
-      background: var(--surface);
-      border: 1.5px solid var(--hepl-navy);
-      border-radius: 12px;
-      padding: 1.45rem;
+      background: #f8fafc;
+      border: 2px solid var(--navy-deep);
+      border-radius: 14px;
+      padding: 1.4rem;
     }
     .result-metrics {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 0.9rem;
-      margin: 0.95rem 0 1.1rem;
+      grid-template-columns: repeat(auto-fit, minmax(175px, 1fr));
+      gap: 0.85rem;
+      margin: 0.9rem 0 1.05rem;
     }
     .metric-box {
-      background: var(--hepl-soft-blue);
+      background: #e0f2fe;
       padding: 0.95rem;
-      border-radius: 8px;
+      border-radius: 10px;
       text-align: center;
     }
     .metric-box span.m-title {
       display: block;
-      font-size: 0.76rem;
-      font-weight: 700;
-      color: var(--hepl-blue);
+      font-size: 0.75rem;
+      font-weight: 800;
+      color: var(--royal-blue);
       text-transform: uppercase;
     }
     .metric-box strong.m-val {
       font-family: 'Montserrat', sans-serif;
       font-size: 1.35rem;
       font-weight: 900;
-      color: var(--hepl-navy);
+      color: var(--navy-deep);
     }
     .admin-notes {
-      background: #fdf5f6;
-      border-left: 4px solid #b83232;
-      padding: 0.95rem 1.1rem;
-      border-radius: 0 8px 8px 0;
-      font-size: 0.91rem;
+      background: #fef2f2;
+      border-left: 4px solid #dc2626;
+      padding: 0.9rem 1.05rem;
+      border-radius: 0 10px 10px 0;
+      font-size: 0.9rem;
     }
 
-    /* Blog HEPL */
+    /* Bitácora opcional desde datos.json */
+    .blog-wrap {
+      max-width: 960px;
+      margin: 2rem auto 0;
+      background: #ffffff;
+      border-radius: 20px;
+      padding: 1.85rem;
+    }
     .post-card {
-      background: var(--surface);
-      border: 1.5px solid var(--border-line);
+      border: 1.5px solid #e2e8f0;
       border-radius: 12px;
-      padding: 1.5rem;
-      margin-bottom: 1.1rem;
+      padding: 1.35rem;
+      margin-bottom: 1rem;
     }
     .tag-pill {
       display: inline-block;
-      background: var(--hepl-soft-blue);
-      color: var(--hepl-navy);
-      font-size: 0.74rem;
+      background: #e0f2fe;
+      color: var(--navy-deep);
+      font-size: 0.72rem;
       font-weight: 800;
-      padding: 0.2rem 0.65rem;
-      border-radius: 6px;
+      padding: 0.2rem 0.6rem;
+      border-radius: 999px;
       margin-right: 0.35rem;
       text-transform: uppercase;
     }
     .btn-read {
-      background: var(--hepl-navy);
+      background: var(--navy-deep);
       color: #ffffff;
       border: none;
       padding: 0.55rem 1.2rem;
-      border-radius: 8px;
+      border-radius: 999px;
       font-weight: 700;
-      font-size: 0.84rem;
+      font-size: 0.82rem;
       cursor: pointer;
-      margin-top: 0.85rem;
+      margin-top: 0.8rem;
     }
 
-    footer {
-      background: var(--hepl-navy);
-      color: #ffffff;
+    /* Footer tal cual mockup */
+    .footer-bar {
+      background-color: var(--navy-deep);
+      padding-top: 1.25rem;
+    }
+    .footer-credits {
+      background-color: var(--slate-section);
+      color: #0b1120;
       text-align: center;
-      padding: 1.75rem 1rem;
+      padding: 1.35rem 1rem;
       font-size: 0.86rem;
+      font-weight: 600;
+      line-height: 1.5;
     }
   </style>
 </head>
 <body>
 
+  <!-- Barra superior -->
   <div class="topbar">
     <a href="index.html" class="back-link">← Volver a Alex C. Texeira</a>
-    <span class="inst-tag">HEPL · Enseñanza e Investigación</span>
+    <span class="top-tag">HEPL · Enseñanza e Investigación</span>
   </div>
 
-  <header class="hero-editorial">
-    <div class="hero-container">
-      <span class="kicker">Hospital de Especialidades Pediátrico León</span>
-      <h1>Manual de Integración Clínica y Lineamientos Hospitalarios</h1>
-      <p class="hero-desc">Guía operativa, de bioseguridad y consulta rápida para el estudiante de Licenciatura en Enfermería durante su práctica clínica en atención pediátrica de tercer nivel.</p>
-      
-      <div class="credits-strip">
-        <strong>Elaboró:</strong> Castillo Texeira Alex Daniel y Silva Huerta Lizbeth Guadalupe · Licenciatura en Enfermería · Universidad La Salle Bajío
-      </div>
-
-      <div class="drive-row">
-        <a href="https://drive.google.com/drive/folders/1eg4FTN2aoy74sZt3LN2cfQpujeKhZRlD?usp=drive_link" target="_blank" rel="noopener" class="btn-primary-hepl">
-          Descargar Manual Completo (PDF)
+  <!-- 1. HERO AZUL MARINO -->
+  <header class="hero-section">
+    <div class="section-inner">
+      <h1>Manual de Integración Clínica y Lineamientos Hospitalarios.</h1>
+      <p>Guía Operativa y de Bioseguridad para el Estudiante de Enfermería en el Hospital de Especialidades Pediátrico León.</p>
+      <div class="hero-pills">
+        <a href="https://drive.google.com/drive/folders/1eg4FTN2aoy74sZt3LN2cfQpujeKhZRlD?usp=drive_link" target="_blank" rel="noopener" class="pill-sky">
+          Consultar PDF Completo
         </a>
-        <a href="https://drive.google.com/drive/folders/1stXi-DSMl2cSRE9I_CZlnwoUYiJHEekh?usp=drive_link" target="_blank" rel="noopener" class="btn-outline-hepl">
-          Ver Carpeta de Infografías Sueltas
+        <a href="https://drive.google.com/drive/folders/1stXi-DSMl2cSRE9I_CZlnwoUYiJHEekh?usp=drive_link" target="_blank" rel="noopener" class="pill-white">
+          Ver Carpeta con Infografías Sueltas
         </a>
       </div>
     </div>
   </header>
 
-  <main class="main-wrap">
-    <!-- Navegación de Bloques -->
-    <nav class="section-nav" aria-label="Bloques del manual">
-      <button class="nav-tab active" onclick="switchTab('induccion', this)">1. Inducción y Reglamento</button>
-      <button class="nav-tab" onclick="switchTab('aislamientos', this)">2. Aislamientos</button>
-      <button class="nav-tab" onclick="switchTab('codigos', this)">3. Códigos de Emergencia</button>
-      <button class="nav-tab" onclick="switchTab('guias', this)">4. Guías Rápidas y AESP</button>
-      <button class="nav-tab" onclick="switchTab('farmaco', this)">5. Farmacología y Calculadora</button>
-    </nav>
+  <!-- Onda Azul Marino -> Blanco -->
+  <div class="wave-divider" style="background-color: #17224d;">
+    <svg viewBox="0 0 1440 70" preserveAspectRatio="none">
+      <path fill="#ffffff" d="M0,45 C360,0 1080,75 1440,25 L1440,70 L0,70 Z"></path>
+    </svg>
+  </div>
 
-    <!-- BLOQUE 1: INDUCCIÓN Y REGLAMENTO -->
-    <section id="tab-induccion" class="tab-panel active">
-      <div class="editorial-card">
-        <h2>Imagen, Permanencia y Bioseguridad</h2>
-        <p class="card-intro">Disposiciones generales de ingreso, presentación personal y prevención de accidentes en áreas asistenciales.</p>
-        
+  <!-- 2. SECCIÓN ¡BIENVENIDO! -->
+  <section class="welcome-section">
+    <div class="section-inner">
+      <h2>¡Bienvenido!</h2>
+      <p><strong>Este MANUAL está diseñado para ti.</strong><br>
+      No es un documento más; es tu guía operativa para navegar por el hospital, proteger a tus pacientes y garantizar el éxito de tus campos clínicos. Léelo, compréndelo y aplícalo todos los días.</p>
+    </div>
+  </section>
+
+  <!-- Onda Blanco -> Azul Marino -->
+  <div class="wave-divider" style="background-color: #ffffff;">
+    <svg viewBox="0 0 1440 70" preserveAspectRatio="none">
+      <path fill="#17224d" d="M0,25 C420,75 1020,0 1440,45 L1440,70 L0,70 Z"></path>
+    </svg>
+  </div>
+
+  <!-- 3. SECCIÓN CONOCE AL HEPL -->
+  <section class="conoce-section">
+    <div class="section-inner">
+      <h2>Conoce al HEPL</h2>
+      <p>El Hospital de Especialidades Pediátrico León es el <strong>ÚNICO EN PEDIATRÍA EN EL ESTADO DE GTO</strong>. Formar parte de esta institución es un privilegio y un paso decisivo en tu desarrollo profesional.</p>
+      <p>En el HEPL brindamos atención especializada a nuestros pacientes pediátricos con necesidades de su especialidad por lo cual nuestra exigencia académica, clínica y disciplinaria es máxima.</p>
+    </div>
+  </section>
+
+  <!-- 4. SECCIÓN INDUCCIÓN Y REGLAMENTO (#c8d2dc) -->
+  <section class="induccion-section">
+    <div class="section-inner">
+      <h2 class="section-title-black">Inducción y Reglamento</h2>
+      <p class="section-sub-dark">Lineamientos operativos, presentación institucional, bioseguridad y semáforo disciplinario para tu rotación.</p>
+
+      <!-- Imagen y Permanencia -->
+      <div class="pdf-card">
+        <h3>Imagen, Permanencia y Bioseguridad</h3>
         <div class="two-col">
-          <div class="col-box col-do">
-            <h3>Lineamientos Obligatorios</h3>
+          <div class="rule-box rule-si">
+            <h4>¡Sí! — Lo que debes cumplir</h4>
             <ul>
-              <li><strong>Acceso autorizado:</strong> Ingresar exclusivamente por el <strong>Acceso 2</strong> y registrarse en la bitácora con el guardia de Recursos Humanos.</li>
-              <li><strong>Uso de uniforme:</strong> Mantener uniforme clínico completo. En áreas quirúrgicas usar uniforme quirúrgico y volver a cambiarse al clínico al salir.</li>
-              <li><strong>Higiene de manos:</strong> Realizar lavado al ingresar y retirarse del servicio, cumpliendo los 5 momentos.</li>
+              <li><strong>Entrar por el acceso correcto:</strong> El ingreso es exclusivo por el <strong>Acceso 2</strong>, registrándote en la bitácora con el guardia de Recursos Humanos.</li>
+              <li><strong>Hacer uso correcto del uniforme:</strong> Permanece con tu uniforme clínico. En áreas que exijan uniforme quirúrgico utilízalo, pero vuelve a cambiarte al clínico al salir.</li>
+              <li><strong>Higiene de manos:</strong> Obligatoria al ingresar y retirarte del servicio, cumpliendo los 5 momentos.</li>
               <li><strong>Regla de oro RPBI:</strong> Prohibido reencapuchar agujas; desechar inmediatamente en el contenedor rígido rojo.</li>
             </ul>
           </div>
-          <div class="col-box col-dont">
-            <h3>Restricciones en Servicio</h3>
+          <div class="rule-box rule-no">
+            <h4>¡No! — Lo que está prohibido</h4>
             <ul>
-              <li><strong>Identificación incompleta:</strong> Sin gafete escolar y gafete institucional visibles no se permite el acceso.</li>
-              <li><strong>Alimentos en áreas clínicas:</strong> Queda prohibido ingerir alimentos o bebidas en zonas asistenciales.</li>
-              <li><strong>Uso de redes sociales:</strong> Prohibido grabar videos para TikTok, Facebook u otras plataformas usando instalaciones, material o exponiendo pacientes.</li>
-              <li><strong>Material punzocortante:</strong> Nunca colocar agujas u objetos cortantes sobre el paciente o el colchón.</li>
+              <li><strong>Olvidar tu identificación:</strong> Si no presentas el gafete escolar y el gafete de la institución visibles, no se te permitirá el acceso.</li>
+              <li><strong>Comer en áreas clínicas:</strong> Queda prohibido ingerir alimentos en las zonas donde se realicen actividades asistenciales.</li>
+              <li><strong>Grabar en las instalaciones:</strong> Prohibido realizar videos para TikTok, Facebook u otras redes usando instalaciones, material o exponiendo pacientes.</li>
+              <li><strong>Punzocortantes fuera de lugar:</strong> Nunca coloques agujas sobre el pecho del paciente o el colchón de la cama.</li>
             </ul>
           </div>
         </div>
       </div>
 
-      <div class="editorial-card">
-        <h2>Semáforo de Faltas Disciplinarias</h2>
-        <p class="card-intro">Clasificación institucional de incidencias durante la estancia clínica.</p>
+      <!-- Semáforo de Faltas -->
+      <div class="pdf-card">
+        <h3>Semáforo de Faltas</h3>
         <div class="semaforo-grid">
-          <div class="falta-card falta-leve">
+          <div class="falta-box f-leve">
             <h4>Falta Leve / Amonestación</h4>
             <ul>
               <li>Omitir registros en la bitácora de asistencia.</li>
-              <li>Hábitos que comprometan el orden o la higiene básica del servicio.</li>
-              <li>Ingerir alimentos dentro de áreas hospitalarias no permitidas.</li>
+              <li>Tener hábitos o prácticas que comprometan la higiene y seguridad de los servicios.</li>
+              <li>Ingerir alimentos dentro de las áreas hospitalarias asistenciales.</li>
             </ul>
           </div>
-          <div class="falta-card falta-moderada">
-            <h4>Falta Moderada / Riesgo Clínico</h4>
+          <div class="falta-box f-mod">
+            <h4>Falta Moderada / Riesgo Clínico y Administrativo</h4>
             <ul>
-              <li>Ausentarse del servicio en horario establecido sin notificar a Enseñanza e Investigación.</li>
-              <li>Acumular más de una (1) falta injustificada durante la rotación programada.</li>
-              <li>Incumplir las Normas Oficiales Mexicanas y medidas de seguridad del paciente.</li>
+              <li>Salir del servicio o ausentarse en horario establecido sin notificar oportunamente a Enseñanza e Investigación.</li>
+              <li>Acumular más de una (1) falta injustificada durante tu estancia programada.</li>
+              <li>Incumplir los derechos de los pacientes o las Normas Oficiales Mexicanas.</li>
             </ul>
           </div>
-          <div class="falta-card falta-grave">
+          <div class="falta-box f-grave">
             <h4>Falta Grave / Tolerancia Cero</h4>
             <ul>
-              <li>Firmar por otra persona o registrar horas y días falsos en bitácora.</li>
-              <li>Violar la privacidad, confidencialidad o secreto profesional del menor.</li>
-              <li>Grabar videos en instalaciones o vulnerar la identidad de pacientes pediátricos.</li>
-              <li>Presentarse bajo efectos de sustancias o faltar al trato digno y profesional.</li>
+              <li>Firmar por otra persona o registrar horas y días falsos.</li>
+              <li>Realizar videos para redes sociales usando instalaciones o poniendo en riesgo la identidad del paciente.</li>
+              <li>Violar la privacidad, intimidad, confidencialidad o secreto profesional.</li>
+              <li>Presentarse bajo efectos de alcohol o sustancias, o faltar al trato digno y profesional.</li>
             </ul>
           </div>
         </div>
       </div>
 
-      <div class="editorial-card">
-        <h2>Protocolo de Actuación (Preguntas Frecuentes)</h2>
+      <!-- Preguntas Frecuentes -->
+      <div class="pdf-card" style="margin-bottom:0;">
+        <h3>¿Qué hacer si...? (FAQs)</h3>
         <details class="faq-row" open>
-          <summary>¿Qué hacer si sufro una lesión o pinchazo con aguja?</summary>
-          <p>Notifica <strong>inmediatamente</strong> al responsable de tu servicio y al <strong>Departamento de Enseñanza e Investigación</strong> para iniciar el protocolo institucional de atención y seguimiento.</p>
+          <summary>¿Qué hacer si sufres una lesión o pinchazo con aguja?</summary>
+          <p>Notifica <strong>INMEDIATAMENTE</strong> al responsable de tu servicio y al <strong>Departamento de Enseñanza e Investigación</strong> para iniciar el procedimiento institucional de atención y seguimiento.</p>
         </details>
         <details class="faq-row">
-          <summary>¿Qué hacer ante un problema clínico, personal o con un compañero?</summary>
-          <p>Comunica oportunamente la situación directamente al Departamento de Enseñanza e Investigación junto con tu docente responsable.</p>
+          <summary>¿Qué hacer si tienes un problema clínico, personal o con un compañero?</summary>
+          <p>Alumnos, personal base y profesores deben comunicar oportunamente cualquier situación de la práctica al Departamento de Enseñanza e Investigación.</p>
         </details>
         <details class="faq-row">
-          <summary>¿Cómo proceder ante una falta justificada?</summary>
-          <p>Tu profesor responsable debe notificar formalmente la ausencia al Departamento de Enseñanza e Investigación.</p>
+          <summary>¿Qué hacer si tienes que ausentarte (falta justificada)?</summary>
+          <p>Tu profesor responsable debe notificar tu ausencia al Departamento de Enseñanza e Investigación.</p>
         </details>
-        <details class="faq-row">
-          <summary>¿Qué hacer con el gafete institucional al concluir la práctica?</summary>
-          <p>Es obligatorio devolver el gafete institucional al Departamento de Enseñanza e Investigación al finalizar las semanas programadas.</p>
+        <details class="faq-row" style="margin-bottom:0;">
+          <summary>¿Qué hacer con el gafete al finalizar tus semanas de práctica?</summary>
+          <p>Es tu obligación devolver el gafete institucional al Departamento de Enseñanza e Investigación.</p>
         </details>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- BLOQUE 2: TARJETAS DE AISLAMIENTO -->
-    <section id="tab-aislamientos" class="tab-panel">
-      <div class="editorial-card">
-        <h2>Precauciones Basadas en la Transmisión (NOM-045 / RHOVE)</h2>
-        <p class="card-intro">Selecciona el color de la tarjeta ubicada en la cabecera del paciente para consultar barreras, EPP y procesos de soporte.</p>
+  <!-- 5. SECCIÓN MANUAL DIGITAL (#2e3c8c) -->
+  <section class="manual-digital-section">
+    <div class="section-inner">
+      <h2 class="md-title">Manual Digital</h2>
 
-        <div class="color-selector">
-          <button class="color-pill active" onclick="showIso('roja', this)"><span class="dot" style="background:#b83232;"></span>Tarjeta Roja · Estándar</button>
-          <button class="color-pill" onclick="showIso('amarilla', this)"><span class="dot" style="background:#d9a016;"></span>Tarjeta Amarilla · Contacto</button>
-          <button class="color-pill" onclick="showIso('verde', this)"><span class="dot" style="background:#2e7d32;"></span>Tarjeta Verde · Gotas</button>
-          <button class="color-pill" onclick="showIso('azul', this)"><span class="dot" style="background:#2563eb;"></span>Tarjeta Azul · Vía Aérea</button>
-          <button class="color-pill" onclick="showIso('gris', this)"><span class="dot" style="background:#64748b;"></span>Tarjeta Gris · Inverso</button>
+      <!-- Botones píldora idénticos al diseño -->
+      <div class="md-pills-wrap">
+        <div class="md-pills-row">
+          <button class="md-pill-btn active" onclick="switchMdTab('aislamientos', this)">Aislamientos</button>
+          <button class="md-pill-btn" onclick="switchMdTab('codigos', this)">Códigos de Emergencia</button>
+          <button class="md-pill-btn" onclick="switchMdTab('guias', this)">Guías Rápidas</button>
         </div>
-
-        <div id="iso-content" class="detail-panel"></div>
-      </div>
-    </section>
-
-    <!-- BLOQUE 3: CÓDIGOS HOSPITALARIOS (SELECTOR POR COLOR) -->
-    <section id="tab-codigos" class="tab-panel">
-      <div class="editorial-card">
-        <h2>Códigos de Emergencia Intrahospitalaria</h2>
-        <p class="card-intro">Selecciona el código de color para consultar la situación crítica que activa la alerta y la acción inmediata del personal.</p>
-
-        <div class="color-selector">
-          <button class="color-pill active" onclick="showCode('azul', this)"><span class="dot" style="background:#2563eb;"></span>Código Azul</button>
-          <button class="color-pill" onclick="showCode('oro', this)"><span class="dot" style="background:#d9a016;"></span>Código Oro / Pediátrico</button>
-          <button class="color-pill" onclick="showCode('rojo', this)"><span class="dot" style="background:#b83232;"></span>Código Rojo</button>
-          <button class="color-pill" onclick="showCode('ambar', this)"><span class="dot" style="background:#d96b27;"></span>Código Ámbar</button>
-          <button class="color-pill" onclick="showCode('negro', this)"><span class="dot" style="background:#1e293b;"></span>Código Negro</button>
-          <button class="color-pill" onclick="showCode('gris', this)"><span class="dot" style="background:#64748b;"></span>Código Gris</button>
-          <button class="color-pill" onclick="showCode('naranja', this)"><span class="dot" style="background:#ea580c;"></span>Código Naranja</button>
-          <button class="color-pill" onclick="showCode('violeta', this)"><span class="dot" style="background:#7c3aed;"></span>Código Violeta / Limón</button>
-          <button class="color-pill" onclick="showCode('cafe', this)"><span class="dot" style="background:#78350f;"></span>Código Café</button>
-          <button class="color-pill" onclick="showCode('amarillo', this)"><span class="dot" style="background:#ca8a04;"></span>Código Amarillo</button>
-        </div>
-
-        <div id="code-content" class="detail-panel"></div>
-      </div>
-    </section>
-
-    <!-- BLOQUE 4: GUÍAS RÁPIDAS (LAVADO DE MANOS, CORRECTOS Y AESP) -->
-    <section id="tab-guias" class="tab-panel">
-      <div class="editorial-card">
-        <h2>5 Momentos para la Higiene de Manos</h2>
-        <p class="card-intro">Cuidar con profesionalismo es cuidar con seguridad: 40 segundos de higiene transforman la atención.</p>
-        <div class="steps-list">
-          <div class="step-item">
-            <span class="step-num">Momento 1</span>
-            <h4>Antes de tocar al paciente</h4>
-            <p>Para proteger al paciente pediátrico de los gérmenes que portamos en nuestras manos.</p>
-          </div>
-          <div class="step-item">
-            <span class="step-num">Momento 2</span>
-            <h4>Antes de realizar una tarea aséptica</h4>
-            <p>Para proteger al paciente de los gérmenes que pudieran entrar a su organismo, incluidos los propios.</p>
-          </div>
-          <div class="step-item">
-            <span class="step-num">Momento 3</span>
-            <h4>Después del riesgo de exposición a líquidos corporales</h4>
-            <p>Para protegernos a nosotros mismos y al entorno de atención tras manipular fluidos o secreciones.</p>
-          </div>
-          <div class="step-item">
-            <span class="step-num">Momento 4</span>
-            <h4>Después de tocar al paciente</h4>
-            <p>Para evitar la diseminación de microorganismos al concluir la exploración o cuidado directo.</p>
-          </div>
-          <div class="step-item">
-            <span class="step-num">Momento 5</span>
-            <h4>Después del contacto con el entorno del paciente</h4>
-            <p>Tras tocar cunas, barandales, bombas de infusión, monitores o mobiliario clínico.</p>
-          </div>
+        <div class="md-pills-row">
+          <button class="md-pill-btn" onclick="switchMdTab('farmaco', this)">Farmacología y Calculadora</button>
         </div>
       </div>
 
-      <div class="editorial-card">
-        <h2>Los 5 Correctos en la Administración de Medicamentos</h2>
-        <p class="card-intro">Barreras de verificación obligatorias previo a preparar y ministrar cualquier fármaco en pediatría.</p>
-        <div class="steps-list">
-          <div class="step-item">
-            <span class="step-num">1. Paciente Correcto</span>
-            <h4>Doble identificador</h4>
-            <p>Verificar nombre completo y fecha de nacimiento o expediente en brazalete y preguntar al tutor o paciente consciente.</p>
+      <!-- Espacio blanco interactivo -->
+      <div class="md-workspace">
+        
+        <!-- PANEL 1: AISLAMIENTOS -->
+        <div id="md-aislamientos" class="md-panel active">
+          <h3>Precauciones Basadas en la Transmisión (NOM-045 / RHOVE)</h3>
+          <p class="md-lead">Elige el color de la tarjeta del cubículo para consultar barreras, EPP y manejo de soporte.</p>
+
+          <div class="color-selector">
+            <button class="color-pill active" onclick="showIso('roja', this)"><span class="dot" style="background:#dc2626;"></span>Tarjeta Roja · Estándar</button>
+            <button class="color-pill" onclick="showIso('amarilla', this)"><span class="dot" style="background:#eab308;"></span>Tarjeta Amarilla · Contacto</button>
+            <button class="color-pill" onclick="showIso('verde', this)"><span class="dot" style="background:#16a34a;"></span>Tarjeta Verde · Gotas</button>
+            <button class="color-pill" onclick="showIso('azul', this)"><span class="dot" style="background:#2563eb;"></span>Tarjeta Azul · Vía Aérea</button>
+            <button class="color-pill" onclick="showIso('gris', this)"><span class="dot" style="background:#64748b;"></span>Tarjeta Gris · Inverso</button>
           </div>
-          <div class="step-item">
-            <span class="step-num">2. Medicamento Correcto</span>
-            <h4>Etiqueta vs. Indicación</h4>
-            <p>Comprobar nombre genérico y comercial frente a la hoja de indicaciones, revisando fecha de caducidad, aspecto y coloración.</p>
+
+          <div id="iso-content" class="detail-panel"></div>
+        </div>
+
+        <!-- PANEL 2: CÓDIGOS DE EMERGENCIA -->
+        <div id="md-codigos" class="md-panel">
+          <h3>Códigos de Emergencia Intrahospitalaria</h3>
+          <p class="md-lead">Selecciona el color del código para consultar el evento detonante y la acción inmediata.</p>
+
+          <div class="color-selector">
+            <button class="color-pill active" onclick="showCode('azul', this)"><span class="dot" style="background:#2563eb;"></span>Código Azul</button>
+            <button class="color-pill" onclick="showCode('oro', this)"><span class="dot" style="background:#eab308;"></span>Código Oro / Pediátrico</button>
+            <button class="color-pill" onclick="showCode('rojo', this)"><span class="dot" style="background:#dc2626;"></span>Código Rojo</button>
+            <button class="color-pill" onclick="showCode('ambar', this)"><span class="dot" style="background:#f97316;"></span>Código Ámbar</button>
+            <button class="color-pill" onclick="showCode('negro', this)"><span class="dot" style="background:#1e293b;"></span>Código Negro</button>
+            <button class="color-pill" onclick="showCode('gris', this)"><span class="dot" style="background:#64748b;"></span>Código Gris</button>
+            <button class="color-pill" onclick="showCode('naranja', this)"><span class="dot" style="background:#ea580c;"></span>Código Naranja</button>
+            <button class="color-pill" onclick="showCode('violeta', this)"><span class="dot" style="background:#7c3aed;"></span>Código Violeta / Limón</button>
+            <button class="color-pill" onclick="showCode('cafe', this)"><span class="dot" style="background:#78350f;"></span>Código Café</button>
+            <button class="color-pill" onclick="showCode('amarillo', this)"><span class="dot" style="background:#ca8a04;"></span>Código Amarillo</button>
           </div>
-          <div class="step-item">
-            <span class="step-num">3. Dosis Correcta</span>
-            <h4>Cálculo por peso (mg/kg)</h4>
-            <p>Verificar concentración, calcular miligramos y mililitros exactos (usar jeringa de 1 mL para dosis &lt; 1 mL) y velocidad de infusión.</p>
+
+          <div id="code-content" class="detail-panel"></div>
+        </div>
+
+        <!-- PANEL 3: GUÍAS RÁPIDAS -->
+        <div id="md-guias" class="md-panel">
+          <h4 class="guide-block-title">5 Momentos de Lavado de Manos (40 segundos salvan vidas)</h4>
+          <div class="steps-list">
+            <div class="step-item"><span class="step-num">1. Antes</span><h4>Antes de tocar al paciente</h4><p>Para proteger a los pacientes de los gérmenes que tenemos en nuestras manos.</p></div>
+            <div class="step-item"><span class="step-num">2. Antes</span><h4>Antes de realizar una tarea aséptica</h4><p>Para proteger a los pacientes de los gérmenes que pudieran entrar a su cuerpo.</p></div>
+            <div class="step-item"><span class="step-num">3. Después</span><h4>Después del riesgo de exposición a líquidos corporales</h4><p>Para protegernos y proteger el entorno de atención.</p></div>
+            <div class="step-item"><span class="step-num">4. Después</span><h4>Después de tocar al paciente</h4><p>Para protegernos y proteger el entorno de atención al concluir la valoración.</p></div>
+            <div class="step-item"><span class="step-num">5. Después</span><h4>Después del contacto con el entorno del paciente</h4><p>Tras tocar cunas, monitores, barandales o bombas de infusión.</p></div>
           </div>
-          <div class="step-item">
-            <span class="step-num">4. Vía Correcta</span>
-            <h4>Permeabilidad y compatibilidad</h4>
-            <p>Confirmar que la presentación corresponda a la vía indicada (IV, IM, VO, SC) y revisar permeabilidad del acceso venoso.</p>
+
+          <h4 class="guide-block-title">Los 5 Correctos de la Administración de Medicamentos</h4>
+          <div class="steps-list">
+            <div class="step-item"><span class="step-num">1</span><h4>Paciente Correcto</h4><p>Verificar identidad con al menos dos identificadores (nombre completo y fecha de nacimiento o expediente) revisando el brazalete.</p></div>
+            <div class="step-item"><span class="step-num">2</span><h4>Medicamento Correcto</h4><p>Comprobar nombre genérico y comercial en la etiqueta frente a la indicación médica, revisando aspecto y caducidad.</p></div>
+            <div class="step-item"><span class="step-num">3</span><h4>Dosis Correcta</h4><p>Verificar concentración, calcular volumen exacto para edad/peso y usar jeringa de 1 mL en dosis menores a 1 mL.</p></div>
+            <div class="step-item"><span class="step-num">4</span><h4>Vía de Administración Correcta</h4><p>Asegurar que el fármaco sea apto para la vía indicada y verificar permeabilidad del acceso parenteral.</p></div>
+            <div class="step-item"><span class="step-num">5</span><h4>Hora Correcta</h4><p>Administrar en el horario establecido para mantener niveles terapéuticos constantes respetando intervalos.</p></div>
           </div>
-          <div class="step-item">
-            <span class="step-num">5. Hora Correcta</span>
-            <h4>Intervalo terapéutico</h4>
-            <p>Ministrar en el horario programado para mantener niveles plasmáticos estables, respetando condiciones de ayuno o alimentos.</p>
+
+          <h4 class="guide-block-title">8 Acciones Esenciales para la Seguridad del Paciente (AESP)</h4>
+          <div class="steps-list">
+            <div class="step-item"><span class="step-num">AESP 1</span><h4>Identificación del paciente</h4><p>Uso obligatorio de dos datos (nombre completo y fecha de nacimiento) antes de cualquier procedimiento o medicación.</p></div>
+            <div class="step-item"><span class="step-num">AESP 2</span><h4>Comunicación efectiva</h4><p>Protocolo "Escuchar, escribir, leer de vuelta y confirmar" en órdenes verbales y entrega con técnica SAER.</p></div>
+            <div class="step-item"><span class="step-num">AESP 3</span><h4>Seguridad en el proceso de medicación</h4><p>Doble verificación obligatoria en medicamentos de alto riesgo y electrolitos concentrados.</p></div>
+            <div class="step-item"><span class="step-num">AESP 4</span><h4>Seguridad en los procedimientos</h4><p>Marcado quirúrgico y lista de verificación (Checklist / Time-Out) para paciente y sitio correcto.</p></div>
+            <div class="step-item"><span class="step-num">AESP 5</span><h4>Reducción del riesgo de IAAS</h4><p>Higiene de manos transversal y aplicación rigurosa de paquetes preventivos (bundles).</p></div>
+            <div class="step-item"><span class="step-num">AESP 6</span><h4>Reducción de daño por caídas</h4><p>Valoración pediátrica oportuna, barandales arriba permanentemente y orientación a familiares.</p></div>
+            <div class="step-item"><span class="step-num">AESP 7</span><h4>Registro de eventos adversos</h4><p>Reporte no punitivo de eventos centinela, eventos adversos y cuasifallas.</p></div>
+            <div class="step-item"><span class="step-num">AESP 8</span><h4>Cultura de Seguridad del Paciente</h4><p>Evaluación y mejora continua del entorno seguro asistencial.</p></div>
           </div>
+        </div>
+
+        <!-- PANEL 4: FARMACOLOGÍA (PENDIENTE) Y CALCULADORA -->
+        <div id="md-farmaco" class="md-panel">
+          <h3>Guía de Farmacología Pediátrica</h3>
+          <div class="pending-banner">
+            <strong>Apartado teórico pendiente de validación:</strong> Las fichas farmacológicas detalladas se integrarán tras su revisión y supervisión con la Jefatura de Enseñanza e Investigación.
+          </div>
+
+          <h3>Calculadora Práctica de Dosis y Administración</h3>
+          <p class="md-lead">Herramienta rápida de consulta operativa. Corrobora siempre la prescripción médica y el protocolo institucional.</p>
+
+          <div class="calc-form">
+            <div class="form-group">
+              <label for="med-select">Medicamento</label>
+              <select id="med-select" onchange="onMedChange()"></select>
+            </div>
+            <div class="form-group">
+              <label for="pres-select">Presentación</label>
+              <select id="pres-select" onchange="calculateDose()"></select>
+            </div>
+            <div class="form-group">
+              <label for="patient-weight">Peso del Paciente (kg)</label>
+              <input type="number" id="patient-weight" value="12" min="0.5" max="100" step="0.1" oninput="calculateDose()" />
+            </div>
+            <div class="form-group">
+              <label for="dose-input" id="dose-label">Dosis Indicada (mg/kg)</label>
+              <input type="number" id="dose-input" step="0.01" oninput="calculateDose()" />
+            </div>
+          </div>
+
+          <div id="calc-output" class="calc-result"></div>
         </div>
       </div>
 
-      <div class="editorial-card">
-        <h2>Acciones Esenciales para la Seguridad del Paciente (AESP)</h2>
-        <p class="card-intro">Las 8 barreras operativas establecidas en el Modelo de Gestión de Calidad en Salud.</p>
-        <div class="steps-list">
-          <div class="step-item">
-            <span class="step-num">AESP 1</span>
-            <h4>Identificación del paciente</h4>
-            <p>Uso de al menos dos identificadores antes de ministrar fármacos, transfundir, tomar muestras o realizar procedimientos.</p>
-          </div>
-          <div class="step-item">
-            <span class="step-num">AESP 2</span>
-            <h4>Comunicación efectiva</h4>
-            <p>Protocolo Escuchar – Escribir – Leer de vuelta – Confirmar en órdenes verbales/telefónicas y entrega de turno con técnica SAER.</p>
-          </div>
-          <div class="step-item">
-            <span class="step-num">AESP 3</span>
-            <h4>Seguridad en el proceso de medicación</h4>
-            <p>Doble verificación obligatoria en electrolitos concentrados (ej. KCl) y medicamentos de alto riesgo; etiquetado estricto de mezclas.</p>
-          </div>
-          <div class="step-item">
-            <span class="step-num">AESP 4</span>
-            <h4>Seguridad en los procedimientos</h4>
-            <p>Aplicación de lista de verificación (Checklist), marcado quirúrgico y tiempo fuera (Time-Out) previo a procedimientos invasivos.</p>
-          </div>
-          <div class="step-item">
-            <span class="step-num">AESP 5</span>
-            <h4>Reducción del riesgo de IAAS</h4>
-            <p>Higiene de manos transversal y cumplimiento de paquetes preventivos (bundles) en catéteres, ventilación y sondas.</p>
-          </div>
-          <div class="step-item">
-            <span class="step-num">AESP 6</span>
-            <h4>Reducción de daño por caídas</h4>
-            <p>Valoración sistemática del riesgo pediátrico, barandales arriba permanentemente y educación activa a padres o tutores.</p>
-          </div>
-          <div class="step-item">
-            <span class="step-num">AESP 7</span>
-            <h4>Registro de eventos adversos</h4>
-            <p>Cultura de notificación no punitiva de eventos centinela, eventos adversos y cuasifallas para prevenir recurrencias.</p>
-          </div>
-          <div class="step-item">
-            <span class="step-num">AESP 8</span>
-            <h4>Cultura de seguridad del paciente</h4>
-            <p>Evaluación continua del clima de seguridad y mejora participativa en todo el equipo multidisciplinario.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- BLOQUE 5: FARMACOLOGÍA (PENDIENTE) Y CALCULADORA PEDIÁTRICA -->
-    <section id="tab-farmaco" class="tab-panel">
-      <div class="editorial-card">
-        <h2>Guía de Farmacología Pediátrica</h2>
-        <div class="pending-banner">
-          <strong>Sección teórica en validación institucional:</strong> Las fichas farmacológicas completas (mecanismo de acción, farmacocinética y consideraciones específicas) se encuentran en proceso de revisión y supervisión junto con la Jefatura de Enseñanza e Investigación.
-        </div>
-
-        <h2 style="margin-top:0.5rem;">Calculadora Práctica de Dosis y Administración</h2>
-        <p class="card-intro">Herramienta operativa de apoyo. Corrobora siempre la prescripción médica, concentración de la ampolleta/frasco disponible y protocolos del servicio.</p>
-
-        <div class="calc-form">
-          <div class="form-group">
-            <label for="med-select">Medicamento</label>
-            <select id="med-select" onchange="onMedChange()"></select>
-          </div>
-          <div class="form-group">
-            <label for="pres-select">Presentación</label>
-            <select id="pres-select" onchange="calculateDose()"></select>
-          </div>
-          <div class="form-group">
-            <label for="patient-weight">Peso del Paciente (kg)</label>
-            <input type="number" id="patient-weight" value="12" min="0.5" max="100" step="0.1" oninput="calculateDose()" />
-          </div>
-          <div class="form-group">
-            <label for="dose-input" id="dose-label">Dosis Indicada (mg/kg)</label>
-            <input type="number" id="dose-input" step="0.01" oninput="calculateDose()" />
-          </div>
-        </div>
-
-        <div id="calc-output" class="calc-result"></div>
-      </div>
-    </section>
-
-    <!-- BITÁCORA DEL PROYECTO DESDE BLOG (TAG: HEPL) -->
-    <section id="hepl-blog-section" style="display:none; margin-top:2.25rem;">
-      <div class="editorial-card">
-        <h2>Bitácora y Avances del Proyecto HEPL</h2>
-        <p class="card-intro">Publicaciones y actualizaciones vinculadas desde el blog principal.</p>
+      <!-- Bitácora desde datos.json si hay entradas con TAG HEPL -->
+      <div id="hepl-blog-section" class="blog-wrap" style="display:none;">
+        <h3 style="font-family:'Montserrat',sans-serif; font-weight:900; color:var(--navy-deep); margin-bottom:1rem;">Bitácora y Avances del Proyecto HEPL</h3>
         <div id="hepl-posts-list"></div>
         <div id="hepl-single-post" style="display:none;">
           <button class="btn-read" onclick="closeHeplPost()" style="margin-top:0; margin-bottom:1rem;">← Volver a la lista</button>
           <div id="hsp-tags" style="margin-bottom:0.4rem;"></div>
-          <div id="hsp-date" style="font-size:0.84rem; font-weight:700; color:var(--hepl-blue); margin-bottom:0.35rem;"></div>
-          <h3 id="hsp-title" style="font-size:1.35rem; color:var(--hepl-navy); margin-bottom:0.9rem;"></h3>
+          <div id="hsp-date" style="font-size:0.84rem; font-weight:700; color:var(--royal-blue); margin-bottom:0.35rem;"></div>
+          <h3 id="hsp-title" style="font-size:1.35rem; color:var(--navy-deep); margin-bottom:0.9rem;"></h3>
           <div id="hsp-body" style="line-height:1.75;"></div>
         </div>
       </div>
-    </section>
-  </main>
+    </div>
+  </section>
 
-  <footer>
-    <p>Elaboró: Castillo Texeira Alex Daniel y Silva Huerta Lizbeth Guadalupe · Licenciatura en Enfermería · Universidad La Salle Bajío</p>
+  <!-- FOOTER CON CRÉDITOS EXACTOS -->
+  <footer class="footer-bar">
+    <div class="footer-credits">
+      Elaboró: Castillo Texeira Alex Daniel y Silva Huerta Lizbeth Guadalupe<br>
+      Licenciatura en Enfermería · Universidad La Salle Bajío
+    </div>
   </footer>
 
   <script>
-    /* --- PESTAÑAS --- */
-    function switchTab(tabId, btn) {
-      document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
-      document.querySelectorAll('.nav-tab').forEach(b => b.classList.remove('active'));
-      document.getElementById('tab-' + tabId).classList.add('active');
+    /* --- PESTAÑAS DE MANUAL DIGITAL --- */
+    function switchMdTab(tabId, btn) {
+      document.querySelectorAll('.md-panel').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.md-pill-btn').forEach(b => b.classList.remove('active'));
+      document.getElementById('md-' + tabId).classList.add('active');
       btn.classList.add('active');
     }
 
@@ -816,43 +894,43 @@
     const aislamientosData = {
       roja: {
         titulo: "Tarjeta Roja — Precauciones Estándar",
-        color: "#b83232",
-        mecanismo: "Sangre, secreciones y líquidos corporales. Aplicable a todos los pacientes independientemente de su diagnóstico presuntivo.",
-        epp: "Higiene de manos en los 5 momentos; guantes, bata y protección ocular únicamente ante riesgo de salpicaduras o contacto con fluidos.",
-        ubicacion: "Habitación o cama estándar acorde a su patología.",
-        soporte: "Manejo de RPBI según norma, ropa contaminada rotulada en tánico blanco y desinfección de equipo médico entre pacientes."
+        color: "#dc2626",
+        mecanismo: "Sangre, secreciones y líquidos corporales. Aplicado a todos los pacientes independientemente de su diagnóstico presuntivo.",
+        epp: "Higiene de manos en los 5 momentos; guantes, bata y protección ocular solo ante riesgo de salpicaduras o contacto con fluidos.",
+        ubicacion: "Habitación o cama estándar acorde a patología.",
+        soporte: "Manejo de RPBI según norma, uso de tánico blanco para ropa contaminada y desinfección de equipo médico entre pacientes."
       },
       amarilla: {
         titulo: "Tarjeta Amarilla — Precauciones de Contacto",
-        color: "#d9a016",
-        mecanismo: "Contacto directo o indirecto con el paciente o su entorno (Rotavirus, enfermedad diarreica aguda, heridas con secreción).",
-        epp: "Guantes y bata limpia obligatorios al entrar al cubículo o tener contacto directo; higiene estricta de manos.",
+        color: "#eab308",
+        mecanismo: "Contacto directo o indirecto; rotavirus, enfermedad diarreica aguda (EDA) o heridas con secreción.",
+        epp: "Guantes y bata limpia obligatorios al entrar al cubículo o contacto directo; higiene estricta de manos.",
         ubicacion: "Cubículo aislado o cohorte; deambulación prohibida y visitas supervisadas.",
-        soporte: "Bolsa de contaminados rotulada, equipo médico exclusivo y desinfección continua de superficies."
+        soporte: "Bolsa de contaminados rotulada, equipo exclusivo y desinfección continua de superficies."
       },
       verde: {
         titulo: "Tarjeta Verde — Precauciones por Gotas",
-        color: "#2e7d32",
-        mecanismo: "Gotitas respiratorias mayores a 5 micras (Influenza, bronquiolitis, neumonía, tos ferina, meningococo).",
-        epp: "Cubrebocas quirúrgico y protección ocular a menos de 1.5 metros; guantes al contacto con secreciones.",
-        ubicacion: "Separación mínima de 1.5 metros entre camas o habitación individual.",
-        soporte: "Traslado del paciente con cubrebocas quirúrgico y uso de vajilla desechable según protocolo."
+        color: "#16a34a",
+        mecanismo: "Gotitas respiratorias; influenza, bronquiolitis o neumonía.",
+        epp: "Cubrebocas quirúrgico y protección ocular a menos de 1.5 m; guantes al contacto con secreciones.",
+        ubicacion: "Separación mínima de 1.5 m o aislamiento individual.",
+        soporte: "Traslado con cubrebocas quirúrgico y uso de vajilla desechable."
       },
       azul: {
         titulo: "Tarjeta Azul — Precauciones Vía Aérea",
         color: "#2563eb",
-        mecanismo: "Núcleos suspendidos en el aire (Varicela, Sarampión, Tuberculosis pulmonar).",
-        epp: "Respirador N95 / KN95 bien ajustado colocado antes de entrar al cubículo y retirado solo después de salir.",
+        mecanismo: "Núcleos suspendidos en el aire; varicela, sarampión o tuberculosis pulmonar.",
+        epp: "Respirador N95/KN95 bien ajustado colocado ANTES de ingresar y retirado solo tras salir del cuarto.",
         ubicacion: "Cubículo individual con puerta siempre cerrada y presión negativa.",
-        soporte: "Prohibida la deambulación; limitar traslados al mínimo (paciente con mascarilla) y limpieza exhaustiva de 3 tiempos al alta."
+        soporte: "Sin deambulación, mascarilla N95/quirúrgica al trasladar y limpieza exhaustiva de 3 tiempos al egreso."
       },
       gris: {
         titulo: "Tarjeta Gris — Aislamiento Inverso (Protección)",
         color: "#64748b",
-        mecanismo: "Proteger al paciente altamente inmunocomprometido de patógenos externos (Neutrófilos < 500 o quemaduras > 25% SCT).",
+        mecanismo: "Proteger al paciente altamente inmunocomprometido de patógenos externos (neutrófilos < 500 o quemaduras > 25% SCT).",
         epp: "Higiene de manos estricta; cubrebocas, bata limpia y guantes colocados previo al acceso (gorro en heridas expuestas).",
-        ubicacion: "Cubículo individual con puerta cerrada; prioridad clínica junto con vía aérea.",
-        soporte: "Sin deambulación en pasillos, EPP obligatorio en traslados y limpieza exhaustiva de 3 tiempos previo al ingreso."
+        ubicacion: "Cubículo con puerta cerrada; prioridad clínica junto con vía aérea.",
+        soporte: "Prohibido deambular por pasillos, EPP obligatorio en traslados y limpieza de 3 tiempos previa."
       }
     };
 
@@ -865,87 +943,86 @@
       const box = document.getElementById('iso-content');
       box.style.borderLeftColor = d.color;
       box.innerHTML = `
-        <h3 style="font-family:'Montserrat',sans-serif; font-weight:800; font-size:1.15rem; color:var(--hepl-navy);">${d.titulo}</h3>
+        <h4 style="font-family:'Montserrat',sans-serif; font-weight:900; font-size:1.12rem; color:var(--navy-deep);">${d.titulo}</h4>
         <div class="detail-grid">
           <div class="detail-cell"><span class="label">Mecanismo y Ejemplos</span><p>${d.mecanismo}</p></div>
-          <div class="detail-cell"><span class="label">Barreras y EPP</span><p>${d.epp}</p></div>
-          <div class="detail-cell"><span class="label">Ubicación Física</span><p>${d.ubicacion}</p></div>
+          <div class="detail-cell"><span class="label">Ubicación y Barreras (EPP)</span><p>${d.epp} (${d.ubicacion})</p></div>
           <div class="detail-cell"><span class="label">Procesos de Soporte</span><p>${d.soporte}</p></div>
         </div>
       `;
     }
 
-    /* --- CÓDIGOS DE EMERGENCIA (SELECTOR POR COLOR) --- */
+    /* --- CÓDIGOS DE EMERGENCIA --- */
     const codigosData = {
       azul: {
         titulo: "Código Azul — Paro Cardiorrespiratorio",
         color: "#2563eb",
-        situacion: "Detección de paciente pediátrico inconsciente, sin respiración efectiva o sin pulso central.",
-        accion: "Iniciar maniobras de Reanimación Cardiopulmonar (RCP) de alta calidad inmediatamente, solicitar Carro Rojo y desfibrilador, y alertar al equipo de respuesta rápida.",
-        rolEstudiante: "Apoyar en el registro de tiempos/ciclos, acercar insumos del Carro Rojo o relevar compresiones bajo supervisión directa del personal titular."
+        situacion: "Paro cardiorrespiratorio confirmado o sospechado en paciente pediátrico.",
+        accion: "Iniciar maniobras de Reanimación Cardiopulmonar (RCP) de alta calidad inmediatamente. Solicitar Carro Rojo y Desfibrilador. Alertar al equipo de respuesta rápida.",
+        rol: "Apoyar en registro de ciclos, acercar material del Carro Rojo o relevar compresiones bajo supervisión directa."
       },
       oro: {
         titulo: "Código Oro / Código Pediátrico — Deterioro Clínico Agudo",
-        color: "#d9a016",
-        situacion: "Paciente hospitalizado que presenta signos tempranos de gravedad (dificultad respiratoria severa, alteración del estado de alerta o choque) antes de llegar al paro cardiorrespiratorio.",
-        accion: "Activación inmediata para que el equipo de Terapia Intensiva Pediátrica (UCIP) acuda a la cama a estabilizar oportunamente al paciente.",
-        rolEstudiante: "Reportar de inmediato mediante técnica SAER, tomar signos vitales completos y preparar equipo de oxigenoterapia y monitorización."
+        color: "#eab308",
+        situacion: "Niño hospitalizado con signos tempranos de gravedad (dificultad respiratoria severa, alteración del estado de alerta o choque) antes de llegar al paro.",
+        accion: "Activación inmediata para que el equipo de Terapia Intensiva (UCIP) acuda a estabilizarlo a tiempo.",
+        rol: "Comunicar mediante técnica SAER, monitorizar signos vitales completos y preparar equipo de oxigenoterapia."
       },
       rojo: {
         titulo: "Código Rojo — Fuego o Conato de Incendio",
-        color: "#b83232",
-        situacion: "Presencia de humo, flama o conato de incendio dentro de cualquier área hospitalaria.",
-        accion: "Seguir protocolo RACE: Rescatar pacientes en riesgo inmediato, Alertar, Cerrar puertas para contener humo y Extinguir o Evacuar. No utilizar elevadores.",
-        rolEstudiante: "Mantener la calma, despejar pasillos y asistir en el traslado seguro de pacientes bajo indicación del jefe de servicio."
+        color: "#dc2626",
+        situacion: "Presencia de fuego, humo o conato de incendio en instalaciones hospitalarias.",
+        accion: "Seguir el protocolo RACE (Rescatar, Alertar, Cerrar puertas, Extinguir/Evacuar). Mantener la calma, despejar pasillos y no utilizar elevadores.",
+        rol: "Despejar rutas de evacuación y asistir en el resguardo de pacientes bajo indicación del personal titular."
       },
       ambar: {
         titulo: "Código Ámbar — Secuestro, Sustracción o Extravío de Menor",
-        color: "#d96b27",
-        situacion: "Sospecha o confirmación de salida no autorizada o extravío de un paciente pediátrico.",
-        accion: "Cierre inmediato de accesos y salidas del hospital, notificación a seguridad interna y autoridades, y revisión exhaustiva de instalaciones y vehículos.",
-        rolEstudiante: "Permanecer en el servicio asignado, verificar la presencia de los pacientes en sus cunas/camas y reportar cualquier movimiento inusual."
+        color: "#f97316",
+        situacion: "Sospecha o confirmación de extravío o sustracción de un paciente pediátrico.",
+        accion: "Cierre inmediato de accesos y salidas del hospital. Notificación a seguridad interna y autoridades competentes. Revisión exhaustiva de instalaciones y vehículos.",
+        rol: "Permanecer en el servicio, verificar presencia de pacientes asignados y reportar cualquier novedad."
       },
       negro: {
-        titulo: "Código Negro — Amenaza Externa o Violencia Activa",
+        titulo: "Código Negro — Amenaza Externa, Tiroteo o Violencia Activa",
         color: "#1e293b",
-        situacion: "Detección de amenaza armada externa, detonaciones o violencia activa en el perímetro.",
-        accion: "Resguardo y confinamiento del personal y pacientes en áreas seguras lejos de ventanas, bloqueo de accesos y prohibición de circular por áreas abiertas.",
-        rolEstudiante: "Seguir instrucciones de resguardo del personal base y mantener silencio y calma con los familiares."
+        situacion: "Amenaza armada externa o situación de violencia activa en el entorno.",
+        accion: "Resguardo del personal y pacientes en áreas seguras (confinamiento). Bloqueo de accesos. No circular por áreas abiertas.",
+        rol: "Confinarse en área segura lejos de ventanas junto con pacientes y personal base."
       },
       gris: {
         titulo: "Código Gris — Persona Disruptiva o Agresiva",
         color: "#64748b",
-        situacion: "Conflicto, agresión verbal/física o presencia de persona violenta dentro de las instalaciones.",
-        accion: "Resguardo inmediato de pacientes y personal, aviso a seguridad interna y restricción de accesos a la zona de conflicto.",
-        rolEstudiante: "No confrontar directamente; proteger la integridad de los pacientes y dar aviso inmediato a la jefatura de enfermería."
+        situacion: "Conflicto, agresión o presencia de una persona disruptiva, violenta o armada dentro del hospital.",
+        accion: "Resguardo del personal y pacientes, aviso inmediato a seguridad interna y restricción de accesos a la zona de conflicto.",
+        rol: "No confrontar; resguardar a los pacientes y dar aviso inmediato a la jefatura."
       },
       naranja: {
-        titulo: "Código Naranja — Falla Crítica de Soporte Vital o Servicios",
+        titulo: "Código Naranja — Falla Crítica en Soporte Vital o Servicios",
         color: "#ea580c",
         situacion: "Interrupción prolongada de energía eléctrica, fuga mayor de gases medicinales (oxígeno) o falla hidráulica.",
-        accion: "Activación de plantas de luz de emergencia, respaldo con tanques de oxígeno portátiles y revisión de infraestructura crítica.",
-        rolEstudiante: "Verificar qué pacientes dependen de bombas de infusión, monitores o tomas de oxígeno mural para preparar respaldo manual o portátil."
+        accion: "Activación de plantas de luz de emergencia, respaldo de tanques de oxígeno portátiles y revisión de infraestructura crítica.",
+        rol: "Identificar pacientes con bombas de infusión o soporte de oxígeno para preparar respaldo manual/portátil."
       },
       violeta: {
         titulo: "Código Violeta / Limón — Sismo y Revisión Post-Sismo",
         color: "#7c3aed",
-        situacion: "Movimiento telúrico en curso (Violeta) y fase de evaluación estructural posterior (Limón).",
-        accion: "Repliegue en zonas de seguridad durante el sismo (alejados de ventanales y estantes) y evaluación de daños por Protección Civil hospitalaria.",
-        rolEstudiante: "Asegurar frenos de cunas/camas, resguardar a los menores en zonas seguras y esperar indicaciones de evacuación ordenada."
+        situacion: "Sismo en curso (Violeta) y revisión estructural posterior (Limón).",
+        accion: "Repliegue en zonas de seguridad durante el movimiento y posterior evaluación estructural por Protección Civil hospitalaria.",
+        rol: "Asegurar frenos de cunas/camas, resguardar a los menores en zonas seguras y esperar indicaciones."
       },
       cafe: {
-        titulo: "Código Café — Derrame de Materiales Peligrosos",
+        titulo: "Código Café (Brown) — Derrame de Materiales Peligrosos",
         color: "#78350f",
-        situacion: "Derrame o fuga de sustancias químicas, citotóxicos o agentes biológicos que requieren contención.",
-        accion: "Evacuación del área afectada, delimitación del perímetro y activación del equipo especializado HazMat.",
-        rolEstudiante: "Evitar contacto directo con la sustancia derramada, alejar a pacientes y familiares y notificar de inmediato."
+        situacion: "Derrame o fuga de sustancias químicas, agentes biológicos o tóxicos.",
+        accion: "Evacuación del área afectada, delimitación del perímetro y activación del equipo HazMat.",
+        rol: "Evitar contacto directo, alejar a pacientes y familiares y notificar de inmediato."
       },
       amarillo: {
-        titulo: "Código Amarillo — Desastre Externo / Recepción Masiva",
+        titulo: "Código Amarillo — Desastre Externo / Víctimas Masivas",
         color: "#ca8a04",
-        situacion: "Emergencia externa (accidentes múltiples o desastres) que genera llegada masiva de pacientes pediátricos.",
-        accion: "Alerta general en Urgencias, habilitación de áreas de expansión y preparación de equipos quirúrgicos y de choque.",
-        rolEstudiante: "Integrarse a las tareas de apoyo logístico, preparación de material y toma de signos vitales asignadas por Enseñanza."
+        situacion: "Desastre externo o recepción masiva de víctimas (accidentes graves o múltiples heridos).",
+        accion: "Alerta general en Urgencias, habilitación de áreas de expansión y preparación del equipo quirúrgico y de choque.",
+        rol: "Apoyar en logística, toma de signos vitales y preparación de insumos asignados por Enseñanza."
       }
     };
 
@@ -958,11 +1035,11 @@
       const box = document.getElementById('code-content');
       box.style.borderLeftColor = d.color;
       box.innerHTML = `
-        <h3 style="font-family:'Montserrat',sans-serif; font-weight:800; font-size:1.15rem; color:var(--hepl-navy);">${d.titulo}</h3>
+        <h4 style="font-family:'Montserrat',sans-serif; font-weight:900; font-size:1.12rem; color:var(--navy-deep);">${d.titulo}</h4>
         <div class="detail-grid">
           <div class="detail-cell"><span class="label">Situación Detonante</span><p>${d.situacion}</p></div>
-          <div class="detail-cell"><span class="label">Acción Inmediata Institucional</span><p>${d.accion}</p></div>
-          <div class="detail-cell"><span class="label">Actuación del Estudiante</span><p>${d.rolEstudiante}</p></div>
+          <div class="detail-cell"><span class="label">Acción Inmediata</span><p>${d.accion}</p></div>
+          <div class="detail-cell"><span class="label">Rol del Estudiante</span><p>${d.rol}</p></div>
         </div>
       `;
     }
@@ -980,7 +1057,7 @@
           { label: "Suspensión 250 mg / 5 mL", mg: 250, ml: 5, via: "Vía Oral (VO)" },
           { label: "Suspensión 500 mg / 5 mL", mg: 500, ml: 5, via: "Vía Oral (VO)" }
         ],
-        admin: "Agitar bien el frasco antes de medir con jeringa dosificadora oral. Puede administrarse con o sin alimentos. Mantener refrigerada la suspensión reconstituida según fabricante (desechar a los 7-14 días)."
+        admin: "Agitar bien el frasco antes de medir con jeringa dosificadora oral. Puede administrarse con o sin alimentos. Mantener refrigerada la suspensión reconstituida."
       },
       penicilina: {
         nombre: "Penicilina G Sódica Cristalina",
@@ -993,7 +1070,7 @@
           { label: "Frasco ámpula 1,000,000 UI reconstituido en 5 mL", mg: 1000000, ml: 5, via: "Intravenosa (IV)" },
           { label: "Frasco ámpula 5,000,000 UI reconstituido en 10 mL", mg: 5000000, ml: 10, via: "Intravenosa (IV)" }
         ],
-        admin: "Diluir la dosis calculada en Solución Salina 0.9% o Glucosada 5% (concentración habitual 50,000 – 100,000 UI/mL) e infundir en bomba durante 30 minutos. Vigilar reacciones de hipersensibilidad."
+        admin: "Diluir en Solución Salina 0.9% o Glucosada 5% e infundir en bomba durante 30 minutos. Vigilar reacciones de hipersensibilidad."
       },
       aciclovir: {
         nombre: "Aciclovir",
@@ -1006,7 +1083,7 @@
           { label: "Frasco ámpula IV 250 mg / 10 mL (25 mg/mL)", mg: 250, ml: 10, via: "Intravenosa (IV)" },
           { label: "Suspensión oral 200 mg / 5 mL", mg: 200, ml: 5, via: "Vía Oral (VO)" }
         ],
-        admin: "ALERTA DE COMPATIBILIDAD: Diluir vía IV SOLO en Solución Salina 0.9% a concentración ≤ 7 mg/mL e infundir lento en bomba durante mínimo 60 minutos para prevenir cristaluria y nefrotoxicidad. Asegurar hidratación adecuada."
+        admin: "COMPATIBILIDAD CRÍTICA: Diluir vía IV SOLO en Solución Salina 0.9% (≤ 7 mg/mL) e infundir lento en bomba durante mínimo 60 minutos para evitar nefrotoxicidad."
       },
       ibuprofeno: {
         nombre: "Ibuprofeno",
@@ -1019,7 +1096,7 @@
           { label: "Suspensión 100 mg / 5 mL (20 mg/mL)", mg: 100, ml: 5, via: "Vía Oral (VO)" },
           { label: "Gotas pediátricas 40 mg / 1 mL", mg: 40, ml: 1, via: "Vía Oral (VO)" }
         ],
-        admin: "Administrar por Vía Oral preferentemente acompañado de alimentos o leche para disminuir irritación gástrica. Evitar en menores de 6 meses, deshidratación severa o sospecha de dengue."
+        admin: "Administrar por Vía Oral acompañado de alimentos o leche. Evitar en menores de 6 meses, deshidratación severa o sospecha de dengue."
       },
       metamizol: {
         nombre: "Metamizol Sódico (Dipirona)",
@@ -1032,7 +1109,7 @@
           { label: "Ampolleta IV/IM 1 g (1000 mg) / 2 mL", mg: 1000, ml: 2, via: "Intravenosa (IV) / IM" },
           { label: "Jarabe / Gotas 250 mg / 5 mL", mg: 250, ml: 5, via: "Vía Oral (VO)" }
         ],
-        admin: "ALERTA PEDIÁTRICA: Verificar edad mínima autorizada. Vía IV debe pasar SIEMPRE diluido (en SF 0.9% o SG 5%) en bomba o microgotero lento (20–30 min); la administración rápida provoca hipotensión severa y choque."
+        admin: "ALERTA PEDIÁTRICA: Verificar edad mínima autorizada y pasar SIEMPRE diluido en bomba o microgotero lento (20–30 min) para evitar hipotensión severa."
       },
       paracetamol: {
         nombre: "Paracetamol (Acetaminofén)",
@@ -1046,11 +1123,11 @@
           { label: "Gotas pediátricas 100 mg / 1 mL", mg: 100, ml: 1, via: "Vía Oral (VO)" },
           { label: "Jarabe 160 mg / 5 mL (32 mg/mL)", mg: 160, ml: 5, via: "Vía Oral (VO)" }
         ],
-        admin: "En presentación IV (10 mg/mL) infundir en bomba durante 15 minutos; en niños < 10 kg usar jeringa de perfusión con volumen exacto para evitar sobredosis hepatotóxica."
+        admin: "En presentación IV (10 mg/mL) infundir en bomba durante 15 minutos; en niños < 10 kg usar jeringa de perfusión con volumen exacto."
       },
       dexametasona: {
         nombre: "Dexametasona",
-        rangoTexto: "0.15 – 0.6 mg/kg/dosis (Crup/vía aérea hasta 0.6 mg/kg dosis única)",
+        rangoTexto: "0.15 – 0.6 mg/kg/dosis (Crup hasta 0.6 mg/kg dosis única)",
         dosisDefault: 0.3,
         unidadDosis: "mg/kg/dosis",
         esDiaria: false,
@@ -1059,7 +1136,7 @@
           { label: "Ampolleta 8 mg / 2 mL (4 mg/mL)", mg: 8, ml: 2, via: "IV / IM" },
           { label: "Ampolleta 4 mg / 1 mL", mg: 4, ml: 1, via: "IV / IM" }
         ],
-        admin: "Diluir en Solución Salina 0.9% o Glucosada 5% e infundir lento en 15–30 minutos (la inyección IV rápida puede causar ardor perineal intenso). Para dosis < 1 mL medir con jeringa de tuberculina."
+        admin: "Diluir en SF 0.9% o SG 5% e infundir lento en 15–30 minutos. Para dosis < 1 mL medir con jeringa de tuberculina (1 mL)."
       },
       prednisolona: {
         nombre: "Prednisolona",
@@ -1072,11 +1149,11 @@
           { label: "Solución oral 1 mg / 1 mL", mg: 1, ml: 1, via: "Vía Oral (VO)" },
           { label: "Solución oral 15 mg / 5 mL (3 mg/mL)", mg: 15, ml: 5, via: "Vía Oral (VO)" }
         ],
-        admin: "Administrar por Vía Oral junto con alimentos o leche para proteger la mucosa gástrica. Si es dosis única diaria, ministrar preferentemente por la mañana."
+        admin: "Administrar por Vía Oral junto con alimentos o leche para proteger la mucosa gástrica."
       },
       adrenalina: {
         nombre: "Adrenalina (Epinefrina)",
-        rangoTexto: "Paro/RCP IV/IO: 0.01 mg/kg (0.1 mL/kg de 1:10,000) | Anafilaxia IM: 0.01 mg/kg (1:1,000)",
+        rangoTexto: "RCP IV/IO: 0.01 mg/kg (0.1 mL/kg de 1:10,000) | Anafilaxia IM: 0.01 mg/kg (1:1,000)",
         dosisDefault: 0.01,
         unidadDosis: "mg/kg/dosis",
         esDiaria: false,
@@ -1085,11 +1162,11 @@
           { label: "Dilución RCP 1:10,000 (1 mg en 10 mL SF = 0.1 mg/mL)", mg: 1, ml: 10, via: "Intravenosa (IV) / Intraósea (IO)" },
           { label: "Ampolleta pura 1:1,000 (1 mg / 1 mL) - Solo IM o Nebulizada", mg: 1, ml: 1, via: "Intramuscular (IM) / Nebulización" }
         ],
-        admin: "ALTO RIESGO — DOBLE VERIFICACIÓN: En RCP usar dilución 1:10,000 (0.1 mL/kg) en bolo IV/IO seguido de lavado con SF 0.9% (Regla SAS). En anafilaxia administrar IM en cara anterolateral del muslo sin diluir (1:1,000, máx. 0.3 mg en niños)."
+        admin: "DOBLE VERIFICACIÓN OBLIGATORIA: En RCP usar dilución 1:10,000 (0.1 mL/kg) en bolo IV/IO seguido de lavado con SF 0.9% (Regla SAS). En anafilaxia administrar IM en cara anterolateral del muslo sin diluir (1:1,000)."
       },
       loratadina: {
         nombre: "Loratadina",
-        rangoTexto: "0.2 mg/kg/día (2–5 años: 5 mg cada 24 h | ≥ 6 años: 10 mg cada 24 h)",
+        rangoTexto: "0.2 mg/kg/día (2–5 años: 5 mg c/24 h | ≥ 6 años: 10 mg c/24 h)",
         dosisDefault: 0.2,
         unidadDosis: "mg/kg/día",
         esDiaria: true,
@@ -1098,7 +1175,7 @@
           { label: "Jarabe 5 mg / 5 mL (1 mg/mL)", mg: 5, ml: 5, via: "Vía Oral (VO)" },
           { label: "Gotas pediátricas 1 mg / 1 mL", mg: 1, ml: 1, via: "Vía Oral (VO)" }
         ],
-        admin: "Administrar por Vía Oral cada 24 horas con o sin alimentos. No exceder 5 mg/día en niños menores de 6 años ni 10 mg/día en mayores."
+        admin: "Administrar por Vía Oral cada 24 horas con o sin alimentos. Máximo 5 mg/día en niños de 2 a 5 años."
       },
       omeprazol: {
         nombre: "Omeprazol",
@@ -1111,7 +1188,7 @@
           { label: "Frasco ámpula IV 40 mg en 10 mL de su diluyente (4 mg/mL)", mg: 40, ml: 10, via: "Intravenosa (IV)" },
           { label: "Suspensión / Cápsula con gránulos 2 mg / 1 mL", mg: 2, ml: 1, via: "Vía Oral (VO)" }
         ],
-        admin: "Vía IV: Reconstituir únicamente con su diluyente específico incluido, diluir en SF 0.9% o SG 5% e infundir lento en 20–30 minutos. Vía Oral: Administrar 30 minutos antes del primer alimento sin triturar microgránulos."
+        admin: "Vía IV: Reconstituir solo con su diluyente específico e infundir lento en 20–30 min. Vía Oral: Dar 30 minutos antes del desayuno sin triturar microgránulos."
       },
       ceftriaxona: {
         nombre: "Ceftriaxona",
@@ -1124,7 +1201,7 @@
           { label: "Frasco ámpula IV 1 g (1000 mg) reconstituido en 10 mL", mg: 1000, ml: 10, via: "Intravenosa (IV)" },
           { label: "Frasco ámpula IV 500 mg reconstituido en 5 mL", mg: 500, ml: 5, via: "Intravenosa (IV)" }
         ],
-        admin: "ALERTA LETAL EN NEONATOS: Contraindicada en neonatos que reciban o vayan a recibir soluciones con Calcio (ej. Hartmann o NPT) por riesgo de precipitación pulmonar/renal fatal. Infundir IV diluido en bomba durante 30 minutos."
+        admin: "ALERTA LETAL EN NEONATOS: Contraindicada en neonatos que reciban o vayan a recibir soluciones con Calcio (Hartmann o NPT). Infundir IV diluido en bomba durante 30 minutos."
       }
     };
 
@@ -1163,8 +1240,8 @@
 
       document.getElementById('calc-output').innerHTML = `
         <div style="display:flex; justify-content:space-between; flex-wrap:wrap; gap:0.5rem;">
-          <strong style="font-family:'Montserrat',sans-serif; color:var(--hepl-navy); font-size:1.05rem;">${med.nombre} · ${pres.via}</strong>
-          <span style="font-size:0.84rem; color:var(--hepl-blue); font-weight:700;">Referencia: ${med.rangoTexto}</span>
+          <strong style="font-family:'Montserrat',sans-serif; color:var(--navy-deep); font-size:1.05rem;">${med.nombre} · ${pres.via}</strong>
+          <span style="font-size:0.84rem; color:var(--royal-blue); font-weight:700;">Referencia: ${med.rangoTexto}</span>
         </div>
         <p style="font-size:0.88rem; color:var(--text-muted); margin-top:0.25rem;">${freqNote}</p>
         <div class="result-metrics">
@@ -1197,8 +1274,8 @@
           document.getElementById('hepl-posts-list').innerHTML = heplPosts.map((p, i) => `
             <article class="post-card">
               <div style="margin-bottom:0.45rem;">${p.tags.map(t => `<span class="tag-pill">${t}</span>`).join('')}</div>
-              <div style="font-size:0.82rem; font-weight:700; color:var(--hepl-blue); margin-bottom:0.3rem;">${p.fecha}</div>
-              <h3 style="font-size:1.18rem; color:var(--hepl-navy); margin-bottom:0.45rem;">${p.titulo}</h3>
+              <div style="font-size:0.82rem; font-weight:700; color:var(--royal-blue); margin-bottom:0.3rem;">${p.fecha}</div>
+              <h4 style="font-size:1.15rem; color:var(--navy-deep); margin-bottom:0.45rem;">${p.titulo}</h4>
               <p style="color:var(--text-muted); font-size:0.93rem;">${p.resumen}</p>
               <button class="btn-read" onclick="openHeplPost(${i})">Leer publicación</button>
             </article>
@@ -1222,7 +1299,6 @@
       document.getElementById('hepl-posts-list').style.display = 'block';
     }
 
-    // Inicializar componentes
     showIso('roja');
     showCode('azul');
     initCalculator();
