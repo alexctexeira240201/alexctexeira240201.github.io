@@ -3,452 +3,629 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Alex Daniel Castillo Texeira</title>
+  <title>Alex C. Texeira | Enfermería · Educación para la Salud · Arteterapia</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Montserrat:wght@800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   <style>
     :root {
-      --bg-mint: #eefaf0;
-      --blue-btn: #4a90d9;
-      --blue-card: #d9eafd;
-      --lilac-card: #ece3fc;
-      --pink-card: #fce4ec;
-      --text-dark: #0f172a;
+      --pastel-green: #e6f9e6;
+      --pastel-blue: #dcebf7;
+      --pastel-blue-deep: #4a90d9;
+      --pastel-lilac: #efe6fa;
+      --pastel-lilac-accent: #9b72cf;
+      --surface: #ffffff;
+      --text-main: #1e293b;
       --text-muted: #475569;
+      --border: #cbd5e1;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
       font-family: 'Inter', sans-serif;
-      background-color: var(--bg-mint);
-      color: var(--text-dark);
+      background-color: var(--pastel-green);
+      color: var(--text-main);
       line-height: 1.6;
     }
 
-    /* Navegación superior */
-    .main-nav {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 0.75rem;
-      padding: 1.35rem 1rem;
-      flex-wrap: wrap;
-    }
-    .nav-btn {
-      border: none;
-      background-color: #ffffff;
-      color: var(--text-dark);
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 800;
-      font-size: 0.82rem;
-      text-transform: uppercase;
-      padding: 0.7rem 1.55rem;
-      border-radius: 999px;
-      cursor: pointer;
-      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06);
-      transition: transform 0.15s, background-color 0.2s;
-      text-decoration: none;
-      display: inline-block;
-    }
-    .nav-btn:hover { transform: translateY(-2px); }
-    .nav-btn.active {
-      background-color: var(--blue-btn);
-      color: #ffffff;
-    }
-
-    .container {
-      max-width: 960px;
-      margin: 0 auto 3.5rem;
-      padding: 0 1.25rem;
-    }
-
-    .view-section { display: none; }
-    .view-section.active { display: block; }
-
-    /* Hero */
-    .hero-box {
+    .top-header {
+      background-color: var(--pastel-green);
       text-align: center;
-      padding: 1.75rem 1rem 2.5rem;
+      padding: 2.2rem 1rem 1.2rem;
     }
-    .hero-box h1 {
+    .top-header h1 {
       font-family: 'Montserrat', sans-serif;
       font-weight: 900;
       font-size: clamp(2rem, 5vw, 3.1rem);
-      line-height: 1.15;
-      margin-bottom: 0.65rem;
+      letter-spacing: 0.03em;
+      color: #0f172a;
+      text-transform: uppercase;
+      line-height: 1.1;
     }
-    .hero-box p {
-      font-size: 1.05rem;
-      color: var(--text-muted);
-      max-width: 680px;
-      margin: 0 auto 1.5rem;
-    }
-    .hero-banner {
-      width: 100%;
-      max-height: 360px;
-      object-fit: cover;
-      border-radius: 24px;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+    .top-header .subtitle {
+      font-weight: 700;
+      font-size: clamp(0.85rem, 2vw, 1.05rem);
+      letter-spacing: 0.08em;
+      color: #1e293b;
+      margin-top: 0.4rem;
     }
 
-    /* Secciones de Inicio */
-    .section-heading {
+    .main-nav {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      padding: 0.75rem 1rem 1.25rem;
+      background-color: var(--pastel-green);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+    }
+    .nav-btn {
+      background: rgba(255, 255, 255, 0.85);
+      border: 1px solid rgba(15, 23, 42, 0.12);
+      color: #0f172a;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 0.55rem 1.4rem;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .nav-btn:hover { background: var(--pastel-lilac); }
+    .nav-btn.active {
+      background: var(--pastel-blue-deep);
+      color: #ffffff;
+      border-color: var(--pastel-blue-deep);
+    }
+
+    .view-section { display: none; }
+    .view-section.active { display: block; animation: fadeIn 0.25s ease; }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+    .hero-banner {
+      background-color: var(--pastel-blue);
+      width: 100%;
+      min-height: 300px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .hero-banner img {
+      width: 100%;
+      max-height: 440px;
+      object-fit: cover;
+      display: block;
+    }
+    .hero-placeholder {
+      padding: 3rem 1.5rem;
+      text-align: center;
+      max-width: 720px;
+    }
+    .hero-placeholder p {
+      font-size: 1.1rem;
+      font-weight: 500;
+      color: #1e293b;
+    }
+
+    .band-title {
+      background-color: var(--pastel-green);
+      text-align: center;
+      padding: 1.15rem 1rem;
       font-family: 'Montserrat', sans-serif;
       font-weight: 900;
-      font-size: 1.45rem;
-      margin: 2rem 0 1.1rem;
-      color: var(--text-dark);
+      font-size: 1.35rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: #0f172a;
     }
+    .band-title.lilac { background-color: var(--pastel-lilac); }
 
-    .cards-grid {
+    .carousel-wrapper {
+      background-color: var(--pastel-blue);
+      padding: 2rem 1.25rem 2.5rem;
+    }
+    .carousel-wrapper.lilac-bg { background-color: var(--pastel-lilac); }
+    .carousel-container { max-width: 960px; margin: 0 auto; }
+    .carousel-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(275px, 1fr));
-      gap: 1.25rem;
+      grid-template-columns: 280px 1fr;
+      gap: 1.75rem;
+      align-items: stretch;
     }
-
-    .project-card, .post-preview {
-      background: #ffffff;
-      border-radius: 22px;
+    @media (max-width: 720px) {
+      .carousel-grid { grid-template-columns: 1fr; }
+    }
+    .carousel-img-box {
+      background-color: var(--pastel-green);
+      border-radius: 12px;
+      min-height: 240px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      border: 2px solid rgba(255,255,255,0.6);
+    }
+    .carousel-img-box img { width: 100%; height: 100%; object-fit: cover; }
+    .carousel-img-fallback {
       padding: 1.5rem;
-      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05);
+      text-align: center;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: 0.9rem;
+      color: #334155;
+    }
+    .carousel-right {
       display: flex;
       flex-direction: column;
       justify-content: space-between;
+      gap: 1rem;
     }
-    .project-card:nth-child(3n+1) { background-color: var(--blue-card); }
-    .project-card:nth-child(3n+2) { background-color: var(--lilac-card); }
-    .project-card:nth-child(3n+3) { background-color: var(--pink-card); }
-
-    .card-img {
-      width: 100%;
-      height: 170px;
-      object-fit: cover;
-      border-radius: 14px;
-      margin-bottom: 1rem;
+    .carousel-info-box {
+      background-color: var(--pastel-green);
+      border-radius: 12px;
+      padding: 1.5rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
     }
-    .card-kicker {
-      font-size: 0.78rem;
+    .carousel-wrapper.lilac-bg .carousel-info-box,
+    .carousel-wrapper.lilac-bg .carousel-img-box {
+      background-color: #ffffff;
+    }
+    .tags-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-bottom: 0.5rem;
+    }
+    .tag-badge {
+      display: inline-block;
+      font-size: 0.72rem;
       font-weight: 800;
       text-transform: uppercase;
-      color: var(--blue-btn);
-      margin-bottom: 0.3rem;
+      letter-spacing: 0.04em;
+      padding: 0.22rem 0.65rem;
+      border-radius: 999px;
+      background-color: var(--pastel-lilac);
+      color: #4c1d95;
     }
-    .project-card h3, .post-preview h3 {
+    .tag-badge.musa { background-color: #ede9fe; color: #6d28d9; }
+    .tag-badge.destacado { background-color: #dbeafe; color: #1d4ed8; }
+    .tag-badge.articulo { background-color: #dcfce7; color: #15803d; }
+
+    .carousel-info-box h3 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1.25rem;
+      font-weight: 800;
+      margin-bottom: 0.5rem;
+      color: #0f172a;
+    }
+    .carousel-info-box p { font-size: 0.95rem; color: var(--text-muted); }
+
+    .pill-cta {
+      display: block;
+      width: 100%;
+      background-color: var(--pastel-blue-deep);
+      color: #ffffff;
+      text-align: center;
+      text-decoration: none;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: 0.95rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      padding: 0.9rem 1.5rem;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.15s ease, background-color 0.2s ease;
+    }
+    .pill-cta:hover { background-color: #357abd; transform: translateY(-1px); }
+
+    .carousel-dots {
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-top: 1.25rem;
+    }
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: rgba(15, 23, 42, 0.25);
+      border: none;
+      cursor: pointer;
+    }
+    .dot.active {
+      background: var(--pastel-blue-deep);
+      width: 24px;
+      border-radius: 999px;
+    }
+
+    /* Conectemos */
+    .connect-section {
+      background-color: var(--pastel-green);
+      padding: 3.5rem 1.25rem;
+    }
+    .connect-container {
+      max-width: 720px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .connect-container h2 {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 1.6rem;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+    .social-row {
+      display: flex;
+      justify-content: center;
+      gap: 1.25rem;
+      margin: 1.75rem 0 2.5rem;
+    }
+    .social-icon-btn {
+      width: 54px;
+      height: 54px;
+      border-radius: 50%;
+      background: #ffffff;
+      border: 2px solid var(--pastel-lilac);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #0f172a;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    }
+    .social-icon-btn:hover { background: var(--pastel-lilac); transform: translateY(-3px); }
+    .social-icon-btn svg { width: 24px; height: 24px; fill: currentColor; }
+
+    .contact-card {
+      background: #ffffff;
+      border-radius: 16px;
+      padding: 2rem;
+      text-align: left;
+      border: 2px solid var(--pastel-blue);
+      box-shadow: 0 6px 20px rgba(15, 23, 42, 0.05);
+    }
+    .contact-card h3 {
       font-family: 'Montserrat', sans-serif;
       font-weight: 800;
       font-size: 1.15rem;
-      margin-bottom: 0.45rem;
-    }
-    .project-card p, .post-preview p {
-      font-size: 0.93rem;
-      color: var(--text-muted);
       margin-bottom: 1rem;
     }
-
-    .btn-pill-action {
-      display: inline-block;
-      align-self: flex-start;
-      background-color: var(--text-dark);
-      color: #ffffff;
-      text-decoration: none;
-      border: none;
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 800;
-      font-size: 0.78rem;
-      text-transform: uppercase;
-      padding: 0.65rem 1.25rem;
-      border-radius: 999px;
-      cursor: pointer;
+    .form-group { margin-bottom: 1rem; }
+    .form-group label { display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 0.35rem; }
+    .form-group input, .form-group textarea {
+      width: 100%;
+      padding: 0.75rem 0.9rem;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      font-family: inherit;
+      font-size: 0.95rem;
+      background: #f8fafc;
     }
 
     /* Blog completo */
-    .filter-bar {
+    .inner-page { max-width: 920px; margin: 2rem auto; padding: 0 1.25rem 3rem; }
+    .filter-tags-bar {
       display: flex;
       flex-wrap: wrap;
       gap: 0.5rem;
       margin-bottom: 1.5rem;
     }
-    .tag-btn {
-      border: none;
+    .cv-card {
       background: #ffffff;
-      padding: 0.45rem 1rem;
-      border-radius: 999px;
-      font-weight: 700;
-      font-size: 0.8rem;
-      cursor: pointer;
+      border-radius: 14px;
+      padding: 1.5rem;
+      margin-bottom: 1.25rem;
+      border: 2px solid var(--pastel-blue);
     }
-    .tag-btn.active {
-      background: var(--blue-btn);
-      color: #ffffff;
-    }
-    .tag-pill {
-      display: inline-block;
-      background: var(--bg-mint);
-      color: var(--text-dark);
-      font-size: 0.72rem;
-      font-weight: 800;
-      padding: 0.2rem 0.65rem;
-      border-radius: 999px;
-      margin-right: 0.35rem;
-      text-transform: uppercase;
-    }
-
-    .single-article {
-      background: #ffffff;
-      border-radius: 24px;
-      padding: 2rem;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
-    }
-    .single-article img {
-      width: 100%;
-      max-height: 380px;
-      object-fit: cover;
-      border-radius: 16px;
-      margin: 1rem 0 1.25rem;
-    }
-    .article-body {
-      font-size: 1rem;
-      line-height: 1.8;
-    }
-    .article-body p { margin-bottom: 1rem; }
+    .cv-card h3 { font-family: 'Montserrat', sans-serif; font-size: 1.15rem; font-weight: 800; }
+    .cv-meta { font-size: 0.85rem; font-weight: 700; color: var(--pastel-lilac-accent); margin: 0.25rem 0 0.6rem; }
 
     footer {
+      background-color: var(--pastel-blue);
       text-align: center;
-      padding: 1.75rem 1rem;
-      font-size: 0.86rem;
-      color: var(--text-muted);
+      padding: 1.25rem 1rem;
+      font-size: 0.85rem;
+      font-weight: 500;
     }
+    footer a { color: #0f172a; font-weight: 700; }
   </style>
 </head>
 <body>
 
-  <nav class="main-nav">
-    <button class="nav-btn active" onclick="showView('inicio', this)">Inicio</button>
-    <button class="nav-btn" onclick="showView('blog', this)">Blog</button>
-    <a href="sobre-mi.html" class="nav-btn">Sobre Mí</a>
-  </nav>
+  <header class="top-header">
+    <h1 id="site-title">ALEX C. TEXEIRA</h1>
+    <p class="subtitle" id="site-subtitle">Enfermería · Educación para la Salud · Arteterapia</p>
+  </header>
 
-  <main class="container">
-    <!-- VISTA INICIO -->
-    <section id="view-inicio" class="view-section active">
-      <div class="hero-box">
-        <h1 id="hero-title">Alex Daniel Castillo Texeira</h1>
-        <p id="hero-subtitle">Enfermería · Promoción y Educación para la Salud · Gestión y Proyectos</p>
-        <img id="hero-img" class="hero-banner" style="display:none;" alt="Portada" />
-        <p id="hero-fallback" style="display:none;"></p>
+ <nav class="main-nav">
+  <button class="nav-btn active" onclick="showView('inicio', this)">Inicio</button>
+  <button class="nav-btn" onclick="showView('blog', this)">Blog</button>
+  <a href="sobre-mi.html" class="nav-btn" style="text-decoration: none;">Sobre Mí</a>
+</nav>
+
+  <!-- VISTA 1: INICIO -->
+  <main id="view-inicio" class="view-section active">
+    <section class="hero-banner" id="hero-banner">
+      <div class="hero-placeholder">
+        <p id="hero-intro">Bienvenido a mi espacio profesional y creativo.</p>
       </div>
-
-      <h2 class="section-heading">Proyectos y Micrositios</h2>
-      <div class="cards-grid" id="projects-grid"></div>
-
-      <h2 class="section-heading">Publicaciones Recientes</h2>
-      <div class="cards-grid" id="home-posts-grid"></div>
     </section>
 
-    <!-- VISTA BLOG -->
-    <section id="view-blog" class="view-section">
-      <div id="blog-list-wrap">
-        <h2 class="section-heading" style="margin-top:0.5rem;">Blog y Bitácora</h2>
-        <div class="filter-bar" id="tag-filters"></div>
-        <div class="cards-grid" id="blog-posts-grid"></div>
+    <div class="band-title">DESTACADO</div>
+    <section class="carousel-wrapper">
+      <div class="carousel-container">
+        <div class="carousel-grid" id="blog-carousel-content"></div>
+        <div class="carousel-dots" id="blog-dots"></div>
       </div>
+    </section>
 
-      <div id="blog-reader-wrap" class="single-article" style="display:none;">
-        <button class="btn-pill-action" onclick="closeArticle()" style="margin-bottom:1.25rem;">← Volver al Blog</button>
-        <div id="reader-tags" style="margin-bottom:0.5rem;"></div>
-        <div id="reader-date" style="font-size:0.84rem; font-weight:700; color:var(--blue-btn); margin-bottom:0.35rem;"></div>
-        <h2 id="reader-title" style="font-family:'Montserrat',sans-serif; font-weight:900; font-size:1.65rem;"></h2>
-        <img id="reader-img" style="display:none;" alt="Portada artículo" />
-        <div id="reader-body" class="article-body"></div>
+    <div class="band-title lilac">PROYECTOS</div>
+    <section class="carousel-wrapper lilac-bg">
+      <div class="carousel-container">
+        <div class="carousel-grid" id="proj-carousel-content"></div>
+        <div class="carousel-dots" id="proj-dots"></div>
       </div>
     </section>
   </main>
 
+  <!-- VISTA 2: BLOG CON FILTRO POR TAGS -->
+  <section id="view-blog" class="view-section">
+    <div class="inner-page">
+      <div class="filter-tags-bar" id="blog-tag-filters"></div>
+      <div id="all-posts-list"></div>
+      <div id="single-post-view" class="cv-card" style="display:none;">
+        <button class="nav-btn" onclick="closeSinglePost()" style="margin-bottom:1rem;">← Volver al blog</button>
+        <div class="tags-list" id="sp-tags"></div>
+        <div class="cv-meta" id="sp-meta"></div>
+        <h2 id="sp-title" style="font-family:'Montserrat',sans-serif; margin-bottom:1rem;"></h2>
+        <img id="sp-img" style="width:100%; max-height:360px; object-fit:cover; border-radius:12px; margin-bottom:1.25rem; display:none;" />
+        <div id="sp-body" style="line-height:1.8;"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONECTEMOS -->
+  <section class="connect-section" id="conectemos">
+    <div class="connect-container">
+      <h2>CONECTEMOS</h2>
+      <p style="color: var(--text-muted); font-size: 0.95rem;">Encuéntrame en todas las redes como <strong>@alexctexeira</strong></p>
+      
+      <div class="social-row">
+        <a href="https://instagram.com/alexctexeira" target="_blank" rel="noopener" class="social-icon-btn" aria-label="Instagram" title="Instagram @alexctexeira">
+          <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+        </a>
+        <a href="https://tiktok.com/@alexctexeira" target="_blank" rel="noopener" class="social-icon-btn" aria-label="TikTok" title="TikTok @alexctexeira">
+          <svg viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/></svg>
+        </a>
+        <a href="https://facebook.com/alexctexeira" target="_blank" rel="noopener" class="social-icon-btn" aria-label="Facebook" title="Facebook @alexctexeira">
+          <svg viewBox="0 0 24 24"><path d="M22.675 0h-21.35c-.732 0-1.325.593-1.325 1.325v21.351c0 .731.593 1.324 1.325 1.324h11.495v-9.294h-3.128v-3.622h3.128v-2.671c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.622h-3.12v9.293h6.116c.73 0 1.323-.593 1.323-1.325v-21.35c0-.732-.593-1.325-1.325-1.325z"/></svg>
+        </a>
+        <a href="https://x.com/alexctexeira" target="_blank" rel="noopener" class="social-icon-btn" aria-label="X" title="X @alexctexeira">
+          <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        </a>
+      </div>
+
+      <div class="contact-card">
+        <h3>Envíame un mensaje directo</h3>
+        <form action="https://formsubmit.co/contacto@alexctexeira.com.mx" method="POST">
+          <input type="hidden" name="_subject" value="Nuevo mensaje desde alexctexeira.com.mx">
+          <input type="hidden" name="_captcha" value="false">
+          <div class="form-group">
+            <label for="sender-name">Tu nombre</label>
+            <input type="text" id="sender-name" name="name" required placeholder="Ej. Dra. Sofía Martínez">
+          </div>
+          <div class="form-group">
+            <label for="sender-email">Tu correo electrónico</label>
+            <input type="email" id="sender-email" name="email" required placeholder="tu@correo.com">
+          </div>
+          <div class="form-group">
+            <label for="sender-msg">Mensaje</label>
+            <textarea id="sender-msg" name="message" rows="4" required placeholder="Escribe aquí tu propuesta, consulta o saludo..."></textarea>
+          </div>
+          <button type="submit" class="pill-cta">Enviar correo</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
   <footer>
-    <p>Alex Daniel Castillo Texeira · León, Guanajuato, México</p>
+    <p>© 2026 Alex Daniel Castillo Texeira · León, Guanajuato, México · <a href="mailto:contacto@alexctexeira.com.mx">contacto@alexctexeira.com.mx</a></p>
   </footer>
 
   <script>
-    let allPosts = [];
-    let currentTag = 'TODOS';
+    let data = {};
+    let featuredPosts = [];
+    let blogIdx = 0;
+    let projIdx = 0;
 
-    const defaultProyectos = [
-      {
-        nombre: "MUSA · Arteterapia en Enfermería",
-        etiqueta: "Grupo Estudiantil · Universidad La Salle Bajío",
-        resumen: "Promoción y educación en salud a través de la arteterapia como intervención de enfermería.",
-        enlace: "musa.html"
-      },
-      {
-        nombre: "Manual de Integración Clínica HEPL",
-        etiqueta: "Hospital de Especialidades Pediátrico León",
-        resumen: "Guía operativa, de bioseguridad y calculadora pediátrica para estudiantes de enfermería.",
-        enlace: "hepl.html"
-      }
-    ];
-
-    function showView(viewName, btn) {
-      document.querySelectorAll('.view-section').forEach(s => s.classList.remove('active'));
-      document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-      document.getElementById('view-' + viewName).classList.add('active');
-      if (btn) btn.classList.add('active');
-      if (viewName === 'blog') closeArticle();
+    function normalizeTags(tags) {
+      if (!Array.isArray(tags)) return [];
+      return tags.map(t => t.trim().toUpperCase());
     }
 
-    async function loadSiteData() {
-      let projs = defaultProyectos;
-      try {
-        const res = await fetch('datos.json?v=' + Date.now());
-        if (res.ok) {
-          const data = await res.json();
-          if (data.inicio) {
-            if (data.inicio.tituloPrincipal) document.getElementById('hero-title').textContent = data.inicio.tituloPrincipal;
-            if (data.inicio.subtitulo) document.getElementById('hero-subtitle').textContent = data.inicio.subtitulo;
-            if (data.inicio.imagenHero) {
-              const img = document.getElementById('hero-img');
-              img.src = data.inicio.imagenHero;
-              img.style.display = 'block';
-            } else if (data.inicio.textoHero) {
-              const fb = document.getElementById('hero-fallback');
-              fb.textContent = data.inicio.textoHero;
-              fb.style.display = 'block';
-            }
-          }
-          if (Array.isArray(data.proyectos) && data.proyectos.length > 0) {
-            projs = data.proyectos;
-          }
-          allPosts = Array.isArray(data.blog) ? data.blog : [];
-        }
-      } catch (e) {
-        console.warn('Usando datos de respaldo en inicio:', e);
-      }
-
-      document.getElementById('projects-grid').innerHTML = projs.map(p => `
-        <article class="project-card">
-          <div>
-            ${p.imagen ? `<img src="${p.imagen}" class="card-img" alt="${p.nombre}">` : ''}
-            <div class="card-kicker">${p.etiqueta || 'Proyecto'}</div>
-            <h3>${p.nombre}</h3>
-            <p>${p.resumen || ''}</p>
-          </div>
-          <a href="${p.enlace || '#'}" class="btn-pill-action">Explorar</a>
-        </article>
-      `).join('');
-
-      renderHomePosts();
-      renderTagFilters();
-      renderBlogPosts('TODOS');
-    }
-
-    function renderHomePosts() {
-      const grid = document.getElementById('home-posts-grid');
-      if (allPosts.length === 0) {
-        grid.innerHTML = `<article class="post-preview"><p>Explora la pestaña <strong>Blog</strong> para ver las entradas publicadas.</p></article>`;
-        return;
-      }
-      const recent = allPosts.slice(0, 3);
-      grid.innerHTML = recent.map((p, idx) => `
-        <article class="post-preview">
-          <div>
-            ${p.imagen ? `<img src="${p.imagen}" class="card-img" alt="${p.titulo}">` : ''}
-            <div class="card-kicker">${p.fecha || ''}</div>
-            <h3>${p.titulo}</h3>
-            <p>${p.resumen || ''}</p>
-          </div>
-          <button class="btn-pill-action" onclick="openArticleFromHome(${idx})">Leer más</button>
-        </article>
-      `).join('');
-    }
-
-    function renderTagFilters() {
-      const tagSet = new Set(['TODOS']);
-      allPosts.forEach(p => {
-        if (Array.isArray(p.tags)) {
-          p.tags.forEach(t => tagSet.add(t.trim().toUpperCase()));
-        }
-      });
-
-      document.getElementById('tag-filters').innerHTML = Array.from(tagSet).map(t => `
-        <button class="tag-btn ${t === currentTag ? 'active' : ''}" onclick="filterByTag('${t}', this)">${t}</button>
-      `).join('');
-    }
-
-    function filterByTag(tag, btn) {
-      currentTag = tag;
-      document.querySelectorAll('.tag-btn').forEach(b => b.classList.remove('active'));
-      if (btn) btn.classList.add('active');
-      renderBlogPosts(tag);
-    }
-
-    function renderBlogPosts(tag) {
-      const filtered = tag === 'TODOS'
-        ? allPosts
-        : allPosts.filter(p => Array.isArray(p.tags) && p.tags.map(x => x.trim().toUpperCase()).includes(tag));
-
-      const grid = document.getElementById('blog-posts-grid');
-      if (filtered.length === 0) {
-        grid.innerHTML = `<article class="post-preview"><p>No hay publicaciones disponibles en este momento.</p></article>`;
-        return;
-      }
-
-      grid.innerHTML = filtered.map(p => {
-        const realIdx = allPosts.indexOf(p);
-        return `
-          <article class="post-preview">
-            <div>
-              ${p.imagen ? `<img src="${p.imagen}" class="card-img" alt="${p.titulo}">` : ''}
-              <div style="margin-bottom:0.45rem;">${(p.tags || []).map(t => `<span class="tag-pill">${t}</span>`).join('')}</div>
-              <div class="card-kicker">${p.fecha || ''}</div>
-              <h3>${p.titulo}</h3>
-              <p>${p.resumen || ''}</p>
-            </div>
-            <button class="btn-pill-action" onclick="openArticle(${realIdx})">Leer artículo</button>
-          </article>
-        `;
+    function renderTagBadges(tags) {
+      return normalizeTags(tags).map(t => {
+        let cls = 'tag-badge';
+        if (t === 'MUSA') cls += ' musa';
+        if (t === 'DESTACADO') cls += ' destacado';
+        if (t === 'ARTÍCULO' || t === 'ARTICULO') cls += ' articulo';
+        return `<span class="${cls}">${t}</span>`;
       }).join('');
     }
 
-    function openArticleFromHome(idx) {
-      const blogBtn = document.querySelectorAll('.nav-btn')[1];
-      showView('blog', blogBtn);
-      openArticle(idx);
+    async function initSite() {
+      const res = await fetch('datos.json?v=' + Date.now());
+      data = await res.json();
+
+      document.getElementById('site-title').textContent = data.inicio.tituloPrincipal;
+      document.getElementById('site-subtitle').textContent = data.inicio.subtitulo;
+
+      if (data.inicio.imagenHero) {
+        document.getElementById('hero-banner').innerHTML = `<img src="${data.inicio.imagenHero}" alt="Portada Alex C. Texeira">`;
+      } else {
+        document.getElementById('hero-intro').textContent = data.inicio.textoHero;
+      }
+
+      featuredPosts = data.blog.filter(p => normalizeTags(p.tags).includes('DESTACADO'));
+      if (featuredPosts.length === 0) featuredPosts = data.blog;
+
+      renderBlogCarousel();
+      renderProjCarousel();
+      renderBlogFilters();
+      renderFullBlog('TODOS');
+
+      if (featuredPosts.length > 1) {
+        setInterval(() => { blogIdx = (blogIdx + 1) % featuredPosts.length; renderBlogCarousel(); }, 15000);
+      }
+      if (data.proyectos.length > 1) {
+        setInterval(() => { projIdx = (projIdx + 1) % data.proyectos.length; renderProjCarousel(); }, 15000);
+      }
     }
 
-    function openArticle(idx) {
-      const p = allPosts[idx];
-      if (!p) return;
-      document.getElementById('blog-list-wrap').style.display = 'none';
-      document.getElementById('reader-tags').innerHTML = (p.tags || []).map(t => `<span class="tag-pill">${t}</span>`).join('');
-      document.getElementById('reader-date').textContent = p.fecha || '';
-      document.getElementById('reader-title').textContent = p.titulo;
-      const img = document.getElementById('reader-img');
-      if (p.imagen) {
-        img.src = p.imagen;
-        img.style.display = 'block';
-      } else {
-        img.style.display = 'none';
+    function renderBlogCarousel() {
+      const post = featuredPosts[blogIdx];
+      if (!post) return;
+      const originalIndex = data.blog.indexOf(post);
+      document.getElementById('blog-carousel-content').innerHTML = `
+        <div class="carousel-img-box">
+          ${post.imagen ? `<img src="${post.imagen}" alt="${post.titulo}">` : `<div class="carousel-img-fallback">DESTACADO</div>`}
+        </div>
+        <div class="carousel-right">
+          <div class="carousel-info-box">
+            <div class="tags-list">${renderTagBadges(post.tags)}</div>
+            <h3>${post.titulo}</h3>
+            <p>${post.resumen}</p>
+          </div>
+          <button class="pill-cta" onclick="openPostFromHome(${originalIndex})">LEER</button>
+        </div>
+      `;
+      document.getElementById('blog-dots').innerHTML = featuredPosts.map((_, i) =>
+        `<button class="dot ${i === blogIdx ? 'active' : ''}" onclick="setBlogSlide(${i})"></button>`
+      ).join('');
+    }
+
+    function setBlogSlide(i) { blogIdx = i; renderBlogCarousel(); }
+
+    function renderProjCarousel() {
+      const proj = data.proyectos[projIdx];
+      if (!proj) return;
+      document.getElementById('proj-carousel-content').innerHTML = `
+        <div class="carousel-img-box">
+          ${proj.imagen ? `<img src="${proj.imagen}" alt="${proj.nombre}">` : `<div class="carousel-img-fallback">${proj.nombre}</div>`}
+        </div>
+        <div class="carousel-right">
+          <div class="carousel-info-box">
+            <div class="tags-list"><span class="tag-badge musa">${proj.etiqueta}</span></div>
+            <h3>${proj.nombre}</h3>
+            <p>${proj.resumen}</p>
+          </div>
+          <a href="${proj.enlace}" class="pill-cta">CONOCER MÁS</a>
+        </div>
+      `;
+      document.getElementById('proj-dots').innerHTML = data.proyectos.map((_, i) =>
+        `<button class="dot ${i === projIdx ? 'active' : ''}" onclick="setProjSlide(${i})"></button>`
+      ).join('');
+    }
+
+    function setProjSlide(i) { projIdx = i; renderProjCarousel(); }
+
+    function renderBlogFilters() {
+      const baseTags = ['TODOS', 'DESTACADO', 'MUSA', 'ARTÍCULO', 'POST'];
+      const dynamicTags = new Set(baseTags);
+      data.blog.forEach(p => normalizeTags(p.tags).forEach(t => dynamicTags.add(t)));
+
+      document.getElementById('blog-tag-filters').innerHTML = Array.from(dynamicTags).map(tag => `
+        <button class="nav-btn ${tag === 'TODOS' ? 'active' : ''}" onclick="filterBlogByTag('${tag}', this)">${tag}</button>
+      `).join('');
+    }
+
+    function filterBlogByTag(tag, btn) {
+      document.querySelectorAll('#blog-tag-filters .nav-btn').forEach(b => b.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+      closeSinglePost();
+      renderFullBlog(tag);
+    }
+
+    function renderFullBlog(filterTag) {
+      const list = data.blog.map((p, idx) => ({ p, idx })).filter(({ p }) => {
+        if (filterTag === 'TODOS') return true;
+        return normalizeTags(p.tags).includes(filterTag);
+      });
+
+      if (list.length === 0) {
+        document.getElementById('all-posts-list').innerHTML = `<div class="cv-card"><p>Aún no hay publicaciones etiquetadas con <strong>${filterTag}</strong>.</p></div>`;
+        return;
       }
-      document.getElementById('reader-body').innerHTML = marked.parse(p.contenido || '');
-      document.getElementById('blog-reader-wrap').style.display = 'block';
+
+      document.getElementById('all-posts-list').innerHTML = list.map(({ p, idx }) => `
+        <article class="cv-card">
+          <div class="tags-list">${renderTagBadges(p.tags)}</div>
+          <div class="cv-meta">${p.fecha}</div>
+          <h3>${p.titulo}</h3>
+          <p style="margin:0.6rem 0 1rem; color:var(--text-muted);">${p.resumen}</p>
+          <button class="nav-btn active" onclick="openSinglePost(${idx})">Leer publicación completa</button>
+        </article>
+      `).join('');
+    }
+
+    function openPostFromHome(i) {
+      showView('blog', document.querySelectorAll('.main-nav .nav-btn')[1]);
+      openSinglePost(i);
+    }
+
+    function openSinglePost(i) {
+      const p = data.blog[i];
+      document.getElementById('all-posts-list').style.display = 'none';
+      document.getElementById('blog-tag-filters').style.display = 'none';
+      document.getElementById('sp-tags').innerHTML = renderTagBadges(p.tags);
+      document.getElementById('sp-meta').textContent = p.fecha;
+      document.getElementById('sp-title').textContent = p.titulo;
+      const img = document.getElementById('sp-img');
+      if (p.imagen) { img.src = p.imagen; img.style.display = 'block'; } else { img.style.display = 'none'; }
+      document.getElementById('sp-body').innerHTML = marked.parse(p.contenido);
+      document.getElementById('single-post-view').style.display = 'block';
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    function closeArticle() {
-      document.getElementById('blog-reader-wrap').style.display = 'none';
-      document.getElementById('blog-list-wrap').style.display = 'block';
+    function closeSinglePost() {
+      document.getElementById('single-post-view').style.display = 'none';
+      document.getElementById('all-posts-list').style.display = 'block';
+      document.getElementById('blog-tag-filters').style.display = 'flex';
     }
 
-    (function checkInitialView() {
-      const params = new URLSearchParams(window.location.search);
-      if (params.get('vista') === 'blog') {
-        const blogBtn = document.querySelectorAll('.nav-btn')[1];
-        if (blogBtn) showView('blog', blogBtn);
-      }
-    })();
+    function showView(viewName, btn) {
+      document.querySelectorAll('.view-section').forEach(v => v.classList.remove('active'));
+      document.querySelectorAll('.main-nav .nav-btn').forEach(b => b.classList.remove('active'));
+      document.getElementById('view-' + viewName).classList.add('active');
+      if (btn) btn.classList.add('active');
+      if (viewName === 'blog') closeSinglePost();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
 
-    loadSiteData();
+    initSite();
+    (function abrirBlogDirecto() {
+  const params = new URLSearchParams(window.location.search);
+  if (params.get('vista') === 'blog') {
+    const botones = document.querySelectorAll('.nav-btn');
+    if (typeof showView === 'function' && botones[1]) {
+      showView('blog', botones[1]);
+    }
+  }
+})();
   </script>
 </body>
 </html>
