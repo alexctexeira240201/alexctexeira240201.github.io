@@ -13,7 +13,6 @@
       --navy-deep: #17224d;
       --royal-blue: #27387a;
       --sky-pill: #38b6ff;
-      --sky-hover: #1ea1ed;
       --ice-blue: #b8d0eb;
       --white: #ffffff;
       --text-dark: #141e30;
@@ -29,7 +28,7 @@
       overflow-x: hidden;
     }
 
-    /* PANTALLA DE BLOQUEO */
+    /* BLOQUEO POR CONTRASEÑA / QR */
     #lock-screen {
       position: fixed;
       inset: 0;
@@ -106,16 +105,27 @@
     }
 
     #app-content { display: none; }
-
     .section-inner { max-width: 960px; margin: 0 auto; }
-    .wave-divider { display: block; width: 100%; line-height: 0; }
-    .wave-divider svg { display: block; width: 100%; height: 46px; }
+
+    .wave-divider {
+      display: block;
+      width: 100%;
+      line-height: 0;
+      font-size: 0;
+      margin: -1px 0;
+    }
+    .wave-divider svg {
+      display: block;
+      width: 100%;
+      height: 52px;
+      shape-rendering: geometricPrecision;
+    }
 
     /* 1. HERO AZUL MARINO */
     .hero-section {
       background-color: var(--navy-deep);
       color: #ffffff;
-      padding: 3.5rem 1.5rem 2rem;
+      padding: 3.5rem 1.5rem 1.75rem;
     }
     .hero-section h1 {
       font-family: 'Montserrat', sans-serif;
@@ -134,7 +144,7 @@
     .welcome-section {
       background-color: #ffffff;
       color: var(--navy-deep);
-      padding: 2.25rem 1.5rem 2rem;
+      padding: 2rem 1.5rem 1.75rem;
     }
     .welcome-section h2 {
       font-family: 'Montserrat', sans-serif;
@@ -144,10 +154,10 @@
     }
     .welcome-section p { font-size: 1.02rem; color: #27364f; max-width: 820px; }
 
-    /* 3. EXPLORAR (AZUL CLARO #b8d0eb) */
+    /* 3. FRANJA AZUL CLARO: EXPLORAR + CONOCE AL HEPL / MÓDULO ACTIVO */
     .explore-section {
       background-color: var(--ice-blue);
-      padding: 2.5rem 1.5rem 2.75rem;
+      padding: 2.25rem 1.5rem 2.75rem;
     }
     .explore-section h2 {
       font-family: 'Montserrat', sans-serif;
@@ -163,7 +173,7 @@
       flex-wrap: wrap;
       justify-content: center;
       gap: 0.75rem;
-      margin-bottom: 1.75rem;
+      margin-bottom: 1.85rem;
     }
     .explore-btn {
       border: none;
@@ -184,13 +194,55 @@
       color: #ffffff;
     }
 
-    /* Workspace Interactivo de Explorar */
+    /* Introducción inicial: CONOCE AL HEPL (visible hasta pulsar un botón) */
+    .conoce-intro {
+      max-width: 820px;
+      margin: 0 auto;
+      text-align: left;
+    }
+    .conoce-intro h3 {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: clamp(1.65rem, 3.8vw, 2.15rem);
+      text-align: center;
+      text-transform: uppercase;
+      color: var(--navy-deep);
+      margin-bottom: 1.1rem;
+    }
+    .conoce-intro p {
+      font-size: 1.02rem;
+      color: #1e293b;
+      margin-bottom: 1rem;
+    }
+
+    /* Contenedor interactivo (oculto hasta pulsar un botón de EXPLORAR) */
     .workspace-card {
+      display: none;
       background-color: #ffffff;
       border-radius: 20px;
       padding: 1.85rem;
       box-shadow: 0 10px 28px rgba(23, 34, 77, 0.12);
     }
+    .workspace-card.visible { display: block; }
+
+    .workspace-topbar {
+      display: flex;
+      justify-content: flex-end;
+      margin-bottom: 0.75rem;
+    }
+    .btn-back-conoce {
+      background: #e2e8f0;
+      color: var(--navy-deep);
+      border: none;
+      border-radius: 999px;
+      padding: 0.4rem 0.95rem;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: 0.74rem;
+      text-transform: uppercase;
+      cursor: pointer;
+    }
+
     .exp-panel { display: none; }
     .exp-panel.active { display: block; }
 
@@ -199,8 +251,7 @@
       flex-wrap: wrap;
       gap: 0.5rem;
       margin-bottom: 1.35rem;
-      border-bottom: 2px solid #e2e8f0;
-      padding-bottom: 0.85rem;
+      padding-bottom: 0.75rem;
     }
     .subtab-btn {
       border: 1.5px solid #cbd5e1;
@@ -221,7 +272,6 @@
     .subpanel { display: none; }
     .subpanel.active { display: block; }
 
-    /* Tarjetas interactivas de Seguridad */
     .interactive-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -300,7 +350,6 @@
       padding: 1.25rem;
     }
 
-    /* Códigos y Aislamientos */
     .color-selector {
       display: flex;
       flex-wrap: wrap;
@@ -358,7 +407,7 @@
     }
     .detail-cell p { font-size: 0.89rem; color: var(--text-dark); }
 
-    /* Farmacología Completa */
+    /* Farmacología */
     .pending-banner {
       background: #eff6ff;
       border: 1.5px dashed var(--royal-blue);
@@ -455,51 +504,26 @@
 
     .hoja-box {
       background: #ffffff;
-      border: 2px dashed #64748b;
+      border: 2px dashed #94a3b8;
       border-radius: 12px;
       padding: 1rem 1.15rem;
-      font-family: 'Inter', sans-serif;
     }
-    .hoja-pill-tag {
-      display: inline-block;
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 900;
-      font-size: 0.75rem;
-      padding: 0.2rem 0.65rem;
-      border-radius: 6px;
-      margin-bottom: 0.45rem;
+    .hoja-text-red {
+      color: #dc2626;
+      font-weight: 800;
+      font-size: 0.94rem;
     }
-    .hoja-line {
-      font-size: 0.92rem;
+    .hoja-text-normal {
       color: var(--text-dark);
       font-weight: 600;
+      font-size: 0.94rem;
     }
 
-    /* 4. CONOCE AL HEPL (AZUL MARINO) */
-    .conoce-section {
+    /* 4. OBTÉN EL MANUAL COMPLETO (AZUL MARINO) */
+    .download-section {
       background-color: var(--navy-deep);
       color: #ffffff;
-      padding: 2.5rem 1.5rem 3rem;
-    }
-    .conoce-section h2 {
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 900;
-      font-size: clamp(1.65rem, 3.8vw, 2.2rem);
-      text-align: center;
-      text-transform: uppercase;
-      margin-bottom: 1.15rem;
-    }
-    .conoce-section p {
-      font-size: 1.02rem;
-      color: rgba(255, 255, 255, 0.92);
-      max-width: 820px;
-      margin: 0 auto 1rem;
-    }
-
-    /* 5. OBTÉN EL MANUAL COMPLETO (AZUL CLARO #b8d0eb) */
-    .download-section {
-      background-color: var(--ice-blue);
-      padding: 2.5rem 1.5rem 2.75rem;
+      padding: 2.35rem 1.5rem 2.5rem;
       text-align: center;
     }
     .download-section h2 {
@@ -507,11 +531,10 @@
       font-weight: 900;
       font-size: clamp(1.65rem, 3.8vw, 2.2rem);
       text-transform: uppercase;
-      color: var(--navy-deep);
       margin-bottom: 0.35rem;
     }
     .download-section p {
-      color: #1e293b;
+      color: rgba(255, 255, 255, 0.9);
       font-weight: 600;
       margin-bottom: 1.4rem;
     }
@@ -531,7 +554,7 @@
       text-transform: uppercase;
       padding: 0.85rem 1.6rem;
       border-radius: 999px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
     }
     .pill-white {
       background-color: #ffffff;
@@ -543,25 +566,39 @@
       text-transform: uppercase;
       padding: 0.85rem 1.6rem;
       border-radius: 999px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
     }
 
-    /* 6. FOOTER / CRÉDITOS */
+    /* 5. FOOTER CON FOTO DE URGENCIAS Y CRÉDITOS */
     .footer-credits {
       background-color: #ffffff;
       color: var(--navy-deep);
       text-align: center;
-      padding: 1.5rem 1rem;
+    }
+    .footer-urgencias-img {
+      width: 100%;
+      max-height: 280px;
+      object-fit: cover;
+      display: block;
+    }
+    .footer-names {
+      padding: 1.25rem 1rem 1.65rem;
       font-size: 0.88rem;
-      font-weight: 700;
-      line-height: 1.55;
-      border-top: 6px solid var(--navy-deep);
+      font-weight: 800;
+      line-height: 1.5;
+      color: var(--navy-deep);
+    }
+    .footer-names small {
+      display: block;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin-top: 0.2rem;
     }
   </style>
 </head>
 <body>
 
-  <!-- PANTALLA DE BLOQUEO -->
+  <!-- BLOQUEO -->
   <div id="lock-screen">
     <div class="lock-card">
       <span class="lock-badge">ACCESO RESTRINGIDO · HEPL</span>
@@ -573,7 +610,7 @@
     </div>
   </div>
 
-  <!-- CONTENIDO COMPLETO -->
+  <!-- CONTENIDO -->
   <div id="app-content">
     <!-- 1. HERO -->
     <header class="hero-section">
@@ -583,10 +620,10 @@
       </div>
     </header>
 
-    <!-- Onda Azul Marino -> Blanco -->
+    <!-- ONDA AZUL MARINO -> BLANCO -->
     <div class="wave-divider" style="background-color: #17224d;">
       <svg viewBox="0 0 1440 70" preserveAspectRatio="none">
-        <path fill="#ffffff" d="M0,45 C360,0 1080,75 1440,25 L1440,70 L0,70 Z"></path>
+        <path fill="#ffffff" d="M0,45 C360,0 1080,75 1440,25 L1440,72 L0,72 Z"></path>
       </svg>
     </div>
 
@@ -599,64 +636,73 @@
       </div>
     </section>
 
-    <!-- Onda Blanco -> Azul Claro -->
+    <!-- ONDA BLANCO -> AZUL CLARO -->
     <div class="wave-divider" style="background-color: #ffffff;">
       <svg viewBox="0 0 1440 70" preserveAspectRatio="none">
-        <path fill="#b8d0eb" d="M0,25 C420,75 1020,0 1440,45 L1440,70 L0,70 Z"></path>
+        <path fill="#b8d0eb" d="M0,25 C420,75 1020,0 1440,45 L1440,72 L0,72 Z"></path>
       </svg>
     </div>
 
-    <!-- 3. EXPLORAR -->
+    <!-- 3. EXPLORAR + CONOCE AL HEPL (INICIAL) / MÓDULO SELECCIONADO -->
     <section class="explore-section">
       <div class="section-inner">
         <h2>Explorar</h2>
 
         <div class="explore-pills">
-          <button class="explore-btn active" onclick="switchExplore('seguridad', this)">Seguridad</button>
-          <button class="explore-btn" onclick="switchExplore('codigos', this)">Códigos de emergencia</button>
-          <button class="explore-btn" onclick="switchExplore('aislamientos', this)">Aislamientos</button>
-          <button class="explore-btn" onclick="switchExplore('farmacologia', this)">Farmacología</button>
+          <button class="explore-btn" id="btn-seguridad" onclick="selectExplore('seguridad', this)">Seguridad</button>
+          <button class="explore-btn" id="btn-codigos" onclick="selectExplore('codigos', this)">Códigos de emergencia</button>
+          <button class="explore-btn" id="btn-aislamientos" onclick="selectExplore('aislamientos', this)">Aislamientos</button>
+          <button class="explore-btn" id="btn-farmacologia" onclick="selectExplore('farmacologia', this)">Farmacología</button>
         </div>
 
-        <div class="workspace-card">
-          <!-- PANEL SEGURIDAD (INTERACTIVO) -->
-          <div id="panel-seguridad" class="exp-panel active">
+        <!-- SE MUESTRA ANTES DE APRETAR CUALQUIER BOTÓN -->
+        <div id="conoce-intro" class="conoce-intro">
+          <h3>Conoce al HEPL</h3>
+          <p>El Hospital de Especialidades Pediátrico León es el <strong>ÚNICO EN PEDIATRÍA EN EL ESTADO DE GTO</strong>. Formar parte de esta institución es un privilegio y un paso decisivo en tu desarrollo profesional.</p>
+          <p>En el HEPL brindamos atención especializada a nuestros pacientes pediátricos con necesidades de su especialidad por lo cual nuestra exigencia académica, clínica y disciplinaria es máxima.</p>
+        </div>
+
+        <!-- SE MUESTRA AL APRETAR CUALQUIER BOTÓN -->
+        <div id="workspace-card" class="workspace-card">
+          <div class="workspace-topbar">
+            <button class="btn-back-conoce" onclick="resetToConoce()">Ver Conoce al HEPL</button>
+          </div>
+
+          <!-- SEGURIDAD -->
+          <div id="panel-seguridad" class="exp-panel">
             <div class="subtabs">
               <button class="subtab-btn active" onclick="switchSubtab('momentos', this)">5 Momentos de Lavado</button>
               <button class="subtab-btn" onclick="switchSubtab('correctos', this)">Los 5 Correctos</button>
               <button class="subtab-btn" onclick="switchSubtab('aesp', this)">8 Acciones Esenciales (AESP)</button>
             </div>
 
-            <!-- 5 Momentos interactivos -->
             <div id="sub-momentos" class="subpanel active">
               <p style="font-size:0.92rem; color:var(--text-muted); margin-bottom:0.75rem;">
-                Toca cada momento para marcarlo como verificado en tu práctica clínica (<strong id="momentos-count">0 / 5</strong> completados).
+                Toca cada momento para marcarlo como verificado (<strong id="momentos-count">0 / 5</strong> completados).
               </p>
               <div class="interactive-grid" id="momentos-grid"></div>
             </div>
 
-            <!-- 5 Correctos interactivos -->
             <div id="sub-correctos" class="subpanel">
               <p style="font-size:0.92rem; color:var(--text-muted); margin-bottom:0.75rem;">
-                Toca cada correcto para confirmar su verificación antes de administrar (<strong id="correctos-count">0 / 5</strong> verificados).
+                Toca cada correcto para confirmar su verificación (<strong id="correctos-count">0 / 5</strong> verificados).
               </p>
               <div class="interactive-grid" id="correctos-grid"></div>
             </div>
 
-            <!-- 8 AESP interactivos -->
             <div id="sub-aesp" class="subpanel">
               <p style="font-size:0.92rem; color:var(--text-muted); margin-bottom:0.75rem;">
-                Selecciona cualquiera de las 8 Acciones Esenciales para consultar su aplicación en el HEPL:
+                Selecciona cualquiera de las 8 Acciones Esenciales:
               </p>
               <div class="aesp-selector" id="aesp-pills"></div>
               <div class="aesp-detail-box" id="aesp-detail"></div>
             </div>
           </div>
 
-          <!-- PANEL CÓDIGOS DE EMERGENCIA -->
+          <!-- CÓDIGOS DE EMERGENCIA -->
           <div id="panel-codigos" class="exp-panel">
             <h3 style="font-family:'Montserrat',sans-serif; font-weight:900; color:var(--navy-deep); margin-bottom:0.35rem;">Códigos de Emergencia Intrahospitalaria</h3>
-            <p style="font-size:0.92rem; color:var(--text-muted); margin-bottom:1rem;">Selecciona un código para ver la situación detonante, la acción inmediata y tu rol.</p>
+            <p style="font-size:0.92rem; color:var(--text-muted); margin-bottom:1rem;">Selecciona un código para ver detonante, acción inmediata y rol del estudiante.</p>
             <div class="color-selector">
               <button class="color-pill active" onclick="showCode('azul', this)"><span class="dot" style="background:#2563eb;"></span>Código Azul</button>
               <button class="color-pill" onclick="showCode('oro', this)"><span class="dot" style="background:#eab308;"></span>Código Oro / Pediátrico</button>
@@ -672,7 +718,7 @@
             <div id="code-content" class="detail-panel"></div>
           </div>
 
-          <!-- PANEL AISLAMIENTOS -->
+          <!-- AISLAMIENTOS -->
           <div id="panel-aislamientos" class="exp-panel">
             <h3 style="font-family:'Montserrat',sans-serif; font-weight:900; color:var(--navy-deep); margin-bottom:0.35rem;">Precauciones Basadas en la Transmisión</h3>
             <p style="font-size:0.92rem; color:var(--text-muted); margin-bottom:1rem;">Elige el color de tarjeta para consultar vía de transmisión, EPP y soporte.</p>
@@ -686,7 +732,7 @@
             <div id="iso-content" class="detail-panel"></div>
           </div>
 
-          <!-- PANEL FARMACOLOGÍA -->
+          <!-- FARMACOLOGÍA -->
           <div id="panel-farmacologia" class="exp-panel">
             <div class="pending-banner">
               <strong>Ficha farmacológica pendiente de validación:</strong> La información teórica detallada se encuentra pendiente de revisión y validación con la Jefatura de Enseñanza e Investigación.
@@ -717,30 +763,14 @@
       </div>
     </section>
 
-    <!-- Onda Azul Claro -> Azul Marino -->
+    <!-- ONDA AZUL CLARO -> AZUL MARINO -->
     <div class="wave-divider" style="background-color: #b8d0eb;">
       <svg viewBox="0 0 1440 70" preserveAspectRatio="none">
-        <path fill="#17224d" d="M0,25 C420,75 1020,0 1440,45 L1440,70 L0,70 Z"></path>
+        <path fill="#17224d" d="M0,25 C420,75 1020,0 1440,45 L1440,72 L0,72 Z"></path>
       </svg>
     </div>
 
-    <!-- 4. CONOCE AL HEPL -->
-    <section class="conoce-section">
-      <div class="section-inner">
-        <h2>Conoce al HEPL</h2>
-        <p>El Hospital de Especialidades Pediátrico León es el <strong>ÚNICO EN PEDIATRÍA EN EL ESTADO DE GTO</strong>. Formar parte de esta institución es un privilegio y un paso decisivo en tu desarrollo profesional.</p>
-        <p>En el HEPL brindamos atención especializada a nuestros pacientes pediátricos con necesidades de su especialidad por lo cual nuestra exigencia académica, clínica y disciplinaria es máxima.</p>
-      </div>
-    </section>
-
-    <!-- Onda Azul Marino -> Azul Claro -->
-    <div class="wave-divider" style="background-color: #17224d;">
-      <svg viewBox="0 0 1440 70" preserveAspectRatio="none">
-        <path fill="#b8d0eb" d="M0,45 C360,0 1080,75 1440,25 L1440,70 L0,70 Z"></path>
-      </svg>
-    </div>
-
-    <!-- 5. OBTÉN EL MANUAL COMPLETO -->
+    <!-- 4. OBTÉN EL MANUAL COMPLETO -->
     <section class="download-section">
       <div class="section-inner">
         <h2>Obtén el Manual Completo</h2>
@@ -756,17 +786,19 @@
       </div>
     </section>
 
-    <!-- 6. CRÉDITOS -->
+    <!-- 5. PIE CON IMAGEN DE URGENCIAS Y CRÉDITOS -->
     <footer class="footer-credits">
-      Elaboró:<br>
-      Castillo Texeira Alex Daniel<br>
-      Silva Huerta Lizbeth Guadalupe<br>
-      Licenciatura en Enfermería · Universidad La Salle Bajío
+      <img id="hepl-urgencias-img" src="img/urgencias-hepl.jpg" alt="Urgencias Hospital de Especialidades Pediátrico León" class="footer-urgencias-img" onerror="this.style.display='none'" />
+      <div class="footer-names">
+        Elaboró:<br>
+        Castillo Texeira Alex Daniel<br>
+        Silva Huerta Lizbeth Guadalupe
+        <small>Estudiantes de Licenciatura en Enfermería · Universidad La Salle Bajío</small>
+      </div>
     </footer>
   </div>
 
   <script>
-    /* --- ACCESO CON QR + CONTRASEÑA --- */
     const CLAVE_HEPL = "HEPL2026";
     function unlockPage() {
       document.getElementById('lock-screen').style.display = 'none';
@@ -792,12 +824,19 @@
       if (sessionStorage.getItem('hepl_auth') === 'ok') unlockPage();
     })();
 
-    /* --- NAVEGACIÓN PRINCIPAL DE EXPLORAR --- */
-    function switchExplore(panelKey, btn) {
-      document.querySelectorAll('.exp-panel').forEach(p => p.classList.remove('active'));
+    function selectExplore(panelKey, btn) {
+      document.getElementById('conoce-intro').style.display = 'none';
+      document.getElementById('workspace-card').classList.add('visible');
       document.querySelectorAll('.explore-btn').forEach(b => b.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+      document.querySelectorAll('.exp-panel').forEach(p => p.classList.remove('active'));
       document.getElementById('panel-' + panelKey).classList.add('active');
-      btn.classList.add('active');
+    }
+
+    function resetToConoce() {
+      document.getElementById('workspace-card').classList.remove('visible');
+      document.querySelectorAll('.explore-btn').forEach(b => b.classList.remove('active'));
+      document.getElementById('conoce-intro').style.display = 'block';
     }
 
     function switchSubtab(subKey, btn) {
@@ -807,7 +846,6 @@
       btn.classList.add('active');
     }
 
-    /* --- SEGURIDAD INTERACTIVA --- */
     const momentosData = [
       { num: "Momento 1", titulo: "Antes de tocar al paciente", desc: "Protege al paciente de gérmenes que portamos en las manos." },
       { num: "Momento 2", titulo: "Antes de tarea aséptica", desc: "Previene entrada de microorganismos (accesos, heridas, aspiración)." },
@@ -835,10 +873,10 @@
       { clave: "AESP 8", titulo: "Cultura de Seguridad del Paciente", app: "Fomentar entornos de trabajo seguros, transparentes y centrados en la prevención." }
     ];
 
-    function renderCheckGrid(list, containerId, countId, labelDone) {
+    function renderCheckGrid(list, containerId, countId) {
       const container = document.getElementById(containerId);
       container.innerHTML = list.map((item, idx) => `
-        <div class="check-card" id="${containerId}-card-${idx}" onclick="toggleCheck('${containerId}', ${idx}, ${list.length}, '${countId}', '${labelDone}')">
+        <div class="check-card" id="${containerId}-card-${idx}" onclick="toggleCheck('${containerId}', ${idx}, ${list.length}, '${countId}')">
           <div class="check-top">
             <span class="badge-num">${item.num}</span>
             <span class="check-status" id="${containerId}-st-${idx}">Pendiente</span>
@@ -849,7 +887,7 @@
       `).join('');
     }
 
-    function toggleCheck(containerId, idx, total, countId, labelDone) {
+    function toggleCheck(containerId, idx, total, countId) {
       const card = document.getElementById(`${containerId}-card-${idx}`);
       const st = document.getElementById(`${containerId}-st-${idx}`);
       card.classList.toggle('done');
@@ -879,7 +917,6 @@
       `;
     }
 
-    /* --- CÓDIGOS Y AISLAMIENTOS --- */
     const aislamientosData = {
       roja: { titulo: "Tarjeta Roja — Precauciones Estándar", color: "#dc2626", mecanismo: "Sangre, secreciones y líquidos corporales en todos los pacientes.", epp: "Higiene de manos en 5 momentos; guantes, bata y protección ocular ante riesgo de salpicaduras.", soporte: "Manejo de RPBI y desinfección de equipo entre pacientes." },
       amarilla: { titulo: "Tarjeta Amarilla — Precauciones de Contacto", color: "#eab308", mecanismo: "Contacto directo o indirecto (EDA, rotavirus, secreciones).", epp: "Guantes y bata limpia al ingresar; higiene de manos estricta.", soporte: "Equipo exclusivo, bolsa de contaminados rotulada y sin deambulación." },
@@ -937,13 +974,10 @@
       `;
     }
 
-    /* --- FARMACOLOGÍA (FICHA, CÁLCULO, PREPARACIÓN Y HOJA DE ENFERMERÍA) --- */
     const medsDB = {
       amoxicilina: {
-        nombre: "Amoxicilina",
-        clasificacion: "Antibiótico (Azul)",
-        badgeBg: "#dbeafe", badgeColor: "#1e3a8a",
-        hojaColor: "#2563eb", hojaBg: "#eff6ff",
+        nombre: "Amoxicilina", clasificacion: "Antibiótico", esRojoEnHoja: true, dobleVerificacion: false,
+        badgeBg: "#fee2e2", badgeColor: "#991b1b",
         fichaPendiente: "Ficha teórica de espectro, farmacocinética y reacciones adversas pendiente de validación por Jefatura de Enseñanza e Investigación.",
         dosisDefault: 50, unidadDosis: "mg/kg/día", esDiaria: true, frecuenciaDefault: 3,
         presentaciones: [
@@ -951,13 +985,11 @@
           { label: "Suspensión 500 mg / 5 mL", mg: 500, ml: 5, via: "VO" }
         ],
         preparacion: "Agitar suavemente la suspensión antes de dosificar. Medir volumen con jeringa oral graduada. Puede administrarse con o sin alimentos.",
-        hojaNota: "Anotar en bloque de ANTIBIÓTICOS (tinta/etiqueta azul): Fármaco, dosis calculada en mg, vía VO, horario (ej. c/8 h) y tolerancia."
+        hojaBase: "Antibiótico: se escribe con tinta ROJA en la hoja de enfermería."
       },
       penicilina: {
-        nombre: "Penicilina G Sódica Cristalina",
-        clasificacion: "Antibiótico (Azul)",
-        badgeBg: "#dbeafe", badgeColor: "#1e3a8a",
-        hojaColor: "#2563eb", hojaBg: "#eff6ff",
+        nombre: "Penicilina G Sódica Cristalina", clasificacion: "Antibiótico", esRojoEnHoja: true, dobleVerificacion: false,
+        badgeBg: "#fee2e2", badgeColor: "#991b1b",
         fichaPendiente: "Ficha teórica pendiente de validación por Jefatura de Enseñanza e Investigación.",
         dosisDefault: 150000, unidadDosis: "UI/kg/día", esDiaria: true, frecuenciaDefault: 4,
         presentaciones: [
@@ -965,13 +997,11 @@
           { label: "Frasco ámpula 5,000,000 UI en 10 mL", mg: 5000000, ml: 10, via: "IV" }
         ],
         preparacion: "Reconstituir y diluir en SF 0.9% o SG 5%; infundir en bomba durante 30 minutos. Vigilar alergias o reacciones inmediatas.",
-        hojaNota: "Registrar en apartado de ANTIBIÓTICOS (azul): Penicilina G sódica, UI por toma, dilución, vía IV, horario y vigilancia de sitio de punción."
+        hojaBase: "Antibiótico: se escribe con tinta ROJA en la hoja de enfermería."
       },
       ceftriaxona: {
-        nombre: "Ceftriaxona",
-        clasificacion: "Antibiótico (Azul)",
-        badgeBg: "#dbeafe", badgeColor: "#1e3a8a",
-        hojaColor: "#2563eb", hojaBg: "#eff6ff",
+        nombre: "Ceftriaxona", clasificacion: "Antibiótico", esRojoEnHoja: true, dobleVerificacion: false,
+        badgeBg: "#fee2e2", badgeColor: "#991b1b",
         fichaPendiente: "Ficha teórica pendiente de validación por Jefatura de Enseñanza e Investigación.",
         dosisDefault: 50, unidadDosis: "mg/kg/día", esDiaria: true, frecuenciaDefault: 2,
         presentaciones: [
@@ -979,13 +1009,23 @@
           { label: "Frasco ámpula IV 500 mg en 5 mL", mg: 500, ml: 5, via: "IV" }
         ],
         preparacion: "Diluir en SF 0.9% e infundir en bomba durante 30 minutos. No mezclar ni administrar simultáneamente con soluciones con calcio en neonatos.",
-        hojaNota: "Registrar en ANTIBIÓTICOS (azul): Ceftriaxona, mg por toma, vía IV, tiempo de infusión y permeabilidad de catéter."
+        hojaBase: "Antibiótico: se escribe con tinta ROJA en la hoja de enfermería."
+      },
+      adrenalina: {
+        nombre: "Adrenalina (Epinefrina)", clasificacion: "Alto Riesgo", esRojoEnHoja: true, dobleVerificacion: true,
+        badgeBg: "#fee2e2", badgeColor: "#991b1b",
+        fichaPendiente: "Ficha teórica pendiente de validación por Jefatura de Enseñanza e Investigación.",
+        dosisDefault: 0.01, unidadDosis: "mg/kg/dosis", esDiaria: false, frecuenciaDefault: 1,
+        presentaciones: [
+          { label: "Dilución 1:10,000 (1 mg en 10 mL SF)", mg: 1, ml: 10, via: "IV / IO" },
+          { label: "Ampolleta 1:1,000 (1 mg / 1 mL)", mg: 1, ml: 1, via: "IM" }
+        ],
+        preparacion: "Requiere DOBLE VERIFICACIÓN antes de preparar y administrar. En RCP usar dilución 1:10,000 (0.1 mL/kg) IV/IO con lavado posterior; en anafilaxia aplicar IM 1:1,000 en muslo.",
+        hojaBase: "Medicamento de ALTO RIESGO: se escribe con tinta ROJA en la hoja de enfermería y se realiza DOBLE VERIFICACIÓN."
       },
       aciclovir: {
-        nombre: "Aciclovir",
-        clasificacion: "Antiviral / Vigilancia Renal",
+        nombre: "Aciclovir", clasificacion: "Antiviral", esRojoEnHoja: false, dobleVerificacion: false,
         badgeBg: "#e0e7ff", badgeColor: "#3730a3",
-        hojaColor: "#4338ca", hojaBg: "#eef2ff",
         fichaPendiente: "Ficha teórica pendiente de validación por Jefatura de Enseñanza e Investigación.",
         dosisDefault: 10, unidadDosis: "mg/kg/dosis", esDiaria: false, frecuenciaDefault: 1,
         presentaciones: [
@@ -993,13 +1033,11 @@
           { label: "Suspensión oral 200 mg / 5 mL", mg: 200, ml: 5, via: "VO" }
         ],
         preparacion: "Vía IV: Diluir en SF 0.9% (≤ 7 mg/mL) e infundir lento en ≥ 60 minutos con hidratación adecuada. VO: Agitar y medir con jeringa oral.",
-        hojaNota: "Anotar fármaco, dosis en mg, vía (IV/VO), duración de infusión (≥ 60 min si es IV) y uresis/tolerancia."
+        hojaBase: "Registro estándar en la hoja de enfermería con dosis, vía, horario y tolerancia."
       },
       ibuprofeno: {
-        nombre: "Ibuprofeno",
-        clasificacion: "AINES / Antipirético",
+        nombre: "Ibuprofeno", clasificacion: "AINES / Antipirético", esRojoEnHoja: false, dobleVerificacion: false,
         badgeBg: "#fef3c7", badgeColor: "#92400e",
-        hojaColor: "#b45309", hojaBg: "#fffbeb",
         fichaPendiente: "Ficha teórica pendiente de validación por Jefatura de Enseñanza e Investigación.",
         dosisDefault: 10, unidadDosis: "mg/kg/dosis", esDiaria: false, frecuenciaDefault: 1,
         presentaciones: [
@@ -1007,13 +1045,11 @@
           { label: "Gotas pediátricas 40 mg / 1 mL", mg: 40, ml: 1, via: "VO" }
         ],
         preparacion: "Agitar el frasco y administrar por VO con alimentos para protección gástrica. Verificar estado de hidratación del paciente.",
-        hojaNota: "Registrar en medicamentos generales / PRN (según indicación): Ibuprofeno, mg y mL administrados, vía VO, hora y respuesta térmica/dolor."
+        hojaBase: "Registro estándar en la hoja de enfermería con dosis, vía, horario y respuesta térmica/dolor."
       },
       metamizol: {
-        nombre: "Metamizol Sódico",
-        clasificacion: "Analgésico / Antipirético",
+        nombre: "Metamizol Sódico", clasificacion: "Analgésico / Antipirético", esRojoEnHoja: false, dobleVerificacion: false,
         badgeBg: "#fef3c7", badgeColor: "#92400e",
-        hojaColor: "#b45309", hojaBg: "#fffbeb",
         fichaPendiente: "Ficha teórica pendiente de validación por Jefatura de Enseñanza e Investigación.",
         dosisDefault: 10, unidadDosis: "mg/kg/dosis", esDiaria: false, frecuenciaDefault: 1,
         presentaciones: [
@@ -1021,13 +1057,11 @@
           { label: "Jarabe 250 mg / 5 mL", mg: 250, ml: 5, via: "VO" }
         ],
         preparacion: "Si es IV, diluir y pasar lento (20–30 min) vigilando presión arterial y frecuencia cardiaca.",
-        hojaNota: "Registrar Metamizol, dosis en mg, vía, horario y control de signos vitales (especialmente TA) post-administración IV."
+        hojaBase: "Registro estándar en la hoja de enfermería con dosis, vía, horario y signos vitales."
       },
       paracetamol: {
-        nombre: "Paracetamol",
-        clasificacion: "Analgésico / Antipirético",
+        nombre: "Paracetamol", clasificacion: "Analgésico / Antipirético", esRojoEnHoja: false, dobleVerificacion: false,
         badgeBg: "#fef3c7", badgeColor: "#92400e",
-        hojaColor: "#b45309", hojaBg: "#fffbeb",
         fichaPendiente: "Ficha teórica pendiente de validación por Jefatura de Enseñanza e Investigación.",
         dosisDefault: 15, unidadDosis: "mg/kg/dosis", esDiaria: false, frecuenciaDefault: 1,
         presentaciones: [
@@ -1036,13 +1070,11 @@
           { label: "Jarabe 160 mg / 5 mL", mg: 160, ml: 5, via: "VO" }
         ],
         preparacion: "Infundir solución IV en 15 minutos; en VO medir exactamente con jeringa dosificadora.",
-        hojaNota: "Registrar Paracetamol, dosis en mg y mL, vía, hora y control térmico posterior."
+        hojaBase: "Registro estándar en la hoja de enfermería con dosis, vía, horario y control térmico."
       },
       dexametasona: {
-        nombre: "Dexametasona",
-        clasificacion: "Corticoesteroide",
+        nombre: "Dexametasona", clasificacion: "Corticoesteroide", esRojoEnHoja: false, dobleVerificacion: false,
         badgeBg: "#f3e8ff", badgeColor: "#6b21a8",
-        hojaColor: "#7e22ce", hojaBg: "#faf5ff",
         fichaPendiente: "Ficha teórica pendiente de validación por Jefatura de Enseñanza e Investigación.",
         dosisDefault: 0.3, unidadDosis: "mg/kg/dosis", esDiaria: false, frecuenciaDefault: 1,
         presentaciones: [
@@ -1050,13 +1082,11 @@
           { label: "Ampolleta 4 mg / 1 mL", mg: 4, ml: 1, via: "IV / IM" }
         ],
         preparacion: "Diluir y administrar lento; usar jeringa de 1 mL para volúmenes menores a 1 mL.",
-        hojaNota: "Registrar Dexametasona, dosis en mg, vía, horario y respuesta clínica (p. ej. estridor/dificultad respiratoria)."
+        hojaBase: "Registro estándar en la hoja de enfermería con dosis, vía, horario y respuesta clínica."
       },
       prednisolona: {
-        nombre: "Prednisolona",
-        clasificacion: "Corticoesteroide Oral",
+        nombre: "Prednisolona", clasificacion: "Corticoesteroide Oral", esRojoEnHoja: false, dobleVerificacion: false,
         badgeBg: "#f3e8ff", badgeColor: "#6b21a8",
-        hojaColor: "#7e22ce", hojaBg: "#faf5ff",
         fichaPendiente: "Ficha teórica pendiente de validación por Jefatura de Enseñanza e Investigación.",
         dosisDefault: 1, unidadDosis: "mg/kg/día", esDiaria: true, frecuenciaDefault: 2,
         presentaciones: [
@@ -1064,27 +1094,11 @@
           { label: "Solución oral 15 mg / 5 mL", mg: 15, ml: 5, via: "VO" }
         ],
         preparacion: "Administrar por VO con alimentos para disminuir irritación gastrointestinal.",
-        hojaNota: "Registrar Prednisolona, mg por toma, mL, vía VO, horario y tolerancia."
-      },
-      adrenalina: {
-        nombre: "Adrenalina (Epinefrina)",
-        clasificacion: "Alto Riesgo / Reanimación (Rojo)",
-        badgeBg: "#fee2e2", badgeColor: "#991b1b",
-        hojaColor: "#dc2626", hojaBg: "#fef2f2",
-        fichaPendiente: "Ficha teórica pendiente de validación por Jefatura de Enseñanza e Investigación.",
-        dosisDefault: 0.01, unidadDosis: "mg/kg/dosis", esDiaria: false, frecuenciaDefault: 1,
-        presentaciones: [
-          { label: "Dilución 1:10,000 (1 mg en 10 mL SF)", mg: 1, ml: 10, via: "IV / IO" },
-          { label: "Ampolleta 1:1,000 (1 mg / 1 mL)", mg: 1, ml: 1, via: "IM" }
-        ],
-        preparacion: "DOBLE VERIFICACIÓN: En RCP usar dilución 1:10,000 (0.1 mL/kg) IV/IO con lavado posterior; en anafilaxia aplicar IM 1:1,000 en muslo.",
-        hojaNota: "Registrar en ALTO RIESGO / URGENCIA (resaltado rojo): Adrenalina, concentración, dosis/volumen, vía, hora exacta y monitorización cardiorrespiratoria."
+        hojaBase: "Registro estándar en la hoja de enfermería con dosis, vía, horario y tolerancia."
       },
       loratadina: {
-        nombre: "Loratadina",
-        clasificacion: "Antihistamínico",
+        nombre: "Loratadina", clasificacion: "Antihistamínico", esRojoEnHoja: false, dobleVerificacion: false,
         badgeBg: "#dcfce7", badgeColor: "#166534",
-        hojaColor: "#15803d", hojaBg: "#f0fdf4",
         fichaPendiente: "Ficha teórica pendiente de validación por Jefatura de Enseñanza e Investigación.",
         dosisDefault: 0.2, unidadDosis: "mg/kg/día", esDiaria: true, frecuenciaDefault: 1,
         presentaciones: [
@@ -1092,13 +1106,11 @@
           { label: "Gotas 1 mg / 1 mL", mg: 1, ml: 1, via: "VO" }
         ],
         preparacion: "Medir con dosificador oral y administrar cada 24 h con o sin alimentos.",
-        hojaNota: "Registrar Loratadina, dosis en mg y mL, vía VO, horario y evolución de síntomas."
+        hojaBase: "Registro estándar en la hoja de enfermería con dosis, vía, horario y evolución."
       },
       omeprazol: {
-        nombre: "Omeprazol",
-        clasificacion: "Protector Gástrico / IBP",
+        nombre: "Omeprazol", clasificacion: "Protector Gástrico / IBP", esRojoEnHoja: false, dobleVerificacion: false,
         badgeBg: "#e0f2fe", badgeColor: "#075985",
-        hojaColor: "#0369a1", hojaBg: "#f0f9ff",
         fichaPendiente: "Ficha teórica pendiente de validación por Jefatura de Enseñanza e Investigación.",
         dosisDefault: 1, unidadDosis: "mg/kg/día", esDiaria: true, frecuenciaDefault: 1,
         presentaciones: [
@@ -1106,7 +1118,7 @@
           { label: "Suspensión 2 mg / 1 mL", mg: 2, ml: 1, via: "VO" }
         ],
         preparacion: "Vía IV: Reconstituir con diluyente propio e infundir lento en 20–30 min. VO: Dar 30 min antes del desayuno sin triturar gránulos.",
-        hojaNota: "Registrar Omeprazol, dosis en mg, vía, horario y tolerancia."
+        hojaBase: "Registro estándar en la hoja de enfermería con dosis, vía, horario y tolerancia."
       }
     };
 
@@ -1141,8 +1153,10 @@
         ? `Total día: <strong>${totalMg.toFixed(2)} ${unitLabel}</strong> (dividido en ${med.frecuenciaDefault} tomas)`
         : `Cálculo por toma (${med.unidadDosis})`;
 
+      const hojaTextClass = med.esRojoEnHoja ? "hoja-text-red" : "hoja-text-normal";
+      const hojaExtra = `${med.hojaBase} · ${med.nombre} (${mgPerAdmin.toFixed(2)} ${unitLabel} / ${mlPerAdmin.toFixed(2)} mL, ${pres.via})${med.dobleVerificacion ? " · DOBLE VERIFICACIÓN OBLIGATORIA" : ""}.`;
+
       document.getElementById('drug-workspace').innerHTML = `
-        <!-- 1. FICHA DE INFO -->
         <div class="drug-module-card">
           <div class="drug-module-header">
             <h4>1. Ficha de Información — ${med.nombre}</h4>
@@ -1151,7 +1165,6 @@
           <p style="font-size:0.9rem; color:var(--text-muted);">${med.fichaPendiente}</p>
         </div>
 
-        <!-- 2. CÁLCULO DE DOSIS -->
         <div class="drug-module-card">
           <div class="drug-module-header">
             <h4>2. Cálculo de Dosis</h4>
@@ -1169,7 +1182,6 @@
           </div>
         </div>
 
-        <!-- 3. PREPARACIÓN Y ADMINISTRACIÓN SEGURA -->
         <div class="drug-module-card">
           <div class="drug-module-header">
             <h4>3. Preparación y Administración Segura (${pres.via})</h4>
@@ -1177,21 +1189,19 @@
           <p style="font-size:0.92rem; color:var(--text-dark);">${med.preparacion}</p>
         </div>
 
-        <!-- 4. CÓMO SE PONE EN LA HOJA DE ENFERMERÍA -->
         <div class="drug-module-card" style="margin-bottom:0;">
           <div class="drug-module-header">
             <h4>4. Cómo se pone en la Hoja de Enfermería</h4>
           </div>
-          <div class="hoja-box" style="background:${med.hojaBg}; border-color:${med.hojaColor};">
-            <span class="hoja-pill-tag" style="background:${med.hojaColor}; color:#ffffff;">${med.clasificacion}</span>
-            <p class="hoja-line">${med.hojaNota} · Cálculo actual: <strong>${mgPerAdmin.toFixed(2)} ${unitLabel} (${mlPerAdmin.toFixed(2)} mL) por ${pres.via}</strong>.</p>
+          <div class="hoja-box">
+            <p class="${hojaTextClass}">${hojaExtra}</p>
           </div>
         </div>
       `;
     }
 
-    renderCheckGrid(momentosData, 'momentos-grid', 'momentos-count', 'completados');
-    renderCheckGrid(correctosData, 'correctos-grid', 'correctos-count', 'verificados');
+    renderCheckGrid(momentosData, 'momentos-grid', 'momentos-count');
+    renderCheckGrid(correctosData, 'correctos-grid', 'correctos-count');
     initAesp();
     showCode('azul');
     showIso('roja');
