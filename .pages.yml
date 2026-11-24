@@ -1,6 +1,7 @@
 media:
   input: img
   output: img
+  extensions: [jpg, jpeg, png, gif, webp, svg]
 
 content:
   - name: datos
@@ -28,7 +29,7 @@ content:
           - { name: fotoEje2, label: Foto Eje 2 (Educación para la Salud), type: image }
           - { name: fotoEje3, label: Foto Eje 3 (Brigadas de Arteterapia), type: image }
       - name: blog
-        label: Entradas del Blog y MUSA
+        label: Entradas del Blog y Proyectos
         type: object
         list: true
         fields:
@@ -42,6 +43,7 @@ content:
               creatable: true
               values:
                 - MUSA
+                - HEPL
                 - ARTÍCULO
                 - POST
                 - DESTACADO
@@ -49,7 +51,7 @@ content:
           - { name: resumen, label: Info Rápida (Carrusel y Tarjeta), type: text }
           - { name: contenido, label: Contenido Completo, type: rich-text }
       - name: proyectos
-        label: Proyectos y Micrositios (Carrusel Proyectos)
+        label: Carrusel de Proyectos en Inicio
         type: object
         list: true
         fields:
@@ -57,14 +59,14 @@ content:
           - { name: etiqueta, label: Subtítulo / Institución, type: string }
           - { name: imagen, label: Imagen del Proyecto, type: image }
           - { name: resumen, label: Info Rápida del Proyecto, type: text }
-          - { name: enlace, label: Archivo del Micrositio (ej. musa.html), type: string }
-
+          - { name: enlace, label: Enlace (ej. musa.html o hepl.html), type: string }
       - name: sobreMi
         label: Editar Sobre Mí / Trayectoria
         type: object
         fields:
           - { name: nombre, label: Nombre Completo, type: string }
           - { name: rol, label: Título / Subtítulo Profesional, type: string }
+          - { name: enlaceDriveCV, label: Enlace de Google Drive para descargar CV, type: string }
           - { name: fotoPerfil, label: Mi Foto (Perfil), type: image }
           - { name: biografia, label: Texto Sobre Mí, type: text }
           - { name: fotoProyectos, label: Imagen Liderazgo y Proyectos, type: image }
