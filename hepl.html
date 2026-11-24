@@ -10,33 +10,34 @@
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   <style>
     :root {
-      --hepl-navy: #0f4c81;
-      --hepl-blue: #2563eb;
-      --hepl-teal: #14b8a6;
-      --hepl-coral: #f472b6;
-      --hepl-ice: #f0f7ff;
-      --hepl-surface: #ffffff;
-      --text-dark: #0f172a;
-      --text-muted: #475569;
-      --border-soft: #dbeafe;
+      --hepl-navy: #1e3a5f;
+      --hepl-blue: #3b6998;
+      --hepl-soft-blue: #e8f1fa;
+      --hepl-pastel-mint: #e6f4f1;
+      --hepl-pastel-coral: #fce8eb;
+      --hepl-bg: #f7f9fc;
+      --surface: #ffffff;
+      --text-dark: #162436;
+      --text-muted: #4b5d73;
+      --border-line: #d4e2f0;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
       font-family: 'Inter', sans-serif;
-      background-color: var(--hepl-ice);
+      background-color: var(--hepl-bg);
       color: var(--text-dark);
-      line-height: 1.65;
+      line-height: 1.68;
     }
 
-    /* Barra superior */
+    /* Barra superior idéntica en estructura a musa.html */
     .topbar {
-      background: #ffffff;
-      padding: 0.9rem 1.5rem;
+      background: var(--surface);
+      padding: 0.95rem 1.5rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      border-bottom: 2px solid var(--border-soft);
+      border-bottom: 2px solid var(--border-line);
       position: sticky;
       top: 0;
       z-index: 40;
@@ -48,290 +49,296 @@
       font-size: 0.85rem;
       color: var(--hepl-navy);
     }
-    .inst-badge {
-      font-size: 0.78rem;
-      font-weight: 800;
-      color: var(--hepl-teal);
-      background: #f0fdfa;
-      border: 1px solid #99f6e4;
-      padding: 0.25rem 0.75rem;
-      border-radius: 999px;
-    }
-
-    /* Hero Institucional */
-    .hero-hepl {
-      background: linear-gradient(135deg, #0f4c81 0%, #1d4ed8 55%, #0d9488 100%);
-      color: #ffffff;
-      padding: 3.75rem 1.5rem 4.25rem;
-      text-align: center;
-    }
-    .hero-inner {
-      max-width: 860px;
-      margin: 0 auto;
-    }
-    .hero-pill {
-      display: inline-block;
-      background: rgba(255, 255, 255, 0.16);
-      border: 1px solid rgba(255, 255, 255, 0.35);
-      padding: 0.3rem 0.95rem;
-      border-radius: 999px;
+    .inst-tag {
       font-size: 0.8rem;
       font-weight: 700;
-      letter-spacing: 0.04em;
+      color: var(--hepl-blue);
+      letter-spacing: 0.02em;
+    }
+
+    /* Cabecera Editorial tipo Tríptico / MUSA */
+    .hero-editorial {
+      background-color: var(--surface);
+      border-bottom: 2px solid var(--border-line);
+      padding: 3.25rem 1.5rem 3rem;
+    }
+    .hero-container {
+      max-width: 980px;
+      margin: 0 auto;
+    }
+    .kicker {
+      display: inline-block;
+      background-color: var(--hepl-soft-blue);
+      color: var(--hepl-navy);
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: 0.76rem;
       text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 0.35rem 0.85rem;
+      border-radius: 6px;
       margin-bottom: 1rem;
     }
-    .hero-hepl h1 {
+    .hero-editorial h1 {
       font-family: 'Montserrat', sans-serif;
       font-weight: 900;
-      font-size: clamp(1.85rem, 4.5vw, 2.9rem);
-      line-height: 1.2;
-      margin-bottom: 0.75rem;
+      font-size: clamp(1.9rem, 4vw, 2.75rem);
+      color: var(--hepl-navy);
+      line-height: 1.18;
+      margin-bottom: 0.85rem;
     }
-    .hero-subtitle {
-      font-size: 1.08rem;
-      opacity: 0.94;
-      max-width: 720px;
-      margin: 0 auto 1.25rem;
+    .hero-desc {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      max-width: 780px;
+      margin-bottom: 1.5rem;
     }
-    .authors-box {
-      display: inline-block;
-      background: rgba(15, 23, 42, 0.28);
-      border-radius: 12px;
-      padding: 0.65rem 1.2rem;
-      font-size: 0.86rem;
+    .credits-strip {
+      background-color: var(--hepl-bg);
+      border-left: 4px solid var(--hepl-navy);
+      padding: 0.85rem 1.15rem;
+      border-radius: 0 10px 10px 0;
+      font-size: 0.9rem;
+      color: var(--text-dark);
       margin-bottom: 1.75rem;
     }
 
-    /* Botones de Google Drive */
-    .drive-actions {
+    /* Botones sobrios de Google Drive */
+    .drive-row {
       display: flex;
       flex-wrap: wrap;
-      justify-content: center;
       gap: 0.85rem;
     }
-    .btn-drive-primary {
-      background-color: #ffffff;
-      color: var(--hepl-navy);
-      text-decoration: none;
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 800;
-      font-size: 0.9rem;
-      padding: 0.85rem 1.6rem;
-      border-radius: 999px;
-      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.16);
-      transition: transform 0.2s;
-    }
-    .btn-drive-secondary {
-      background-color: var(--hepl-teal);
+    .btn-primary-hepl {
+      background-color: var(--hepl-navy);
       color: #ffffff;
       text-decoration: none;
       font-family: 'Montserrat', sans-serif;
-      font-weight: 800;
-      font-size: 0.9rem;
-      padding: 0.85rem 1.6rem;
-      border-radius: 999px;
-      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.14);
-      transition: transform 0.2s;
+      font-weight: 700;
+      font-size: 0.88rem;
+      padding: 0.8rem 1.5rem;
+      border-radius: 10px;
+      transition: background-color 0.2s;
     }
-    .btn-drive-primary:hover, .btn-drive-secondary:hover { transform: translateY(-2px); }
+    .btn-primary-hepl:hover { background-color: #152b47; }
 
-    /* Contenedor Principal */
-    .container {
-      max-width: 1020px;
-      margin: -2rem auto 3.5rem;
+    .btn-outline-hepl {
+      background-color: var(--surface);
+      color: var(--hepl-navy);
+      border: 2px solid var(--hepl-navy);
+      text-decoration: none;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 0.88rem;
+      padding: 0.75rem 1.45rem;
+      border-radius: 10px;
+      transition: background-color 0.2s;
+    }
+    .btn-outline-hepl:hover { background-color: var(--hepl-soft-blue); }
+
+    /* Contenedor principal */
+    .main-wrap {
+      max-width: 980px;
+      margin: 2.25rem auto 4rem;
       padding: 0 1.25rem;
     }
 
-    /* Navegación por Bloques (Pestañas Fase 1) */
-    .phase-tabs {
+    /* Navegación de bloques limpia */
+    .section-nav {
       display: flex;
       flex-wrap: wrap;
-      justify-content: center;
-      gap: 0.65rem;
-      background: #ffffff;
-      padding: 0.65rem;
-      border-radius: 18px;
-      box-shadow: 0 6px 24px rgba(15, 76, 129, 0.1);
+      gap: 0.5rem;
+      border-bottom: 2px solid var(--border-line);
+      padding-bottom: 0.85rem;
       margin-bottom: 2rem;
-      border: 1px solid var(--border-soft);
     }
-    .tab-btn {
-      border: none;
-      background: transparent;
+    .nav-tab {
+      background: var(--surface);
+      border: 1.5px solid var(--border-line);
       color: var(--text-muted);
       font-family: 'Montserrat', sans-serif;
-      font-weight: 800;
-      font-size: 0.86rem;
-      padding: 0.7rem 1.25rem;
-      border-radius: 12px;
+      font-weight: 700;
+      font-size: 0.84rem;
+      padding: 0.65rem 1.15rem;
+      border-radius: 8px;
       cursor: pointer;
       transition: all 0.2s;
     }
-    .tab-btn.active {
+    .nav-tab.active {
       background: var(--hepl-navy);
+      border-color: var(--hepl-navy);
       color: #ffffff;
     }
     .tab-panel { display: none; }
-    .tab-panel.active { display: block; animation: fadeIn 0.25s ease; }
+    .tab-panel.active { display: block; }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(6px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    /* Tarjetas Generales */
-    .section-card {
-      background: #ffffff;
-      border-radius: 18px;
+    /* Tarjetas editoriales */
+    .editorial-card {
+      background: var(--surface);
+      border: 1.5px solid var(--border-line);
+      border-radius: 14px;
       padding: 1.85rem;
       margin-bottom: 1.5rem;
-      border: 1px solid var(--border-soft);
-      box-shadow: 0 4px 16px rgba(15, 76, 129, 0.05);
     }
-    .section-title {
+    .editorial-card h2 {
       font-family: 'Montserrat', sans-serif;
-      font-weight: 900;
-      font-size: 1.45rem;
+      font-weight: 800;
+      font-size: 1.35rem;
       color: var(--hepl-navy);
       margin-bottom: 0.45rem;
     }
-    .section-lead {
+    .card-intro {
       color: var(--text-muted);
-      font-size: 0.96rem;
-      margin-bottom: 1.4rem;
+      font-size: 0.95rem;
+      margin-bottom: 1.35rem;
     }
 
-    /* Reglas Sí / No */
-    .rules-grid {
+    /* Grid de Sí / No */
+    .two-col {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       gap: 1.25rem;
     }
-    .rule-box {
-      border-radius: 14px;
+    .col-box {
+      border-radius: 10px;
       padding: 1.35rem;
+      border: 1.5px solid;
     }
-    .rule-yes {
-      background: #f0fdf4;
-      border: 2px solid #bbf7d0;
+    .col-do {
+      background-color: #f4faf7;
+      border-color: #b7dfd0;
     }
-    .rule-no {
-      background: #fef2f2;
-      border: 2px solid #fecaca;
+    .col-dont {
+      background-color: #fdf5f6;
+      border-color: #ecc6cb;
     }
-    .rule-box h3 {
+    .col-box h3 {
       font-family: 'Montserrat', sans-serif;
       font-weight: 800;
-      font-size: 1.05rem;
+      font-size: 1rem;
       margin-bottom: 0.75rem;
+      color: var(--hepl-navy);
     }
-    .rule-yes h3 { color: #15803d; }
-    .rule-no h3 { color: #b91c1c; }
-    .rule-box ul { padding-left: 1.2rem; font-size: 0.93rem; }
-    .rule-box li { margin-bottom: 0.5rem; }
+    .col-box ul { padding-left: 1.2rem; font-size: 0.93rem; }
+    .col-box li { margin-bottom: 0.55rem; }
 
-    /* Semáforo de Faltas */
-    .traffic-grid {
+    /* Semáforo de faltas */
+    .semaforo-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(265px, 1fr));
       gap: 1.15rem;
     }
-    .traffic-card {
-      border-radius: 14px;
-      padding: 1.35rem;
-      border-top: 6px solid;
+    .falta-card {
+      background: var(--hepl-bg);
+      border-radius: 10px;
+      padding: 1.3rem;
+      border: 1px solid var(--border-line);
+      border-top: 5px solid;
     }
-    .t-amarillo { background: #fefce8; border-color: #eab308; }
-    .t-naranja { background: #fff7ed; border-color: #f97316; }
-    .t-rojo { background: #fef2f2; border-color: #dc2626; }
-    .traffic-card h4 {
+    .falta-leve { border-top-color: #d9a016; }
+    .falta-moderada { border-top-color: #d96b27; }
+    .falta-grave { border-top-color: #b83232; }
+    .falta-card h4 {
       font-family: 'Montserrat', sans-serif;
       font-weight: 800;
-      font-size: 0.98rem;
+      font-size: 0.96rem;
+      color: var(--text-dark);
       margin-bottom: 0.65rem;
     }
-    .traffic-card ul { padding-left: 1.15rem; font-size: 0.9rem; }
-    .traffic-card li { margin-bottom: 0.45rem; }
+    .falta-card ul { padding-left: 1.15rem; font-size: 0.9rem; color: var(--text-muted); }
+    .falta-card li { margin-bottom: 0.45rem; }
 
     /* Acordeón FAQs */
-    details.faq-item {
-      background: var(--hepl-ice);
-      border: 1px solid var(--border-soft);
-      border-radius: 12px;
-      padding: 1rem 1.2rem;
-      margin-bottom: 0.75rem;
+    details.faq-row {
+      border: 1px solid var(--border-line);
+      border-radius: 10px;
+      padding: 0.95rem 1.2rem;
+      margin-bottom: 0.7rem;
+      background: var(--hepl-bg);
     }
-    details.faq-item summary {
+    details.faq-row summary {
       font-weight: 700;
       color: var(--hepl-navy);
       cursor: pointer;
     }
-    details.faq-item p {
-      margin-top: 0.65rem;
+    details.faq-row p {
+      margin-top: 0.6rem;
       font-size: 0.93rem;
       color: var(--text-muted);
     }
 
-    /* Selector Interactivo de Aislamientos */
-    .iso-buttons {
+    /* Selector de Tarjetas de Aislamiento */
+    .iso-selector {
       display: flex;
       flex-wrap: wrap;
-      gap: 0.65rem;
+      gap: 0.6rem;
       margin-bottom: 1.35rem;
     }
-    .iso-btn {
-      border: 2px solid transparent;
-      padding: 0.65rem 1.15rem;
-      border-radius: 999px;
+    .iso-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--hepl-bg);
+      border: 1.5px solid var(--border-line);
+      color: var(--text-dark);
       font-family: 'Montserrat', sans-serif;
-      font-weight: 800;
-      font-size: 0.84rem;
+      font-weight: 700;
+      font-size: 0.83rem;
+      padding: 0.6rem 1rem;
+      border-radius: 8px;
       cursor: pointer;
-      transition: transform 0.15s, box-shadow 0.15s;
+      transition: all 0.15s;
     }
-    .iso-btn:hover { transform: translateY(-1px); }
-    .iso-btn.active { box-shadow: 0 0 0 3px #0f172a; }
-    .btn-iso-roja { background: #fee2e2; color: #991b1b; }
-    .btn-iso-amarilla { background: #fef9c3; color: #854d0e; }
-    .btn-iso-verde { background: #dcfce7; color: #166534; }
-    .btn-iso-azul { background: #dbeafe; color: #1e40af; }
-    .btn-iso-gris { background: #e2e8f0; color: #1e293b; }
+    .iso-pill.active {
+      background: var(--hepl-navy);
+      border-color: var(--hepl-navy);
+      color: #ffffff;
+    }
+    .dot {
+      width: 11px;
+      height: 11px;
+      border-radius: 50%;
+      display: inline-block;
+    }
 
-    .iso-display {
-      border-radius: 16px;
-      padding: 1.6rem;
-      border-left: 8px solid #dc2626;
-      background: #f8fafc;
+    .iso-panel {
+      background: var(--hepl-bg);
+      border: 1.5px solid var(--border-line);
+      border-left: 6px solid #b83232;
+      border-radius: 12px;
+      padding: 1.5rem;
     }
-    .iso-meta-grid {
+    .iso-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-      gap: 1rem;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 0.95rem;
       margin-top: 1rem;
     }
-    .iso-box {
-      background: #ffffff;
+    .iso-cell {
+      background: var(--surface);
+      border: 1px solid var(--border-line);
+      border-radius: 8px;
       padding: 1rem;
-      border-radius: 12px;
-      border: 1px solid #e2e8f0;
     }
-    .iso-box strong {
+    .iso-cell span.label {
       display: block;
-      font-size: 0.8rem;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 800;
       text-transform: uppercase;
-      color: var(--hepl-navy);
+      color: var(--hepl-blue);
       margin-bottom: 0.35rem;
     }
+    .iso-cell p { font-size: 0.91rem; color: var(--text-dark); }
 
-    /* Buscador y Tarjetas de Códigos Hospitalarios */
-    .code-search {
+    /* Códigos Hospitalarios */
+    .search-box {
       width: 100%;
-      padding: 0.85rem 1.1rem;
-      border: 2px solid var(--border-soft);
-      border-radius: 12px;
+      padding: 0.8rem 1rem;
+      border: 1.5px solid var(--border-line);
+      border-radius: 8px;
       font-family: 'Inter', sans-serif;
-      font-size: 0.95rem;
+      font-size: 0.94rem;
       margin-bottom: 1.25rem;
     }
     .codes-grid {
@@ -339,36 +346,43 @@
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       gap: 1rem;
     }
-    .code-card {
-      background: #f8fafc;
-      border-radius: 14px;
-      padding: 1.2rem;
-      border-left: 6px solid var(--hepl-blue);
+    .code-item {
+      background: var(--hepl-bg);
+      border: 1px solid var(--border-line);
+      border-left: 5px solid var(--hepl-navy);
+      border-radius: 10px;
+      padding: 1.15rem;
     }
-    .code-card h4 {
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 800;
-      font-size: 0.98rem;
+    .code-header {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
       margin-bottom: 0.4rem;
     }
-    .code-card p { font-size: 0.9rem; color: var(--text-muted); }
+    .code-item h4 {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: 0.95rem;
+      color: var(--text-dark);
+    }
+    .code-item p { font-size: 0.9rem; color: var(--text-muted); }
 
-    /* Sección Blog HEPL */
+    /* Blog HEPL */
     .post-card {
-      background: #ffffff;
-      border-radius: 16px;
+      background: var(--surface);
+      border: 1.5px solid var(--border-line);
+      border-radius: 12px;
       padding: 1.5rem;
-      margin-bottom: 1.15rem;
-      border: 1px solid var(--border-soft);
+      margin-bottom: 1.1rem;
     }
     .tag-pill {
       display: inline-block;
-      background: var(--hepl-ice);
+      background: var(--hepl-soft-blue);
       color: var(--hepl-navy);
       font-size: 0.74rem;
       font-weight: 800;
       padding: 0.2rem 0.65rem;
-      border-radius: 999px;
+      border-radius: 6px;
       margin-right: 0.35rem;
       text-transform: uppercase;
     }
@@ -377,11 +391,11 @@
       color: #ffffff;
       border: none;
       padding: 0.55rem 1.2rem;
-      border-radius: 999px;
+      border-radius: 8px;
       font-weight: 700;
       font-size: 0.84rem;
       cursor: pointer;
-      margin-top: 0.8rem;
+      margin-top: 0.85rem;
     }
 
     footer {
@@ -389,7 +403,7 @@
       color: #ffffff;
       text-align: center;
       padding: 1.75rem 1rem;
-      font-size: 0.88rem;
+      font-size: 0.86rem;
     }
   </style>
 </head>
@@ -397,215 +411,214 @@
 
   <div class="topbar">
     <a href="index.html" class="back-link">← Volver a Alex C. Texeira</a>
-    <span class="inst-badge">HEPL · Gestión y Enseñanza Clínica</span>
+    <span class="inst-tag">HEPL · Enseñanza e Investigación</span>
   </div>
 
-  <header class="hero-hepl">
-    <div class="hero-inner">
-      <span class="hero-pill">Hospital de Especialidades Pediátrico León</span>
+  <header class="hero-editorial">
+    <div class="hero-container">
+      <span class="kicker">Hospital de Especialidades Pediátrico León</span>
       <h1>Manual de Integración Clínica y Lineamientos Hospitalarios</h1>
-      <p class="hero-subtitle">Guía operativa, de bioseguridad y consulta rápida de bolsillo para estudiantes de Licenciatura en Enfermería en campo clínico.</p>
-      <div class="authors-box">
-        <strong>Elaboró:</strong> Castillo Texeira Alex Daniel &amp; Silva Huerta Lizbeth Guadalupe · Universidad La Salle Bajío
+      <p class="hero-desc">Guía operativa, de bioseguridad y consulta rápida para el estudiante de Licenciatura en Enfermería durante su práctica clínica en atención pediátrica de tercer nivel.</p>
+      
+      <div class="credits-strip">
+        <strong>Elaboró:</strong> Castillo Texeira Alex Daniel y Silva Huerta Lizbeth Guadalupe · Licenciatura en Enfermería · Universidad La Salle Bajío
       </div>
-      <div class="drive-actions">
-        <a href="https://drive.google.com/drive/folders/1eg4FTN2aoy74sZt3LN2cfQpujeKhZRlD?usp=drive_link" target="_blank" rel="noopener" class="btn-drive-primary">
-          📄 Descargar Manual Completo (PDF)
+
+      <div class="drive-row">
+        <a href="https://drive.google.com/drive/folders/1eg4FTN2aoy74sZt3LN2cfQpujeKhZRlD?usp=drive_link" target="_blank" rel="noopener" class="btn-primary-hepl">
+          Descargar Manual Completo (PDF)
         </a>
-        <a href="https://drive.google.com/drive/folders/1stXi-DSMl2cSRE9I_CZlnwoUYiJHEekh?usp=drive_link" target="_blank" rel="noopener" class="btn-drive-secondary">
-          🖼️ Carpeta de Infografías Sueltas
+        <a href="https://drive.google.com/drive/folders/1stXi-DSMl2cSRE9I_CZlnwoUYiJHEekh?usp=drive_link" target="_blank" rel="noopener" class="btn-outline-hepl">
+          Ver Carpeta de Infografías Sueltas
         </a>
       </div>
     </div>
   </header>
 
-  <main class="container">
-    <!-- Pestañas de Navegación Fase 1 -->
-    <nav class="phase-tabs" aria-label="Secciones del manual">
-      <button class="tab-btn active" onclick="switchTab('induccion', this)">1. Inducción y Reglamento</button>
-      <button class="tab-btn" onclick="switchTab('aislamientos', this)">2. Tarjetas de Aislamiento</button>
-      <button class="tab-btn" onclick="switchTab('codigos', this)">3. Códigos de Emergencia</button>
+  <main class="main-wrap">
+    <!-- Navegación por Bloques -->
+    <nav class="section-nav" aria-label="Bloques del manual">
+      <button class="nav-tab active" onclick="switchTab('induccion', this)">1. Inducción y Reglamento</button>
+      <button class="nav-tab" onclick="switchTab('aislamientos', this)">2. Tarjetas de Aislamiento</button>
+      <button class="nav-tab" onclick="switchTab('codigos', this)">3. Códigos de Emergencia</button>
     </nav>
 
     <!-- BLOQUE 1: INDUCCIÓN Y REGLAMENTO -->
     <section id="tab-induccion" class="tab-panel active">
-      <div class="section-card">
-        <h2 class="section-title">Imagen, Permanencia y Reglas de Oro</h2>
-        <p class="section-lead">Lineamientos obligatorios para el ingreso y desempeño diario dentro de las áreas asistenciales del HEPL.</p>
-        <div class="rules-grid">
-          <div class="rule-box rule-yes">
-            <h3>✅ Lo que SÍ debes hacer</h3>
+      <div class="editorial-card">
+        <h2>Imagen, Permanencia y Bioseguridad</h2>
+        <p class="card-intro">Disposiciones generales de ingreso, presentación personal y prevención de accidentes en áreas asistenciales.</p>
+        
+        <div class="two-col">
+          <div class="col-box col-do">
+            <h3>Lineamientos Obligatorios</h3>
             <ul>
-              <li><strong>Acceso exclusivo:</strong> Ingresar únicamente por el <strong>Acceso 2</strong> y registrarte en la bitácora con el guardia de Recursos Humanos.</li>
-              <li><strong>Uniforme clínico:</strong> Portarlo limpio y completo. Si entras a áreas quirúrgicas, cámbiate nuevamente al uniforme clínico al salir.</li>
-              <li><strong>Higiene de manos:</strong> Cumplir estrictamente con los 5 momentos y lavar manos al ingresar y retirarte del servicio.</li>
-              <li><strong>Regla de oro RPBI:</strong> Desechar agujas inmediatamente en el contenedor rojo rígido sin reencapuchar jamás.</li>
+              <li><strong>Acceso autorizado:</strong> Ingresar exclusivamente por el <strong>Acceso 2</strong> y registrarse en la bitácora con el guardia de Recursos Humanos.</li>
+              <li><strong>Uso de uniforme:</strong> Mantener uniforme clínico completo. En áreas quirúrgicas usar uniforme quirúrgico y volver a cambiarse al clínico al salir.</li>
+              <li><strong>Higiene de manos:</strong> Realizar lavado al ingresar y retirarse del servicio, cumpliendo los 5 momentos.</li>
+              <li><strong>Regla de oro RPBI:</strong> Prohibido reencapuchar agujas; desechar inmediatamente en el contenedor rígido rojo.</li>
             </ul>
           </div>
-          <div class="rule-box rule-no">
-            <h3>🚫 Lo que NO está permitido</h3>
+          <div class="col-box col-dont">
+            <h3>Restricciones en Servicio</h3>
             <ul>
-              <li><strong>Olvidar identificaciones:</strong> Sin gafete escolar y gafete institucional visibles no se permite el acceso.</li>
-              <li><strong>Comer en áreas clínicas:</strong> Queda estrictamente prohibido ingerir alimentos o bebidas en zonas asistenciales.</li>
-              <li><strong>Grabar en el hospital:</strong> Prohibido tomar fotos o grabar videos para TikTok, Facebook u otras redes usando instalaciones, material o exponiendo pacientes.</li>
-              <li><strong>Colocar punzocortantes en cama:</strong> Nunca dejar agujas sobre el colchón, mesa puente o sobre el paciente.</li>
+              <li><strong>Identificación incompleta:</strong> Sin gafete escolar y gafete institucional visibles no se permite el ingreso.</li>
+              <li><strong>Alimentos en áreas clínicas:</strong> Queda prohibido ingerir alimentos o bebidas en zonas asistenciales.</li>
+              <li><strong>Uso de redes sociales:</strong> Prohibido grabar videos para TikTok, Facebook u otras plataformas usando instalaciones, material o exponiendo pacientes.</li>
+              <li><strong>Material punzocortante:</strong> Nunca colocar agujas u objetos cortantes sobre el paciente o el colchón.</li>
             </ul>
           </div>
         </div>
       </div>
 
-      <div class="section-card">
-        <h2 class="section-title">Semáforo de Faltas Disciplinarias</h2>
-        <p class="section-lead">Clasificación oficial de incumplimientos y sus consecuencias administrativas o clínicas.</p>
-        <div class="traffic-grid">
-          <div class="traffic-card t-amarillo">
-            <h4>🟡 Falta Leve / Amonestación</h4>
+      <div class="editorial-card">
+        <h2>Semáforo de Faltas Disciplinarias</h2>
+        <p class="card-intro">Clasificación institucional de incidencias durante la estancia clínica.</p>
+        <div class="semaforo-grid">
+          <div class="falta-card falta-leve">
+            <h4>Falta Leve / Amonestación</h4>
             <ul>
               <li>Omitir registros en la bitácora de asistencia.</li>
-              <li>Hábitos que comprometan el orden o presentación personal básica.</li>
-              <li>Ingerir alimentos dentro de áreas hospitalarias no autorizadas.</li>
+              <li>Hábitos que comprometan el orden o la higiene básica del servicio.</li>
+              <li>Ingerir alimentos dentro de áreas hospitalarias no permitidas.</li>
             </ul>
           </div>
-          <div class="traffic-card t-naranja">
-            <h4>🟠 Falta Moderada / Riesgo Clínico</h4>
+          <div class="falta-card falta-moderada">
+            <h4>Falta Moderada / Riesgo Clínico</h4>
             <ul>
-              <li>Salir del servicio o ausentarse en horario establecido sin notificar a Enseñanza e Investigación.</li>
-              <li>Acumular más de una (1) falta injustificada durante la estancia programada.</li>
-              <li>Incumplir medidas de bioseguridad e higiene de los servicios.</li>
+              <li>Ausentarse del servicio en horario establecido sin notificar a Enseñanza e Investigación.</li>
+              <li>Acumular más de una (1) falta injustificada durante la rotación programada.</li>
+              <li>Incumplir las Normas Oficiales Mexicanas y medidas de seguridad del paciente.</li>
             </ul>
           </div>
-          <div class="traffic-card t-rojo">
-            <h4>🔴 Falta Grave / Tolerancia Cero</h4>
+          <div class="falta-card falta-grave">
+            <h4>Falta Grave / Tolerancia Cero</h4>
             <ul>
-              <li>Firmar por otra persona o registrar horas y días falsos.</li>
-              <li>Violar la privacidad, confidencialidad o el secreto profesional del paciente pediátrico.</li>
-              <li>Grabar videos en instalaciones o poner en riesgo la identidad de un menor.</li>
-              <li>Presentarse bajo efectos de alcohol o sustancias, o faltar al trato digno y profesional.</li>
+              <li>Firmar por otra persona o registrar horas y días falsos en bitácora.</li>
+              <li>Violar la privacidad, confidencialidad o secreto profesional del menor.</li>
+              <li>Grabar videos en instalaciones o vulnerar la identidad de pacientes pediátricos.</li>
+              <li>Presentarse bajo efectos de sustancias o faltar al trato digno y profesional.</li>
             </ul>
           </div>
         </div>
       </div>
 
-      <div class="section-card">
-        <h2 class="section-title">Preguntas Frecuentes (¿Qué hacer si...?)</h2>
-        <details class="faq-item" open>
+      <div class="editorial-card">
+        <h2>Protocolo de Actuación (Preguntas Frecuentes)</h2>
+        <details class="faq-row" open>
           <summary>¿Qué hacer si sufro una lesión o pinchazo con aguja?</summary>
-          <p>Notifica <strong>INMEDIATAMENTE</strong> al responsable de tu servicio y al <strong>Departamento de Enseñanza e Investigación</strong> para iniciar el protocolo institucional de atención, profilaxis y seguimiento epidemiológico.</p>
+          <p>Notifica <strong>inmediatamente</strong> al responsable de tu servicio y al <strong>Departamento de Enseñanza e Investigación</strong> para iniciar el protocolo institucional de atención y seguimiento.</p>
         </details>
-        <details class="faq-item">
-          <summary>¿Qué hacer si tengo un problema clínico, personal o con un compañero?</summary>
-          <p>Comunica oportunamente cualquier incidencia directamente al <strong>Departamento de Enseñanza e Investigación</strong> junto con tu docente responsable.</p>
+        <details class="faq-row">
+          <summary>¿Qué hacer ante un problema clínico, personal o con un compañero?</summary>
+          <p>Comunica oportunamente la situación directamente al Departamento de Enseñanza e Investigación junto con tu docente responsable.</p>
         </details>
-        <details class="faq-item">
-          <summary>¿Qué hacer si debo ausentarme por causa justificada?</summary>
-          <p>Tu profesor responsable debe notificar formalmente tu ausencia al Departamento de Enseñanza e Investigación antes o durante el turno correspondiente.</p>
+        <details class="faq-row">
+          <summary>¿Cómo proceder ante una falta justificada?</summary>
+          <p>Tu profesor responsable debe notificar formalmente la ausencia al Departamento de Enseñanza e Investigación.</p>
         </details>
-        <details class="faq-item">
-          <summary>¿Qué hacer con el gafete al terminar mis semanas de práctica?</summary>
-          <p>Es obligación devolver el gafete institucional directamente en el Departamento de Enseñanza e Investigación el último día de rotación.</p>
+        <details class="faq-row">
+          <summary>¿Qué hacer con el gafete institucional al concluir la práctica?</summary>
+          <p>Es obligatorio devolver el gafete institucional al Departamento de Enseñanza e Investigación al finalizar las semanas programadas.</p>
         </details>
       </div>
     </section>
 
-    <!-- BLOQUE 2: PANEL INTERACTIVO DE AISLAMIENTOS -->
+    <!-- BLOQUE 2: TARJETAS DE AISLAMIENTO -->
     <section id="tab-aislamientos" class="tab-panel">
-      <div class="section-card">
-        <h2 class="section-title">Tarjetas de Aislamiento Pediátrico (NOM-045 / RHOVE)</h2>
-        <p class="section-lead">Selecciona el color de la tarjeta ubicada en la cabecera del paciente para consultar barreras, EPP y manejo de soporte.</p>
+      <div class="editorial-card">
+        <h2>Precauciones Basadas en la Transmisión (NOM-045 / RHOVE)</h2>
+        <p class="card-intro">Selecciona la tarjeta de identificación para consultar el equipo de protección personal (EPP), ubicación y procesos de soporte.</p>
 
-        <div class="iso-buttons">
-          <button class="iso-btn btn-iso-roja active" onclick="showIso('roja', this)">🔴 Tarjeta Roja (Estándar)</button>
-          <button class="iso-btn btn-iso-amarilla" onclick="showIso('amarilla', this)">🟡 Tarjeta Amarilla (Contacto)</button>
-          <button class="iso-btn btn-iso-verde" onclick="showIso('verde', this)">🟢 Tarjeta Verde (Gotas)</button>
-          <button class="iso-btn btn-iso-azul" onclick="showIso('azul', this)">🔵 Tarjeta Azul (Vía Aérea)</button>
-          <button class="iso-btn btn-iso-gris" onclick="showIso('gris', this)">⚪ Tarjeta Gris (Inverso / Protección)</button>
+        <div class="iso-selector">
+          <button class="iso-pill active" onclick="showIso('roja', this)"><span class="dot" style="background:#b83232;"></span>Tarjeta Roja · Estándar</button>
+          <button class="iso-pill" onclick="showIso('amarilla', this)"><span class="dot" style="background:#d9a016;"></span>Tarjeta Amarilla · Contacto</button>
+          <button class="iso-pill" onclick="showIso('verde', this)"><span class="dot" style="background:#2e7d32;"></span>Tarjeta Verde · Gotas</button>
+          <button class="iso-pill" onclick="showIso('azul', this)"><span class="dot" style="background:#2563eb;"></span>Tarjeta Azul · Vía Aérea</button>
+          <button class="iso-pill" onclick="showIso('gris', this)"><span class="dot" style="background:#64748b;"></span>Tarjeta Gris · Inverso</button>
         </div>
 
-        <div id="iso-content" class="iso-display"></div>
+        <div id="iso-content" class="iso-panel"></div>
       </div>
     </section>
 
-    <!-- BLOQUE 3: CÓDIGOS HOSPITALARIOS DE EMERGENCIA -->
+    <!-- BLOQUE 3: CÓDIGOS HOSPITALARIOS -->
     <section id="tab-codigos" class="tab-panel">
-      <div class="section-card">
-        <h2 class="section-title">Protocolos de Acción ante Emergencias</h2>
-        <p class="section-lead">Filtra por color, palabra clave o situación clínica para consultar la respuesta inmediata.</p>
-        <input type="text" id="code-filter" class="code-search" placeholder="Buscar código (ej. Azul, Oro, Pediátrico, Incendio, Sismo, Ámbar...)" oninput="filterCodes()" />
+      <div class="editorial-card">
+        <h2>Códigos de Emergencia Intrahospitalaria</h2>
+        <p class="card-intro">Consulta rápida de activación y respuesta inmediata ante eventos críticos.</p>
+        <input type="text" id="code-filter" class="search-box" placeholder="Filtrar por código o evento (ej. Azul, Oro, Pediátrico, Incendio, Sismo, Ámbar...)" oninput="filterCodes()" />
         <div class="codes-grid" id="codes-container"></div>
       </div>
     </section>
 
-    <!-- BITÁCORA Y AVANCES DEL PROYECTO (DESDE BLOG CON TAG HEPL) -->
-    <section id="hepl-blog-section" style="display:none; margin-top:2.5rem;">
-      <h2 class="section-title" style="text-align:center; margin-bottom:1.25rem;">Bitácora y Actualizaciones del Proyecto HEPL</h2>
-      <div id="hepl-posts-list"></div>
-      <div id="hepl-single-post" class="post-card" style="display:none;">
-        <button class="btn-read" onclick="closeHeplPost()" style="margin-top:0; margin-bottom:1rem;">← Volver a la bitácora</button>
-        <div id="hsp-tags" style="margin-bottom:0.4rem;"></div>
-        <div id="hsp-date" style="font-size:0.84rem; font-weight:700; color:var(--hepl-teal); margin-bottom:0.35rem;"></div>
-        <h3 id="hsp-title" style="font-size:1.4rem; color:var(--hepl-navy); margin-bottom:0.9rem;"></h3>
-        <div id="hsp-body" style="line-height:1.75;"></div>
+    <!-- BITÁCORA DEL PROYECTO DESDE BLOG (TAG: HEPL) -->
+    <section id="hepl-blog-section" style="display:none; margin-top:2.25rem;">
+      <div class="editorial-card">
+        <h2>Bitácora y Avances del Proyecto HEPL</h2>
+        <p class="card-intro">Publicaciones y actualizaciones vinculadas desde el blog principal.</p>
+        <div id="hepl-posts-list"></div>
+        <div id="hepl-single-post" style="display:none;">
+          <button class="btn-read" onclick="closeHeplPost()" style="margin-top:0; margin-bottom:1rem;">← Volver a la lista</button>
+          <div id="hsp-tags" style="margin-bottom:0.4rem;"></div>
+          <div id="hsp-date" style="font-size:0.84rem; font-weight:700; color:var(--hepl-blue); margin-bottom:0.35rem;"></div>
+          <h3 id="hsp-title" style="font-size:1.35rem; color:var(--hepl-navy); margin-bottom:0.9rem;"></h3>
+          <div id="hsp-body" style="line-height:1.75;"></div>
+        </div>
       </div>
     </section>
   </main>
 
   <footer>
-    <p>Manual de Integración Clínica HEPL · Elaborado por Alex Daniel Castillo Texeira y Lizbeth Guadalupe Silva Huerta</p>
+    <p>Elaboró: Castillo Texeira Alex Daniel y Silva Huerta Lizbeth Guadalupe · Licenciatura en Enfermería · Universidad La Salle Bajío</p>
   </footer>
 
   <script>
-    /* --- PESTAÑAS --- */
     function switchTab(tabId, btn) {
       document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
-      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.nav-tab').forEach(b => b.classList.remove('active'));
       document.getElementById('tab-' + tabId).classList.add('active');
       btn.classList.add('active');
     }
 
-    /* --- DATOS DE TARJETAS DE AISLAMIENTO --- */
     const aislamientosData = {
       roja: {
-        titulo: "🔴 Tarjeta Roja: Precauciones Estándar",
-        color: "#dc2626",
-        bg: "#fef2f2",
-        mecanismo: "Sangre, secreciones y líquidos corporales. Se aplica a TODOS los pacientes independientemente de su diagnóstico.",
+        titulo: "Tarjeta Roja — Precauciones Estándar",
+        color: "#b83232",
+        mecanismo: "Sangre, secreciones y líquidos corporales. Aplicable a todos los pacientes independientemente de su diagnóstico presuntivo.",
         epp: "Higiene de manos en los 5 momentos; guantes, bata y protección ocular únicamente ante riesgo de salpicaduras o contacto con fluidos.",
         ubicacion: "Habitación o cama estándar acorde a su patología.",
-        soporte: "Manejo estricto de RPBI según norma, ropa contaminada rotulada en tánico blanco y desinfección de equipo médico entre pacientes."
+        soporte: "Manejo de RPBI según norma, ropa contaminada rotulada en tánico blanco y desinfección de equipo médico entre pacientes."
       },
       amarilla: {
-        titulo: "🟡 Tarjeta Amarilla: Precauciones de Contacto",
-        color: "#eab308",
-        bg: "#fefce8",
-        mecanismo: "Contacto directo o indirecto con el paciente o su entorno (ej. Rotavirus, Enfermedad Diarreica Aguda [EDA], heridas con secreción).",
+        titulo: "Tarjeta Amarilla — Precauciones de Contacto",
+        color: "#d9a016",
+        mecanismo: "Contacto directo o indirecto con el paciente o su entorno (Rotavirus, enfermedad diarreica aguda, heridas con secreción).",
         epp: "Guantes y bata limpia obligatorios al entrar al cubículo o tener contacto directo; higiene estricta de manos.",
         ubicacion: "Cubículo aislado o cohorte; deambulación prohibida y visitas supervisadas.",
-        soporte: "Bolsa de contaminados rotulada, equipo médico exclusivo (estetoscopio/termómetro) y desinfección continua de superficies."
+        soporte: "Bolsa de contaminados rotulada, equipo médico exclusivo y desinfección continua de superficies."
       },
       verde: {
-        titulo: "🟢 Tarjeta Verde: Precauciones por Gotas",
-        color: "#16a34a",
-        bg: "#f0fdf4",
-        mecanismo: "Gotitas respiratorias mayores a 5 micras (ej. Influenza, bronquiolitis, neumonía, tos ferina, meningococo).",
-        epp: "Cubrebocas quirúrgico y protección ocular al estar a menos de 1.5 metros; guantes al contacto con secreciones.",
+        titulo: "Tarjeta Verde — Precauciones por Gotas",
+        color: "#2e7d32",
+        mecanismo: "Gotitas respiratorias mayores a 5 micras (Influenza, bronquiolitis, neumonía, tos ferina, meningococo).",
+        epp: "Cubrebocas quirúrgico y protección ocular a menos de 1.5 metros; guantes al contacto con secreciones.",
         ubicacion: "Separación mínima de 1.5 metros entre camas o habitación individual.",
         soporte: "Traslado del paciente con cubrebocas quirúrgico y uso de vajilla desechable según protocolo."
       },
       azul: {
-        titulo: "🔵 Tarjeta Azul: Precauciones Vía Aérea",
+        titulo: "Tarjeta Azul — Precauciones Vía Aérea",
         color: "#2563eb",
-        bg: "#eff6ff",
-        mecanismo: "Núcleos de gotitas suspendidos en el aire (ej. Varicela, Sarampión, Tuberculosis pulmonar).",
-        epp: "Respirador N95 / KN95 bien ajustado colocado ANTES de entrar al cubículo y retirado solo después de salir.",
-        ubicacion: "Cubículo individual con PUERTA SIEMPRE CERRADA y presión negativa.",
+        mecanismo: "Núcleos suspendidos en el aire (Varicela, Sarampión, Tuberculosis pulmonar).",
+        epp: "Respirador N95 / KN95 bien ajustado colocado antes de entrar al cubículo y retirado solo después de salir.",
+        ubicacion: "Cubículo individual con puerta siempre cerrada y presión negativa.",
         soporte: "Prohibida la deambulación; limitar traslados al mínimo (paciente con mascarilla) y limpieza exhaustiva de 3 tiempos al alta."
       },
       gris: {
-        titulo: "⚪ Tarjeta Gris: Aislamiento Inverso (Protección)",
+        titulo: "Tarjeta Gris — Aislamiento Inverso (Protección)",
         color: "#64748b",
-        bg: "#f1f5f9",
-        mecanismo: "Proteger al paciente altamente inmunocomprometido de patógenos externos (ej. Neutrófilos < 500 o quemaduras > 25% SCT).",
-        epp: "Higiene de manos estricta; cubrebocas, bata limpia y guantes colocados ANTES de ingresar (gorro en heridas expuestas).",
+        mecanismo: "Proteger al paciente altamente inmunocomprometido de patógenos externos (Neutrófilos < 500 o quemaduras > 25% SCT).",
+        epp: "Higiene de manos estricta; cubrebocas, bata limpia y guantes colocados previo al acceso (gorro en heridas expuestas).",
         ubicacion: "Cubículo individual con puerta cerrada; prioridad clínica junto con vía aérea.",
         soporte: "Sin deambulación en pasillos, EPP obligatorio en traslados y limpieza exhaustiva de 3 tiempos previo al ingreso."
       }
@@ -613,42 +626,43 @@
 
     function showIso(key, btn) {
       if (btn) {
-        document.querySelectorAll('.iso-btn').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.iso-pill').forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
       }
       const d = aislamientosData[key];
       const box = document.getElementById('iso-content');
       box.style.borderLeftColor = d.color;
-      box.style.backgroundColor = d.bg;
       box.innerHTML = `
-        <h3 style="font-family:'Montserrat',sans-serif; font-weight:900; font-size:1.2rem; margin-bottom:0.4rem;">${d.titulo}</h3>
-        <div class="iso-meta-grid">
-          <div class="iso-box"><strong>Mecanismo y Ejemplos</strong><span>${d.mecanismo}</span></div>
-          <div class="iso-box"><strong>Barreras y EPP</strong><span>${d.epp}</span></div>
-          <div class="iso-box"><strong>Ubicación Física</strong><span>${d.ubicacion}</span></div>
-          <div class="iso-box"><strong>Procesos de Soporte</strong><span>${d.soporte}</span></div>
+        <h3 style="font-family:'Montserrat',sans-serif; font-weight:800; font-size:1.15rem; color:var(--hepl-navy);">${d.titulo}</h3>
+        <div class="iso-grid">
+          <div class="iso-cell"><span class="label">Mecanismo y Ejemplos</span><p>${d.mecanismo}</p></div>
+          <div class="iso-cell"><span class="label">Barreras y EPP</span><p>${d.epp}</p></div>
+          <div class="iso-cell"><span class="label">Ubicación Física</span><p>${d.ubicacion}</p></div>
+          <div class="iso-cell"><span class="label">Procesos de Soporte</span><p>${d.soporte}</p></div>
         </div>
       `;
     }
 
-    /* --- CÓDIGOS DE EMERGENCIA --- */
     const codigosData = [
-      { nombre: "🔵 Código Azul — Paro Cardiorrespiratorio", color: "#2563eb", desc: "Iniciar RCP de alta calidad inmediatamente, solicitar Carro Rojo y desfibrilador, y alertar al equipo de respuesta rápida." },
-      { nombre: "🟡 Código Oro / Pediátrico — Deterioro Clínico Agudo", color: "#eab308", desc: "Signos tempranos de gravedad (dificultad respiratoria severa, alteración del estado de alerta o choque) antes del paro. Acude UCIP a estabilizar." },
-      { nombre: "🔴 Código Rojo — Fuego o Conato de Incendio", color: "#dc2626", desc: "Aplicar protocolo RACE (Rescatar, Alertar, Cerrar puertas, Extinguir/Evacuar). Despejar pasillos y no usar elevadores." },
-      { nombre: "🟠 Código Ámbar — Secuestro o Extravío de Menor", color: "#f97316", desc: "Cierre inmediato de accesos y salidas del hospital, aviso a seguridad interna y revisión exhaustiva de instalaciones." },
-      { nombre: "⚫ Código Negro — Amenaza Externa / Violencia Activa", color: "#1e293b", desc: "Resguardo y confinamiento del personal y pacientes en áreas seguras, bloqueo de accesos y evitar zonas abiertas." },
-      { nombre: "🔘 Código Gris — Persona Disruptiva o Agresiva", color: "#64748b", desc: "Resguardo de pacientes y personal, aviso inmediato a seguridad interna y restricción de acceso a la zona de conflicto." },
-      { nombre: "🟧 Código Naranja — Falla de Soporte Vital o Servicios", color: "#ea580c", desc: "Interrupción eléctrica prolongada, fuga de oxígeno o falla hidráulica. Activar plantas de emergencia y tanques portátiles." },
-      { nombre: "🟣 Código Violeta / Limón — Sismo / Revisión Post-Sismo", color: "#7c3aed", desc: "Repliegue en zonas de seguridad durante el movimiento y evaluación estructural posterior por Protección Civil hospitalaria." },
-      { nombre: "🟤 Código Café — Derrame de Materiales Peligrosos", color: "#78350f", desc: "Evacuación del área afectada, delimitación del perímetro y activación del equipo HazMat." },
-      { nombre: "🟨 Código Amarillo — Desastre Externo / Víctimas Masivas", color: "#ca8a04", desc: "Alerta general en Urgencias, habilitación de áreas de expansión y preparación del equipo quirúrgico y de choque." }
+      { nombre: "Código Azul — Paro Cardiorrespiratorio", color: "#2563eb", desc: "Iniciar maniobras de RCP de alta calidad inmediatamente, solicitar Carro Rojo y desfibrilador, y alertar al equipo de respuesta rápida." },
+      { nombre: "Código Oro / Pediátrico — Deterioro Clínico Agudo", color: "#d9a016", desc: "Activación ante signos tempranos de gravedad (dificultad respiratoria severa, alteración del estado de alerta o choque) antes del paro para estabilización por UCIP." },
+      { nombre: "Código Rojo — Fuego o Conato de Incendio", color: "#b83232", desc: "Seguir protocolo RACE (Rescatar, Alertar, Cerrar puertas, Extinguir/Evacuar). Despejar pasillos y no utilizar elevadores." },
+      { nombre: "Código Ámbar — Secuestro o Extravío de Menor", color: "#d96b27", desc: "Cierre inmediato de accesos y salidas del hospital, aviso a seguridad interna y revisión exhaustiva de instalaciones y vehículos." },
+      { nombre: "Código Negro — Amenaza Externa / Violencia Activa", color: "#1e293b", desc: "Resguardo y confinamiento del personal y pacientes en áreas seguras, bloqueo de accesos y evitar áreas abiertas." },
+      { nombre: "Código Gris — Persona Disruptiva o Agresiva", color: "#64748b", desc: "Resguardo de pacientes y personal, aviso inmediato a seguridad interna y restricción de accesos a la zona de conflicto." },
+      { nombre: "Código Naranja — Falla de Soporte Vital o Servicios", color: "#ea580c", desc: "Interrupción eléctrica prolongada, fuga de gases medicinales o falla hidráulica. Activar plantas de emergencia y respaldo de oxígeno." },
+      { nombre: "Código Violeta / Limón — Sismo / Revisión Post-Sismo", color: "#7c3aed", desc: "Repliegue en zonas de seguridad durante el sismo y evaluación estructural posterior por Protección Civil hospitalaria." },
+      { nombre: "Código Café — Derrame de Materiales Peligrosos", color: "#78350f", desc: "Evacuación del área afectada, delimitación del perímetro y activación del equipo de manejo de materiales peligrosos (HazMat)." },
+      { nombre: "Código Amarillo — Desastre Externo / Víctimas Masivas", color: "#ca8a04", desc: "Alerta general en Urgencias, habilitación de áreas de expansión y preparación del equipo quirúrgico y de choque." }
     ];
 
     function renderCodes(list) {
       document.getElementById('codes-container').innerHTML = list.map(c => `
-        <div class="code-card" style="border-left-color:${c.color};">
-          <h4>${c.nombre}</h4>
+        <div class="code-item" style="border-left-color:${c.color};">
+          <div class="code-header">
+            <span class="dot" style="background:${c.color};"></span>
+            <h4>${c.nombre}</h4>
+          </div>
           <p>${c.desc}</p>
         </div>
       `).join('');
@@ -662,7 +676,6 @@
       renderCodes(filtered);
     }
 
-    /* --- CARGAR ENTRADAS DEL BLOG CON TAG HEPL --- */
     let heplPosts = [];
     async function loadHeplBlog() {
       try {
@@ -676,10 +689,10 @@
           document.getElementById('hepl-posts-list').innerHTML = heplPosts.map((p, i) => `
             <article class="post-card">
               <div style="margin-bottom:0.45rem;">${p.tags.map(t => `<span class="tag-pill">${t}</span>`).join('')}</div>
-              <div style="font-size:0.82rem; font-weight:700; color:var(--hepl-teal); margin-bottom:0.3rem;">${p.fecha}</div>
-              <h3 style="font-size:1.22rem; color:var(--hepl-navy); margin-bottom:0.45rem;">${p.titulo}</h3>
-              <p style="color:var(--text-muted); font-size:0.94rem;">${p.resumen}</p>
-              <button class="btn-read" onclick="openHeplPost(${i})">Leer nota completa</button>
+              <div style="font-size:0.82rem; font-weight:700; color:var(--hepl-blue); margin-bottom:0.3rem;">${p.fecha}</div>
+              <h3 style="font-size:1.18rem; color:var(--hepl-navy); margin-bottom:0.45rem;">${p.titulo}</h3>
+              <p style="color:var(--text-muted); font-size:0.93rem;">${p.resumen}</p>
+              <button class="btn-read" onclick="openHeplPost(${i})">Leer publicación</button>
             </article>
           `).join('');
         }
@@ -701,7 +714,6 @@
       document.getElementById('hepl-posts-list').style.display = 'block';
     }
 
-    // Inicializar vistas
     showIso('roja');
     renderCodes(codigosData);
     loadHeplBlog();
