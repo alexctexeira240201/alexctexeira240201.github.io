@@ -250,4 +250,205 @@
     <!-- VISTA BLOG -->
     <section id="view-blog" class="view-section">
       <div id="blog-list-wrap">
-        <h2 class="section-
+        <h2 class="section-heading" style="margin-top:0.5rem;">Blog y Bitácora</h2>
+        <div class="filter-bar" id="tag-filters"></div>
+        <div class="cards-grid" id="blog-posts-grid"></div>
+      </div>
+
+      <div id="blog-reader-wrap" class="single-article" style="display:none;">
+        <button class="btn-pill-action" onclick="closeArticle()" style="margin-bottom:1.25rem;">← Volver al Blog</button>
+        <div id="reader-tags" style="margin-bottom:0.5rem;"></div>
+        <div id="reader-date" style="font-size:0.84rem; font-weight:700; color:var(--blue-btn); margin-bottom:0.35rem;"></div>
+        <h2 id="reader-title" style="font-family:'Montserrat',sans-serif; font-weight:900; font-size:1.65rem;"></h2>
+        <img id="reader-img" style="display:none;" alt="Portada artículo" />
+        <div id="reader-body" class="article-body"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>Alex Daniel Castillo Texeira · León, Guanajuato, México</p>
+  </footer>
+
+  <script>
+    let allPosts = [];
+    let currentTag = 'TODOS';
+
+    const defaultProyectos = [
+      {
+        nombre: "MUSA · Arteterapia en Enfermería",
+        etiqueta: "Grupo Estudiantil · Universidad La Salle Bajío",
+        resumen: "Promoción y educación en salud a través de la arteterapia como intervención de enfermería.",
+        enlace: "musa.html"
+      },
+      {
+        nombre: "Manual de Integración Clínica HEPL",
+        etiqueta: "Hospital de Especialidades Pediátrico León",
+        resumen: "Guía operativa, de bioseguridad y calculadora pediátrica para estudiantes de enfermería.",
+        enlace: "hepl.html"
+      }
+    ];
+
+    function showView(viewName, btn) {
+      document.querySelectorAll('.view-section').forEach(s => s.classList.remove('active'));
+      document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+      document.getElementById('view-' + viewName).classList.add('active');
+      if (btn) btn.classList.add('active');
+      if (viewName === 'blog') closeArticle();
+    }
+
+    async function loadSiteData() {
+      let projs = defaultProyectos;
+      try {
+        const res = await fetch('datos.json?v=' + Date.now());
+        if (res.ok) {
+          const data = await res.json();
+          if (data.inicio) {
+            if (data.inicio.tituloPrincipal) document.getElementById('hero-title').textContent = data.inicio.tituloPrincipal;
+            if (data.inicio.subtitulo) document.getElementById('hero-subtitle').textContent = data.inicio.subtitulo;
+            if (data.inicio.imagenHero) {
+              const img = document.getElementById('hero-img');
+              img.src = data.inicio.imagenHero;
+              img.style.display = 'block';
+            } else if (data.inicio.textoHero) {
+              const fb = document.getElementById('hero-fallback');
+              fb.textContent = data.inicio.textoHero;
+              fb.style.display = 'block';
+            }
+          }
+          if (Array.isArray(data.proyectos) && data.proyectos.length > 0) {
+            projs = data.proyectos;
+          }
+          allPosts = Array.isArray(data.blog) ? data.blog : [];
+        }
+      } catch (e) {
+        console.warn('Usando datos de respaldo en inicio:', e);
+      }
+
+      document.getElementById('projects-grid').innerHTML = projs.map(p => `
+        <article class="project-card">
+          <div>
+            ${p.imagen ? `<img src="${p.imagen}" class="card-img" alt="${p.nombre}">` : ''}
+            <div class="card-kicker">${p.etiqueta || 'Proyecto'}</div>
+            <h3>${p.nombre}</h3>
+            <p>${p.resumen || ''}</p>
+          </div>
+          <a href="${p.enlace || '#'}" class="btn-pill-action">Explorar</a>
+        </article>
+      `).join('');
+
+      renderHomePosts();
+      renderTagFilters();
+      renderBlogPosts('TODOS');
+    }
+
+    function renderHomePosts() {
+      const grid = document.getElementById('home-posts-grid');
+      if (allPosts.length === 0) {
+        grid.innerHTML = `<article class="post-preview"><p>Explora la pestaña <strong>Blog</strong> para ver las entradas publicadas.</p></article>`;
+        return;
+      }
+      const recent = allPosts.slice(0, 3);
+      grid.innerHTML = recent.map((p, idx) => `
+        <article class="post-preview">
+          <div>
+            ${p.imagen ? `<img src="${p.imagen}" class="card-img" alt="${p.titulo}">` : ''}
+            <div class="card-kicker">${p.fecha || ''}</div>
+            <h3>${p.titulo}</h3>
+            <p>${p.resumen || ''}</p>
+          </div>
+          <button class="btn-pill-action" onclick="openArticleFromHome(${idx})">Leer más</button>
+        </article>
+      `).join('');
+    }
+
+    function renderTagFilters() {
+      const tagSet = new Set(['TODOS']);
+      allPosts.forEach(p => {
+        if (Array.isArray(p.tags)) {
+          p.tags.forEach(t => tagSet.add(t.trim().toUpperCase()));
+        }
+      });
+
+      document.getElementById('tag-filters').innerHTML = Array.from(tagSet).map(t => `
+        <button class="tag-btn ${t === currentTag ? 'active' : ''}" onclick="filterByTag('${t}', this)">${t}</button>
+      `).join('');
+    }
+
+    function filterByTag(tag, btn) {
+      currentTag = tag;
+      document.querySelectorAll('.tag-btn').forEach(b => b.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+      renderBlogPosts(tag);
+    }
+
+    function renderBlogPosts(tag) {
+      const filtered = tag === 'TODOS'
+        ? allPosts
+        : allPosts.filter(p => Array.isArray(p.tags) && p.tags.map(x => x.trim().toUpperCase()).includes(tag));
+
+      const grid = document.getElementById('blog-posts-grid');
+      if (filtered.length === 0) {
+        grid.innerHTML = `<article class="post-preview"><p>No hay publicaciones disponibles en este momento.</p></article>`;
+        return;
+      }
+
+      grid.innerHTML = filtered.map(p => {
+        const realIdx = allPosts.indexOf(p);
+        return `
+          <article class="post-preview">
+            <div>
+              ${p.imagen ? `<img src="${p.imagen}" class="card-img" alt="${p.titulo}">` : ''}
+              <div style="margin-bottom:0.45rem;">${(p.tags || []).map(t => `<span class="tag-pill">${t}</span>`).join('')}</div>
+              <div class="card-kicker">${p.fecha || ''}</div>
+              <h3>${p.titulo}</h3>
+              <p>${p.resumen || ''}</p>
+            </div>
+            <button class="btn-pill-action" onclick="openArticle(${realIdx})">Leer artículo</button>
+          </article>
+        `;
+      }).join('');
+    }
+
+    function openArticleFromHome(idx) {
+      const blogBtn = document.querySelectorAll('.nav-btn')[1];
+      showView('blog', blogBtn);
+      openArticle(idx);
+    }
+
+    function openArticle(idx) {
+      const p = allPosts[idx];
+      if (!p) return;
+      document.getElementById('blog-list-wrap').style.display = 'none';
+      document.getElementById('reader-tags').innerHTML = (p.tags || []).map(t => `<span class="tag-pill">${t}</span>`).join('');
+      document.getElementById('reader-date').textContent = p.fecha || '';
+      document.getElementById('reader-title').textContent = p.titulo;
+      const img = document.getElementById('reader-img');
+      if (p.imagen) {
+        img.src = p.imagen;
+        img.style.display = 'block';
+      } else {
+        img.style.display = 'none';
+      }
+      document.getElementById('reader-body').innerHTML = marked.parse(p.contenido || '');
+      document.getElementById('blog-reader-wrap').style.display = 'block';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function closeArticle() {
+      document.getElementById('blog-reader-wrap').style.display = 'none';
+      document.getElementById('blog-list-wrap').style.display = 'block';
+    }
+
+    (function checkInitialView() {
+      const params = new URLSearchParams(window.location.search);
+      if (params.get('vista') === 'blog') {
+        const blogBtn = document.querySelectorAll('.nav-btn')[1];
+        if (blogBtn) showView('blog', blogBtn);
+      }
+    })();
+
+    loadSiteData();
+  </script>
+</body>
+</html>
