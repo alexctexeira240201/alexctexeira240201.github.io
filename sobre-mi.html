@@ -258,7 +258,7 @@
       color: var(--text-muted);
     }
 
-    /* 4. EXPERIENCIA Y CERTIFICACIONES (ROJO/CORAL PASTEL) */
+    /* 4. EXPERIENCIA Y CERTIFICACIONES (ROJO / CORAL PASTEL) */
     .band-experiencia { background-color: var(--pastel-coral); }
     .band-experiencia .band-title { color: #6b1d2f; }
 
@@ -406,23 +406,28 @@
       color: var(--text-muted);
     }
 
-    /* Botón de impresión PDF */
-    .print-row {
+    /* Botón Google Drive para CV */
+    .drive-row {
       text-align: center;
       margin-top: 2.25rem;
     }
-    .btn-print-cv {
+    .btn-drive-cv {
+      display: inline-block;
       background-color: #1e3a5f;
       color: #ffffff;
-      border: none;
+      text-decoration: none;
       font-family: 'Montserrat', sans-serif;
       font-weight: 800;
       font-size: 0.85rem;
-      padding: 0.85rem 1.8rem;
+      padding: 0.85rem 1.85rem;
       border-radius: 999px;
-      cursor: pointer;
+      box-shadow: 0 4px 14px rgba(30, 58, 95, 0.2);
+      transition: background-color 0.2s, transform 0.15s;
     }
-    .btn-print-cv:hover { background-color: #2e5485; }
+    .btn-drive-cv:hover {
+      background-color: #2e5485;
+      transform: translateY(-2px);
+    }
 
     footer {
       background-color: #1e3a5f;
@@ -431,14 +436,6 @@
       padding: 1.5rem 1rem;
       font-size: 0.86rem;
     }
-
-    /* Estilos limpios al imprimir o guardar como PDF */
-    @media print {
-      .nav-bar, .print-row, .tools-hint { display: none !important; }
-      .band { padding: 1.2rem 0.5rem !important; background: #ffffff !important; }
-      .floating-arena { min-height: auto !important; display: flex; flex-wrap: wrap; gap: 0.5rem; }
-      .float-word { position: static !important; transform: none !important; }
-    }
   </style>
 </head>
 <body>
@@ -446,7 +443,7 @@
   <!-- Menú Superior -->
   <nav class="nav-bar">
     <a href="index.html" class="nav-pill">Inicio</a>
-    <a href="index.html#blog" class="nav-pill">Blog</a>
+    <a href="index.html?vista=blog" class="nav-pill">Blog</a>
     <a href="sobre-mi.html" class="nav-pill active">Sobre Mí</a>
   </nav>
 
@@ -460,7 +457,7 @@
         </div>
         <div class="bio-card">
           <h2 id="sm-nombre">Alex Daniel Castillo Texeira</h2>
-          <div class="bio-role" id="sm-rol">Estudiante de Licenciatura en Enfermería y Promoción y Educación para la Salud</div>
+          <div class="bio-role" id="sm-rol">Licenciatura en Enfermería (La Salle Bajío) · Promoción y Educación para la Salud (UnADM)</div>
           <div id="sm-bio-text">
             <p>Originario de Guerrero y radicado en León, Guanajuato, combino la formación clínica en enfermería con la educación para la salud y la gestión de proyectos comunitarios.</p>
             <p>Creo firmemente en la <strong>Inteligencia Artesanal</strong> y el cuidado humanizado: unir el rigor científico y técnico de la salud con el arte, la empatía y la comunicación clara para transformar la experiencia de pacientes y estudiantes.</p>
@@ -517,8 +514,10 @@
         </div>
       </div>
 
-      <div class="print-row">
-        <button class="btn-print-cv" onclick="window.print()">Guardar / Imprimir versión ejecutiva (PDF)</button>
+      <div class="drive-row">
+        <a id="sm-cv-drive-link" href="https://drive.google.com/drive/folders/1RASHVD3x22W-XzG0zxi3o2xOJTJOP6Ub?usp=drive_link" target="_blank" rel="noopener" class="btn-drive-cv">
+          Descargar CV Ejecutivo (Google Drive)
+        </a>
       </div>
     </div>
   </section>
@@ -528,10 +527,10 @@
   </footer>
 
   <script>
-    /* Datos base por defecto (se sobreescriben automáticamente si los editas en Pages CMS) */
     const defaultSobreMi = {
       nombre: "Alex Daniel Castillo Texeira",
       rol: "Licenciatura en Enfermería (La Salle Bajío) · Promoción y Educación para la Salud (UnADM)",
+      enlaceDriveCV: "https://drive.google.com/drive/folders/1RASHVD3x22W-XzG0zxi3o2xOJTJOP6Ub?usp=drive_link",
       fotoPerfil: "",
       biografia: "Originario de Guerrero y radicado en León, Guanajuato, enfoco mi desarrollo profesional en la intersección entre el cuidado clínico de enfermería, la educación para la salud y la gestión académica.\n\nImpulso la Inteligencia Artesanal y la arteterapia como intervención de enfermería, diseñando herramientas clínicas digitales, manuales operativos y brigadas comunitarias con rigor científico y calidez humana.",
       fotoProyectos: "",
@@ -617,9 +616,12 @@
         }
       } catch (e) { /* Usa datos por defecto si aún no se edita en CMS */ }
 
-      // 1. Perfil
+      // 1. Perfil y enlace Drive CV
       document.getElementById('sm-nombre').textContent = sm.nombre;
       document.getElementById('sm-rol').textContent = sm.rol;
+      if (sm.enlaceDriveCV) {
+        document.getElementById('sm-cv-drive-link').href = sm.enlaceDriveCV;
+      }
       if (sm.fotoPerfil) {
         document.getElementById('sm-photo-box').innerHTML = `<img src="${sm.fotoPerfil}" alt="${sm.nombre}">`;
       }
@@ -679,7 +681,7 @@
       }
 
       // 5. Herramientas Flotantes
-      initFloatingWords(sm.herramientas || defaultSobreMi.herramientas);
+      initFloatingWords(sm.herramientas && sm.herramientas.length ? sm.herramientas : defaultSobreMi.herramientas);
     }
 
     function initFloatingWords(tools) {
@@ -727,7 +729,6 @@
         floatingItems.push(item);
       });
 
-      // Mostrar la primera herramienta por defecto
       if (tools.length > 0 && floatingItems[0]) {
         floatingItems[0].el.classList.add('selected');
         document.getElementById('td-title').textContent = tools[0].palabra;
