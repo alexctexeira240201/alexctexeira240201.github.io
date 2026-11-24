@@ -34,6 +34,13 @@
       "imagen": "img/LOGO_2026.png",
       "resumen": "Grupo Estudiantil de Promoción y Educación en Salud a través de la Arteterapia como Intervención de Enfermería. Conoce nuestras brigadas, talleres y bitácora.",
       "enlace": "musa.html"
+    },
+    {
+      "nombre": "Manual de Integración Clínica HEPL",
+      "etiqueta": "Hospital de Especialidades Pediátrico León",
+      "imagen": "img/carrusel_WEB.webp",
+      "resumen": "Guía operativa, de bioseguridad y consulta rápida de bolsillo para estudiantes de Enfermería en rotación pediátrica.",
+      "enlace": "hepl.html"
     }
   ]
 }
