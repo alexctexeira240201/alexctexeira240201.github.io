@@ -9,9 +9,9 @@
     .admin-wrap { max-width: 860px; margin: 40px auto; padding: 0 20px 80px; }
     .card { background: #111; border: 1px solid #2c3b1e; border-radius: 14px; padding: 24px; margin-bottom: 28px; }
     .card h2 { font-size: 1.3rem; color: var(--olive-text); margin-bottom: 16px; text-transform: uppercase; letter-spacing: 1px; }
-    label { display: block; font-family: var(--font-mono); font-size: 0.85rem; color: #bbb; margin: 12px 0 6px; }
+    label { display: block; font-family: var(--font-mono); font-size: 0.82rem; color: #bbb; margin: 12px 0 6px; }
     input, textarea { width: 100%; background: #070707; border: 1px solid #333; color: #fff; padding: 10px 12px; border-radius: 8px; font-family: var(--font-display); font-size: 0.95rem; }
-    textarea { min-height: 150px; resize: vertical; font-family: var(--font-mono); }
+    textarea { min-height: 130px; resize: vertical; font-family: var(--font-mono); font-size: 0.86rem; }
     button { background: var(--olive-mid); color: #fff; border: none; padding: 10px 20px; border-radius: 8px; font-weight: 700; cursor: pointer; margin-top: 14px; }
     button:hover { background: #617d44; }
     .btn-edit { background: #2c4c7c; padding: 6px 12px; font-size: 0.8rem; margin-top: 0; }
@@ -31,7 +31,12 @@
     .thumb-del { position: absolute; top: 3px; right: 3px; background: rgba(180,20,20,0.9); color: #fff; border: none; width: 20px; height: 20px; border-radius: 50%; font-size: 0.72rem; cursor: pointer; margin: 0; padding: 0; line-height: 20px; }
     .thumb-badge { position: absolute; bottom: 2px; left: 2px; background: rgba(0,0,0,0.75); color: #fff; font-size: 0.65rem; padding: 1px 5px; border-radius: 4px; font-family: var(--font-mono); }
     .preview-img { max-height: 120px; border-radius: 8px; margin-top: 10px; display: none; }
-    .topbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
+    .topbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 12px; }
+    .admin-nav-tabs { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px; }
+    .admin-nav-tab { background: #181818; border: 1px solid #333; color: #ccc; padding: 8px 16px; border-radius: 8px; font-family: var(--font-mono); font-size: 0.82rem; cursor: pointer; margin-top: 0; }
+    .admin-nav-tab.active { background: var(--olive-dark); border-color: #fce300; color: #fce300; }
+    .admin-pane { display: none; }
+    .admin-pane.active { display: block; }
     .msg { font-family: var(--font-mono); font-size: 0.85rem; color: #8be08b; margin-top: 10px; }
     .err { color: #ff6b6b; }
   </style>
@@ -55,13 +60,22 @@
       <div class="topbar">
         <h1 style="font-size: 1.5rem;">PANEL // ALEXCTEXEIRA</h1>
         <div>
-          <a href="index.html" target="_blank" style="margin-right: 16px; color: var(--olive-text); font-family: var(--font-mono);">Ver sitio ↗</a>
+          <a href="index.html" target="_blank" style="margin-right: 12px; color: var(--olive-text); font-family: var(--font-mono);">Index ↗</a>
+          <a href="sobre-mi.html" target="_blank" style="margin-right: 16px; color: var(--olive-text); font-family: var(--font-mono);">Sobre Mí ↗</a>
           <button id="btn-logout" class="btn-danger">Salir</button>
         </div>
       </div>
 
+      <!-- PESTAÑAS DEL ADMIN -->
+      <div class="admin-nav-tabs">
+        <button type="button" class="admin-nav-tab active" data-tab="blog">1. Blog</button>
+        <button type="button" class="admin-nav-tab" data-tab="proyectos">2. Proyectos</button>
+        <button type="button" class="admin-nav-tab" data-tab="manifiesto">3. Manifiesto</button>
+        <button type="button" class="admin-nav-tab" data-tab="sobremi">4. Sobre Mí (CV)</button>
+      </div>
+
       <!-- 1. BLOG -->
-      <section class="card" id="blog-card">
+      <section class="card admin-pane active" id="pane-blog">
         <h2 id="blog-form-heading">1. Nueva Entrada de Blog</h2>
         <label>Título</label>
         <input type="text" id="post-title" placeholder="Ej. Mi primer archivo fuera de los muros" />
@@ -75,7 +89,7 @@
         <label>Contenido completo del artículo</label>
         <input type="file" id="post-inline-file" accept="image/*" style="display:none;" />
         <button type="button" id="btn-insert-inline" class="btn-inline">+ Insertar imagen en el texto</button>
-        <textarea id="post-content" placeholder="Escribe toda tu entrada aquí... Usa el botón de arriba para insertar fotos donde esté tu cursor."></textarea>
+        <textarea id="post-content" placeholder="Escribe toda tu entrada aquí..."></textarea>
         <div id="post-inlines-preview" class="thumbs-strip"></div>
 
         <div>
@@ -87,7 +101,7 @@
       </section>
 
       <!-- 2. PROYECTOS -->
-      <section class="card" id="proj-card">
+      <section class="card admin-pane" id="pane-proyectos">
         <h2 id="proj-form-heading">2. Nuevo Proyecto (Franja Verde)</h2>
         <label>Título del proyecto</label>
         <input type="text" id="proj-title" placeholder="Ej. Portal de Enfermería" />
@@ -106,8 +120,8 @@
         <div id="projs-list" class="item-list"></div>
       </section>
 
-      <!-- 3. MANIFIESTO EN PORTUGUÉS -->
-      <section class="card">
+      <!-- 3. MANIFIESTO -->
+      <section class="card admin-pane" id="pane-manifiesto">
         <h2>3. Texto en Portugués (Manifiesto)</h2>
         <label>Código / Fecha superior</label>
         <input type="text" id="man-date" placeholder="026 11MOON 27" />
@@ -118,6 +132,46 @@
         <button id="btn-save-man">Actualizar manifiesto</button>
         <p id="man-msg" class="msg"></p>
       </section>
+
+      <!-- 4. SOBRE MÍ (CV) -->
+      <section class="card admin-pane" id="pane-sobremi">
+        <h2>4. Editar Sobre Mí (CV)</h2>
+        <label>Nombre completo</label>
+        <input type="text" id="sm-nombre" />
+        <label>Rol / Subtítulo</label>
+        <input type="text" id="sm-rol" />
+        <label>Enlace a CV en Google Drive</label>
+        <input type="url" id="sm-drive" />
+
+        <label>Foto de perfil</label>
+        <input type="file" id="sm-foto-perfil-file" accept="image/*" />
+        <img id="sm-foto-perfil-prev" class="preview-img" alt="Foto perfil" />
+
+        <label>Biografía (usa doble salto de línea para separar párrafos)</label>
+        <textarea id="sm-bio"></textarea>
+
+        <label>Foto de sección Liderazgo y Proyectos</label>
+        <input type="file" id="sm-foto-proy-file" accept="image/*" />
+        <img id="sm-foto-proy-prev" class="preview-img" alt="Foto proyectos" />
+
+        <label>Formación Académica (1 por línea: Etiqueta | Título | Institución | Detalle)</label>
+        <textarea id="sm-formacion"></textarea>
+
+        <label>Liderazgo y Proyectos (1 por línea: Título | Descripción)</label>
+        <textarea id="sm-liderazgo"></textarea>
+
+        <label>Experiencia (1 por línea: Puesto | Lugar | Detalle)</label>
+        <textarea id="sm-experiencia"></textarea>
+
+        <label>Certificaciones (1 por línea: Nombre | Emisor)</label>
+        <textarea id="sm-certificaciones"></textarea>
+
+        <label>Herramientas Flotantes (1 por línea: Palabra | Detalle)</label>
+        <textarea id="sm-herramientas"></textarea>
+
+        <button id="btn-save-sm">Guardar Sobre Mí</button>
+        <p id="sm-msg" class="msg"></p>
+      </section>
     </div>
   </div>
 
@@ -125,6 +179,16 @@
     import { auth, db, ADMIN_EMAIL } from "./firebase-config.js";
     import { signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
     import { collection, addDoc, getDocs, deleteDoc, doc, setDoc, updateDoc, getDoc, query, orderBy, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+    // PESTAÑAS
+    document.querySelectorAll(".admin-nav-tab").forEach(btn => {
+      btn.addEventListener("click", () => {
+        document.querySelectorAll(".admin-nav-tab").forEach(b => b.classList.remove("active"));
+        document.querySelectorAll(".admin-pane").forEach(p => p.classList.remove("active"));
+        btn.classList.add("active");
+        document.getElementById("pane-" + btn.dataset.tab).classList.add("active");
+      });
+    });
 
     function compressImage(file, maxWidth = 900, quality = 0.72) {
       return new Promise((resolve, reject) => {
@@ -151,11 +215,52 @@
     let postCoverImages = [];
     let postInlineImages = [];
     let projImageBase64 = "";
+    let smFotoPerfil = "";
+    let smFotoProyectos = "";
     let editingPostId = null;
     let editingProjId = null;
     let postsCache = {};
     let projsCache = {};
 
+    const defaultSobreMi = {
+      nombre: "Alex Daniel Castillo Texeira",
+      rol: "Licenciatura en Enfermería (La Salle Bajío) · Promoción y Educación para la Salud (UnADM)",
+      enlaceDriveCV: "https://drive.google.com/drive/folders/1RASHVD3x22W-XzG0zxi3o2xOJTJOP6Ub?usp=drive_link",
+      fotoPerfil: "",
+      biografia: "Originario de Guerrero y radicado en León, Guanajuato, enfoco mi desarrollo profesional en la intersección entre el cuidado clínico de enfermería, la educación para la salud y la gestión académica.\n\nImpulso la Inteligencia Artesanal y la arteterapia como intervención de enfermería, diseñando herramientas clínicas digitales, manuales operativos y brigadas comunitarias con rigor científico y calidez humana.",
+      fotoProyectos: "",
+      formacion: [
+        { etiqueta: "En curso", titulo: "Licenciatura en Enfermería", institucion: "Universidad La Salle Bajío · Campus Campestre", detalle: "Formación clínica hospitalaria y comunitaria, gestión de servicios de enfermería, cuidado crítico y tutoría académica entre pares." },
+        { etiqueta: "Antecedente técnico", titulo: "Ingeniería Biomédica (6.º Semestre)", institucion: "Universidad La Salle Bajío", detalle: "Base analítica, instrumentación médica, fisiología cuantitativa y desarrollo de soluciones tecnológicas aplicadas al entorno clínico." }
+      ],
+      liderazgo: [
+        { titulo: "Fundador y Líder de Relaciones Públicas · MUSA", descripcion: "Grupo estudiantil de Promoción y Educación en Salud a través de la Arteterapia como Intervención de Enfermería en la Universidad La Salle Bajío." },
+        { titulo: "Secretario del Consejo Local Estudiantil", descripcion: "Escuela de Medicina del Bajío (2024–2025). Organización logística de la Jornada Académica de Salud e Innovación y el hackathon MEDITHON." },
+        { titulo: "Tutor Par", descripcion: "Tutor académico para estudiantes de nuevo ingreso en Enfermería (La Salle Bajío)." }
+      ],
+      experiencia: [
+        { puesto: "Gestión y Administración en Enseñanza Clínica", lugar: "Hospital de Especialidades Pediátrico León (HEPL)", detalle: "Elaboración del Manual de Integración Clínica y desarrollo de herramientas digitales de consulta rápida y dosificación pediátrica." },
+        { puesto: "Rotaciones Clínicas Hospitalarias y Comunitarias", lugar: "Hospital General de León y Clínica Municipal Efraín Huerta", detalle: "Práctica supervisada en Medicina Interna, Urgencias, Cirugía, Quirófano, Recuperación, Traumatología y Ortopedia, y Unidad de Quemados." },
+        { puesto: "Bilingual Customer & Provider Service Representative", lugar: "Teleperformance · Ambetter Health (2022–2024)", detalle: "Atención bilingüe (inglés-español) a asegurados y proveedores médicos en Estados Unidos." }
+      ],
+      certificaciones: [
+        { nombre: "Cambridge English B2", emisor: "CELEEX · UAGro (2018)" },
+        { nombre: "Primeros Auxilios Psicológicos", emisor: "DisasterReady" },
+        { nombre: "Primeros Auxilios", emisor: "Universidad La Salle Bajío (2023)" }
+      ],
+      herramientas: [
+        { palabra: "Google Workspace & Apps Script", detalle: "Automatización de flujos administrativos, registros de asistencia y hojas de cálculo clínicas." },
+        { palabra: "Canva Pro & Diseño Editorial", detalle: "Diseño de manuales hospitalarios, infografías clínicas y constancias institucionales." },
+        { palabra: "Adobe Photoshop", detalle: "Edición fotográfica, montaje gráfico y preparación de recursos visuales." },
+        { palabra: "Desarrollo Web (HTML/CSS/JS)", detalle: "Creación de micrositios institucionales, calculadoras clínicas interactivas y portafolios." },
+        { palabra: "Idioma Inglés (B2)", detalle: "Comunicación fluida oral y escrita, terminología médica en inglés y docencia básica." },
+        { palabra: "Idioma Portugués", detalle: "Nivel intermedio de comprensión y conversación." },
+        { palabra: "Arteterapia", detalle: "Diseño de talleres terapéuticos manuales aplicados a la educación para la salud." },
+        { palabra: "Microsoft Office", detalle: "Dominio de Word, Excel y PowerPoint para informes y presentaciones ejecutivas." }
+      ]
+    };
+
+    // IMÁGENES BLOG Y PROYECTOS
     function renderCoverPreviews() {
       const box = document.getElementById("post-covers-preview");
       box.innerHTML = postCoverImages.map((src, i) => `
@@ -184,10 +289,8 @@
     }
 
     document.getElementById("post-img-file").addEventListener("change", async (e) => {
-      const files = Array.from(e.target.files || []);
-      for (const file of files) {
-        const b64 = await compressImage(file, 950, 0.72);
-        postCoverImages.push(b64);
+      for (const file of Array.from(e.target.files || [])) {
+        postCoverImages.push(await compressImage(file, 950, 0.72));
       }
       e.target.value = "";
       renderCoverPreviews();
@@ -200,8 +303,7 @@
     document.getElementById("post-inline-file").addEventListener("change", async (e) => {
       const file = e.target.files[0];
       if (!file) return;
-      const b64 = await compressImage(file, 850, 0.7);
-      postInlineImages.push(b64);
+      postInlineImages.push(await compressImage(file, 850, 0.7));
       const tag = `\n[IMG:${postInlineImages.length}]\n`;
       const ta = document.getElementById("post-content");
       const start = ta.selectionStart ?? ta.value.length;
@@ -221,18 +323,34 @@
       prev.style.display = "block";
     });
 
+    document.getElementById("sm-foto-perfil-file").addEventListener("change", async (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+      smFotoPerfil = await compressImage(file, 600, 0.75);
+      const prev = document.getElementById("sm-foto-perfil-prev");
+      prev.src = smFotoPerfil;
+      prev.style.display = "block";
+    });
+
+    document.getElementById("sm-foto-proy-file").addEventListener("change", async (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+      smFotoProyectos = await compressImage(file, 600, 0.75);
+      const prev = document.getElementById("sm-foto-proy-prev");
+      prev.src = smFotoProyectos;
+      prev.style.display = "block";
+    });
+
     // AUTH
     document.getElementById("btn-login").addEventListener("click", async () => {
       const email = document.getElementById("login-email").value.trim();
       const pass = document.getElementById("login-pass").value;
       const errEl = document.getElementById("login-error");
       errEl.textContent = "";
-
       if (email.toLowerCase() !== ADMIN_EMAIL.toLowerCase()) {
         errEl.textContent = "Acceso denegado: correo no autorizado.";
         return;
       }
-
       try {
         await signInWithEmailAndPassword(auth, email, pass);
       } catch (err) {
@@ -292,17 +410,9 @@
       const description = document.getElementById("post-desc").value.trim();
       const content = document.getElementById("post-content").value.trim();
       const msg = document.getElementById("post-msg");
-      if (!title) return (msg.textContent = "Ponle título mínimo, wey.");
+      if (!title) return (msg.textContent = "Falta el título de la entrada.");
 
-      const payload = {
-        title,
-        description,
-        content,
-        image: postCoverImages[0] || "",
-        images: postCoverImages,
-        inlineImages: postInlineImages
-      };
-
+      const payload = { title, description, content, image: postCoverImages[0] || "", images: postCoverImages, inlineImages: postInlineImages };
       try {
         if (editingPostId) {
           await updateDoc(doc(db, "posts", editingPostId), payload);
@@ -314,7 +424,7 @@
         resetPostForm();
         loadLists();
       } catch (err) {
-        msg.textContent = "Error al guardar (puede que hayas subido demasiadas fotos pesadas): " + err.message;
+        msg.textContent = "Error al guardar: " + err.message;
       }
     });
 
@@ -327,20 +437,12 @@
       if (!title) return (msg.textContent = "Ponle título al proyecto.");
 
       if (editingProjId) {
-        await updateDoc(doc(db, "projects", editingProjId), {
-          title, description, url,
-          image: projImageBase64
-        });
+        await updateDoc(doc(db, "projects", editingProjId), { title, description, url, image: projImageBase64 });
         msg.textContent = "Proyecto actualizado.";
       } else {
-        await addDoc(collection(db, "projects"), {
-          title, description, url,
-          image: projImageBase64,
-          createdAt: serverTimestamp()
-        });
+        await addDoc(collection(db, "projects"), { title, description, url, image: projImageBase64, createdAt: serverTimestamp() });
         msg.textContent = "Proyecto guardado.";
       }
-
       resetProjForm();
       loadLists();
     });
@@ -355,11 +457,42 @@
       document.getElementById("man-msg").textContent = "Manifiesto actualizado.";
     });
 
+    // GUARDAR SOBRE MÍ
+    function parseLines(text, keys) {
+      return text.split("\n").map(l => l.trim()).filter(Boolean).map(line => {
+        const parts = line.split("|").map(p => p.trim());
+        const obj = {};
+        keys.forEach((k, i) => obj[k] = parts[i] || "");
+        return obj;
+      });
+    }
+
+    document.getElementById("btn-save-sm").addEventListener("click", async () => {
+      const msg = document.getElementById("sm-msg");
+      try {
+        await setDoc(doc(db, "settings", "sobremi"), {
+          nombre: document.getElementById("sm-nombre").value.trim(),
+          rol: document.getElementById("sm-rol").value.trim(),
+          enlaceDriveCV: document.getElementById("sm-drive").value.trim(),
+          fotoPerfil: smFotoPerfil,
+          biografia: document.getElementById("sm-bio").value.trim(),
+          fotoProyectos: smFotoProyectos,
+          formacion: parseLines(document.getElementById("sm-formacion").value, ["etiqueta", "titulo", "institucion", "detalle"]),
+          liderazgo: parseLines(document.getElementById("sm-liderazgo").value, ["titulo", "descripcion"]),
+          experiencia: parseLines(document.getElementById("sm-experiencia").value, ["puesto", "lugar", "detalle"]),
+          certificaciones: parseLines(document.getElementById("sm-certificaciones").value, ["nombre", "emisor"]),
+          herramientas: parseLines(document.getElementById("sm-herramientas").value, ["palabra", "detalle"])
+        });
+        msg.textContent = "Sección Sobre Mí actualizada.";
+      } catch (err) {
+        msg.textContent = "Error al guardar: " + err.message;
+      }
+    });
+
     async function loadLists() {
       const pSnap = await getDocs(query(collection(db, "posts"), orderBy("createdAt", "desc")));
       postsCache = {};
-      const pList = document.getElementById("posts-list");
-      pList.innerHTML = pSnap.docs.map(d => {
+      document.getElementById("posts-list").innerHTML = pSnap.docs.map(d => {
         postsCache[d.id] = d.data();
         return `
           <div class="item-row">
@@ -368,14 +501,12 @@
               <button class="btn-edit" data-edit-col="posts" data-id="${d.id}">Editar</button>
               <button class="btn-danger" data-del-col="posts" data-id="${d.id}">Borrar</button>
             </div>
-          </div>
-        `;
+          </div>`;
       }).join("");
 
       const prSnap = await getDocs(query(collection(db, "projects"), orderBy("createdAt", "desc")));
       projsCache = {};
-      const prList = document.getElementById("projs-list");
-      prList.innerHTML = prSnap.docs.map(d => {
+      document.getElementById("projs-list").innerHTML = prSnap.docs.map(d => {
         projsCache[d.id] = d.data();
         return `
           <div class="item-row">
@@ -384,15 +515,13 @@
               <button class="btn-edit" data-edit-col="projects" data-id="${d.id}">Editar</button>
               <button class="btn-danger" data-del-col="projects" data-id="${d.id}">Borrar</button>
             </div>
-          </div>
-        `;
+          </div>`;
       }).join("");
 
       document.querySelectorAll("[data-edit-col]").forEach(btn => {
         btn.addEventListener("click", () => {
           const col = btn.dataset.editCol;
           const id = btn.dataset.id;
-
           if (col === "posts") {
             const p = postsCache[id];
             if (!p) return;
@@ -407,7 +536,7 @@
             document.getElementById("post-content").value = p.content || "";
             renderCoverPreviews();
             renderInlinePreviews();
-            document.getElementById("blog-card").scrollIntoView({ behavior: "smooth" });
+            window.scrollTo({ top: 0, behavior: "smooth" });
           } else {
             const pr = projsCache[id];
             if (!pr) return;
@@ -422,7 +551,7 @@
             const prev = document.getElementById("proj-img-preview");
             if (projImageBase64) { prev.src = projImageBase64; prev.style.display = "block"; }
             else { prev.style.display = "none"; }
-            document.getElementById("proj-card").scrollIntoView({ behavior: "smooth" });
+            window.scrollTo({ top: 0, behavior: "smooth" });
           }
         });
       });
@@ -448,9 +577,39 @@
       }
     }
 
+    async function loadSobreMiAdmin() {
+      let sm = { ...defaultSobreMi };
+      const snap = await getDoc(doc(db, "settings", "sobremi"));
+      if (snap.exists()) sm = { ...defaultSobreMi, ...snap.data() };
+
+      document.getElementById("sm-nombre").value = sm.nombre || "";
+      document.getElementById("sm-rol").value = sm.rol || "";
+      document.getElementById("sm-drive").value = sm.enlaceDriveCV || "";
+      document.getElementById("sm-bio").value = sm.biografia || "";
+
+      smFotoPerfil = sm.fotoPerfil || "";
+      if (smFotoPerfil) {
+        const p = document.getElementById("sm-foto-perfil-prev");
+        p.src = smFotoPerfil; p.style.display = "block";
+      }
+
+      smFotoProyectos = sm.fotoProyectos || "";
+      if (smFotoProyectos) {
+        const p = document.getElementById("sm-foto-proy-prev");
+        p.src = smFotoProyectos; p.style.display = "block";
+      }
+
+      document.getElementById("sm-formacion").value = (sm.formacion || []).map(f => `${f.etiqueta || ""} | ${f.titulo || ""} | ${f.institucion || ""} | ${f.detalle || ""}`).join("\n");
+      document.getElementById("sm-liderazgo").value = (sm.liderazgo || []).map(l => `${l.titulo || ""} | ${l.descripcion || ""}`).join("\n");
+      document.getElementById("sm-experiencia").value = (sm.experiencia || []).map(e => `${e.puesto || ""} | ${e.lugar || ""} | ${e.detalle || ""}`).join("\n");
+      document.getElementById("sm-certificaciones").value = (sm.certificaciones || []).map(c => `${c.nombre || ""} | ${c.emisor || ""}`).join("\n");
+      document.getElementById("sm-herramientas").value = (sm.herramientas || []).map(h => `${h.palabra || ""} | ${h.detalle || ""}`).join("\n");
+    }
+
     function refreshAll() {
       loadLists();
       loadManifestoAdmin();
+      loadSobreMiAdmin();
     }
   </script>
 </body>
