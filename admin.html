@@ -4,14 +4,14 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>ADMIN // ALEXCTEXEIRA</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css?v=2" />
   <style>
     .admin-wrap { max-width: 860px; margin: 40px auto; padding: 0 20px 80px; }
     .card { background: #111; border: 1px solid #2c3b1e; border-radius: 14px; padding: 24px; margin-bottom: 28px; }
     .card h2 { font-size: 1.3rem; color: var(--olive-text); margin-bottom: 16px; text-transform: uppercase; letter-spacing: 1px; }
     label { display: block; font-family: var(--font-mono); font-size: 0.85rem; color: #bbb; margin: 12px 0 6px; }
     input, textarea { width: 100%; background: #070707; border: 1px solid #333; color: #fff; padding: 10px 12px; border-radius: 8px; font-family: var(--font-display); font-size: 0.95rem; }
-    textarea { min-height: 130px; resize: vertical; font-family: var(--font-mono); }
+    textarea { min-height: 150px; resize: vertical; font-family: var(--font-mono); }
     button { background: var(--olive-mid); color: #fff; border: none; padding: 10px 20px; border-radius: 8px; font-weight: 700; cursor: pointer; margin-top: 14px; }
     button:hover { background: #617d44; }
     .btn-edit { background: #2c4c7c; padding: 6px 12px; font-size: 0.8rem; margin-top: 0; }
@@ -20,10 +20,16 @@
     .btn-cancel:hover { background: #666; }
     .btn-danger { background: #7a2222; padding: 6px 12px; font-size: 0.8rem; margin-top: 0; }
     .btn-danger:hover { background: #a12c2c; }
+    .btn-inline { background: #223514; border: 1px solid #4e6536; padding: 7px 14px; font-size: 0.8rem; margin: 6px 0 8px; font-family: var(--font-mono); }
     .item-list { margin-top: 20px; display: flex; flex-direction: column; gap: 10px; }
     .item-row { display: flex; justify-content: space-between; align-items: center; background: #191919; padding: 10px 14px; border-radius: 8px; gap: 12px; flex-wrap: wrap; }
     .item-row span { font-size: 0.9rem; }
     .item-actions { display: flex; gap: 8px; }
+    .thumbs-strip { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px; }
+    .thumb-item { position: relative; width: 96px; height: 72px; border-radius: 8px; overflow: hidden; border: 1px solid #444; }
+    .thumb-item img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .thumb-del { position: absolute; top: 3px; right: 3px; background: rgba(180,20,20,0.9); color: #fff; border: none; width: 20px; height: 20px; border-radius: 50%; font-size: 0.72rem; cursor: pointer; margin: 0; padding: 0; line-height: 20px; }
+    .thumb-badge { position: absolute; bottom: 2px; left: 2px; background: rgba(0,0,0,0.75); color: #fff; font-size: 0.65rem; padding: 1px 5px; border-radius: 4px; font-family: var(--font-mono); }
     .preview-img { max-height: 120px; border-radius: 8px; margin-top: 10px; display: none; }
     .topbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
     .msg { font-family: var(--font-mono); font-size: 0.85rem; color: #8be08b; margin-top: 10px; }
@@ -61,11 +67,17 @@
         <input type="text" id="post-title" placeholder="Ej. Mi primer archivo fuera de los muros" />
         <label>Descripción corta (sale en el carrusel)</label>
         <input type="text" id="post-desc" placeholder="Breve resumen..." />
-        <label>Imagen de portada (se sube y comprime directo aquí)</label>
-        <input type="file" id="post-img-file" accept="image/*" />
-        <img id="post-img-preview" class="preview-img" alt="Vista previa" />
+
+        <label>Imágenes de portada (puedes elegir varias; la #1 sale en el inicio)</label>
+        <input type="file" id="post-img-file" accept="image/*" multiple />
+        <div id="post-covers-preview" class="thumbs-strip"></div>
+
         <label>Contenido completo del artículo</label>
-        <textarea id="post-content" placeholder="Escribe toda tu entrada aquí..."></textarea>
+        <input type="file" id="post-inline-file" accept="image/*" style="display:none;" />
+        <button type="button" id="btn-insert-inline" class="btn-inline">+ Insertar imagen en el texto</button>
+        <textarea id="post-content" placeholder="Escribe toda tu entrada aquí... Usa el botón de arriba para insertar fotos donde esté tu cursor."></textarea>
+        <div id="post-inlines-preview" class="thumbs-strip"></div>
+
         <div>
           <button id="btn-save-post">Publicar entrada</button>
           <button id="btn-cancel-post" class="btn-cancel" style="display:none;">Cancelar edición</button>
@@ -114,7 +126,7 @@
     import { signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
     import { collection, addDoc, getDocs, deleteDoc, doc, setDoc, updateDoc, getDoc, query, orderBy, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-    function compressImage(file, maxWidth = 1100, quality = 0.78) {
+    function compressImage(file, maxWidth = 900, quality = 0.72) {
       return new Promise((resolve, reject) => {
         const reader = new FileReader();
         reader.readAsDataURL(file);
@@ -136,26 +148,74 @@
       });
     }
 
-    let postImageBase64 = "";
+    let postCoverImages = [];
+    let postInlineImages = [];
     let projImageBase64 = "";
     let editingPostId = null;
     let editingProjId = null;
     let postsCache = {};
     let projsCache = {};
 
+    function renderCoverPreviews() {
+      const box = document.getElementById("post-covers-preview");
+      box.innerHTML = postCoverImages.map((src, i) => `
+        <div class="thumb-item">
+          <img src="${src}" alt="Portada ${i + 1}" />
+          <span class="thumb-badge">#${i + 1}${i === 0 ? " (Inicio)" : ""}</span>
+          <button type="button" class="thumb-del" data-del-cover="${i}">×</button>
+        </div>
+      `).join("");
+      box.querySelectorAll("[data-del-cover]").forEach(btn => {
+        btn.addEventListener("click", () => {
+          postCoverImages.splice(parseInt(btn.dataset.delCover, 10), 1);
+          renderCoverPreviews();
+        });
+      });
+    }
+
+    function renderInlinePreviews() {
+      const box = document.getElementById("post-inlines-preview");
+      box.innerHTML = postInlineImages.map((src, i) => `
+        <div class="thumb-item">
+          <img src="${src}" alt="IMG ${i + 1}" />
+          <span class="thumb-badge">[IMG:${i + 1}]</span>
+        </div>
+      `).join("");
+    }
+
     document.getElementById("post-img-file").addEventListener("change", async (e) => {
+      const files = Array.from(e.target.files || []);
+      for (const file of files) {
+        const b64 = await compressImage(file, 950, 0.72);
+        postCoverImages.push(b64);
+      }
+      e.target.value = "";
+      renderCoverPreviews();
+    });
+
+    document.getElementById("btn-insert-inline").addEventListener("click", () => {
+      document.getElementById("post-inline-file").click();
+    });
+
+    document.getElementById("post-inline-file").addEventListener("change", async (e) => {
       const file = e.target.files[0];
       if (!file) return;
-      postImageBase64 = await compressImage(file, 1200, 0.78);
-      const prev = document.getElementById("post-img-preview");
-      prev.src = postImageBase64;
-      prev.style.display = "block";
+      const b64 = await compressImage(file, 850, 0.7);
+      postInlineImages.push(b64);
+      const tag = `\n[IMG:${postInlineImages.length}]\n`;
+      const ta = document.getElementById("post-content");
+      const start = ta.selectionStart ?? ta.value.length;
+      const end = ta.selectionEnd ?? ta.value.length;
+      ta.value = ta.value.slice(0, start) + tag + ta.value.slice(end);
+      ta.focus();
+      e.target.value = "";
+      renderInlinePreviews();
     });
 
     document.getElementById("proj-img-file").addEventListener("change", async (e) => {
       const file = e.target.files[0];
       if (!file) return;
-      projImageBase64 = await compressImage(file, 600, 0.8);
+      projImageBase64 = await compressImage(file, 600, 0.78);
       const prev = document.getElementById("proj-img-preview");
       prev.src = projImageBase64;
       prev.style.display = "block";
@@ -197,7 +257,8 @@
     // RESET FORMULARIOS
     function resetPostForm() {
       editingPostId = null;
-      postImageBase64 = "";
+      postCoverImages = [];
+      postInlineImages = [];
       document.getElementById("blog-form-heading").textContent = "1. Nueva Entrada de Blog";
       document.getElementById("btn-save-post").textContent = "Publicar entrada";
       document.getElementById("btn-cancel-post").style.display = "none";
@@ -205,7 +266,8 @@
       document.getElementById("post-desc").value = "";
       document.getElementById("post-content").value = "";
       document.getElementById("post-img-file").value = "";
-      document.getElementById("post-img-preview").style.display = "none";
+      renderCoverPreviews();
+      renderInlinePreviews();
     }
 
     function resetProjForm() {
@@ -232,23 +294,28 @@
       const msg = document.getElementById("post-msg");
       if (!title) return (msg.textContent = "Ponle título mínimo, wey.");
 
-      if (editingPostId) {
-        await updateDoc(doc(db, "posts", editingPostId), {
-          title, description, content,
-          image: postImageBase64
-        });
-        msg.textContent = "Entrada actualizada.";
-      } else {
-        await addDoc(collection(db, "posts"), {
-          title, description, content,
-          image: postImageBase64,
-          createdAt: serverTimestamp()
-        });
-        msg.textContent = "Entrada publicada.";
-      }
+      const payload = {
+        title,
+        description,
+        content,
+        image: postCoverImages[0] || "",
+        images: postCoverImages,
+        inlineImages: postInlineImages
+      };
 
-      resetPostForm();
-      loadLists();
+      try {
+        if (editingPostId) {
+          await updateDoc(doc(db, "posts", editingPostId), payload);
+          msg.textContent = "Entrada actualizada.";
+        } else {
+          await addDoc(collection(db, "posts"), { ...payload, createdAt: serverTimestamp() });
+          msg.textContent = "Entrada publicada.";
+        }
+        resetPostForm();
+        loadLists();
+      } catch (err) {
+        msg.textContent = "Error al guardar (puede que hayas subido demasiadas fotos pesadas): " + err.message;
+      }
     });
 
     // GUARDAR / ACTUALIZAR PROYECTO
@@ -289,7 +356,6 @@
     });
 
     async function loadLists() {
-      // Posts
       const pSnap = await getDocs(query(collection(db, "posts"), orderBy("createdAt", "desc")));
       postsCache = {};
       const pList = document.getElementById("posts-list");
@@ -306,7 +372,6 @@
         `;
       }).join("");
 
-      // Proyectos
       const prSnap = await getDocs(query(collection(db, "projects"), orderBy("createdAt", "desc")));
       projsCache = {};
       const prList = document.getElementById("projs-list");
@@ -323,7 +388,6 @@
         `;
       }).join("");
 
-      // Listeners EDITAR
       document.querySelectorAll("[data-edit-col]").forEach(btn => {
         btn.addEventListener("click", () => {
           const col = btn.dataset.editCol;
@@ -333,16 +397,16 @@
             const p = postsCache[id];
             if (!p) return;
             editingPostId = id;
-            postImageBase64 = p.image || "";
+            postCoverImages = (Array.isArray(p.images) && p.images.length) ? [...p.images] : (p.image ? [p.image] : []);
+            postInlineImages = Array.isArray(p.inlineImages) ? [...p.inlineImages] : [];
             document.getElementById("blog-form-heading").textContent = "1. Editando Entrada de Blog";
             document.getElementById("btn-save-post").textContent = "Actualizar entrada";
             document.getElementById("btn-cancel-post").style.display = "inline-block";
             document.getElementById("post-title").value = p.title || "";
             document.getElementById("post-desc").value = p.description || "";
             document.getElementById("post-content").value = p.content || "";
-            const prev = document.getElementById("post-img-preview");
-            if (postImageBase64) { prev.src = postImageBase64; prev.style.display = "block"; }
-            else { prev.style.display = "none"; }
+            renderCoverPreviews();
+            renderInlinePreviews();
             document.getElementById("blog-card").scrollIntoView({ behavior: "smooth" });
           } else {
             const pr = projsCache[id];
@@ -363,7 +427,6 @@
         });
       });
 
-      // Listeners BORRAR
       document.querySelectorAll("[data-del-col]").forEach(btn => {
         btn.addEventListener("click", async () => {
           if (!confirm("¿Seguro que quieres borrar esto?")) return;
