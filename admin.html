@@ -14,11 +14,16 @@
     textarea { min-height: 130px; resize: vertical; font-family: var(--font-mono); }
     button { background: var(--olive-mid); color: #fff; border: none; padding: 10px 20px; border-radius: 8px; font-weight: 700; cursor: pointer; margin-top: 14px; }
     button:hover { background: #617d44; }
+    .btn-edit { background: #2c4c7c; padding: 6px 12px; font-size: 0.8rem; margin-top: 0; }
+    .btn-edit:hover { background: #3b639e; }
+    .btn-cancel { background: #444; margin-left: 8px; }
+    .btn-cancel:hover { background: #666; }
     .btn-danger { background: #7a2222; padding: 6px 12px; font-size: 0.8rem; margin-top: 0; }
     .btn-danger:hover { background: #a12c2c; }
     .item-list { margin-top: 20px; display: flex; flex-direction: column; gap: 10px; }
-    .item-row { display: flex; justify-content: space-between; align-items: center; background: #191919; padding: 10px 14px; border-radius: 8px; gap: 12px; }
+    .item-row { display: flex; justify-content: space-between; align-items: center; background: #191919; padding: 10px 14px; border-radius: 8px; gap: 12px; flex-wrap: wrap; }
     .item-row span { font-size: 0.9rem; }
+    .item-actions { display: flex; gap: 8px; }
     .preview-img { max-height: 120px; border-radius: 8px; margin-top: 10px; display: none; }
     .topbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
     .msg { font-family: var(--font-mono); font-size: 0.85rem; color: #8be08b; margin-top: 10px; }
@@ -50,8 +55,8 @@
       </div>
 
       <!-- 1. BLOG -->
-      <section class="card">
-        <h2>1. Nueva Entrada de Blog</h2>
+      <section class="card" id="blog-card">
+        <h2 id="blog-form-heading">1. Nueva Entrada de Blog</h2>
         <label>Título</label>
         <input type="text" id="post-title" placeholder="Ej. Mi primer archivo fuera de los muros" />
         <label>Descripción corta (sale en el carrusel)</label>
@@ -61,24 +66,30 @@
         <img id="post-img-preview" class="preview-img" alt="Vista previa" />
         <label>Contenido completo del artículo</label>
         <textarea id="post-content" placeholder="Escribe toda tu entrada aquí..."></textarea>
-        <button id="btn-save-post">Publicar entrada</button>
+        <div>
+          <button id="btn-save-post">Publicar entrada</button>
+          <button id="btn-cancel-post" class="btn-cancel" style="display:none;">Cancelar edición</button>
+        </div>
         <p id="post-msg" class="msg"></p>
         <div id="posts-list" class="item-list"></div>
       </section>
 
       <!-- 2. PROYECTOS -->
-      <section class="card">
-        <h2>2. Nuevo Proyecto (Franja Verde)</h2>
+      <section class="card" id="proj-card">
+        <h2 id="proj-form-heading">2. Nuevo Proyecto (Franja Verde)</h2>
         <label>Título del proyecto</label>
-        <input type="text" id="proj-title" placeholder="Ej. Nombre del proyecto" />
+        <input type="text" id="proj-title" placeholder="Ej. Portal de Enfermería" />
         <label>Descripción corta</label>
         <input type="text" id="proj-desc" placeholder="Qué es este proyecto..." />
-        <label>Link del botón "conocer"</label>
-        <input type="url" id="proj-url" placeholder="https://..." />
-        <label>Imagen del proyecto</label>
+        <label>Link del botón "CONOCER.MÁS"</label>
+        <input type="url" id="proj-url" placeholder="https://alexctexeira.com.mx/portal-enfermeria.html" />
+        <label>Imagen del proyecto (opcional)</label>
         <input type="file" id="proj-img-file" accept="image/*" />
         <img id="proj-img-preview" class="preview-img" alt="Vista previa" />
-        <button id="btn-save-proj">Guardar proyecto</button>
+        <div>
+          <button id="btn-save-proj">Guardar proyecto</button>
+          <button id="btn-cancel-proj" class="btn-cancel" style="display:none;">Cancelar edición</button>
+        </div>
         <p id="proj-msg" class="msg"></p>
         <div id="projs-list" class="item-list"></div>
       </section>
@@ -101,9 +112,8 @@
   <script type="module">
     import { auth, db, ADMIN_EMAIL } from "./firebase-config.js";
     import { signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-    import { collection, addDoc, getDocs, deleteDoc, doc, setDoc, getDoc, query, orderBy, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+    import { collection, addDoc, getDocs, deleteDoc, doc, setDoc, updateDoc, getDoc, query, orderBy, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-    // Compresor de imágenes directo en el navegador (evita ocupar Firebase Storage)
     function compressImage(file, maxWidth = 1100, quality = 0.78) {
       return new Promise((resolve, reject) => {
         const reader = new FileReader();
@@ -128,6 +138,10 @@
 
     let postImageBase64 = "";
     let projImageBase64 = "";
+    let editingPostId = null;
+    let editingProjId = null;
+    let postsCache = {};
+    let projsCache = {};
 
     document.getElementById("post-img-file").addEventListener("change", async (e) => {
       const file = e.target.files[0];
@@ -180,7 +194,37 @@
       }
     });
 
-    // GUARDAR BLOG
+    // RESET FORMULARIOS
+    function resetPostForm() {
+      editingPostId = null;
+      postImageBase64 = "";
+      document.getElementById("blog-form-heading").textContent = "1. Nueva Entrada de Blog";
+      document.getElementById("btn-save-post").textContent = "Publicar entrada";
+      document.getElementById("btn-cancel-post").style.display = "none";
+      document.getElementById("post-title").value = "";
+      document.getElementById("post-desc").value = "";
+      document.getElementById("post-content").value = "";
+      document.getElementById("post-img-file").value = "";
+      document.getElementById("post-img-preview").style.display = "none";
+    }
+
+    function resetProjForm() {
+      editingProjId = null;
+      projImageBase64 = "";
+      document.getElementById("proj-form-heading").textContent = "2. Nuevo Proyecto (Franja Verde)";
+      document.getElementById("btn-save-proj").textContent = "Guardar proyecto";
+      document.getElementById("btn-cancel-proj").style.display = "none";
+      document.getElementById("proj-title").value = "";
+      document.getElementById("proj-desc").value = "";
+      document.getElementById("proj-url").value = "";
+      document.getElementById("proj-img-file").value = "";
+      document.getElementById("proj-img-preview").style.display = "none";
+    }
+
+    document.getElementById("btn-cancel-post").addEventListener("click", resetPostForm);
+    document.getElementById("btn-cancel-proj").addEventListener("click", resetProjForm);
+
+    // GUARDAR / ACTUALIZAR BLOG
     document.getElementById("btn-save-post").addEventListener("click", async () => {
       const title = document.getElementById("post-title").value.trim();
       const description = document.getElementById("post-desc").value.trim();
@@ -188,23 +232,26 @@
       const msg = document.getElementById("post-msg");
       if (!title) return (msg.textContent = "Ponle título mínimo, wey.");
 
-      await addDoc(collection(db, "posts"), {
-        title, description, content,
-        image: postImageBase64,
-        createdAt: serverTimestamp()
-      });
+      if (editingPostId) {
+        await updateDoc(doc(db, "posts", editingPostId), {
+          title, description, content,
+          image: postImageBase64
+        });
+        msg.textContent = "Entrada actualizada.";
+      } else {
+        await addDoc(collection(db, "posts"), {
+          title, description, content,
+          image: postImageBase64,
+          createdAt: serverTimestamp()
+        });
+        msg.textContent = "Entrada publicada.";
+      }
 
-      document.getElementById("post-title").value = "";
-      document.getElementById("post-desc").value = "";
-      document.getElementById("post-content").value = "";
-      document.getElementById("post-img-file").value = "";
-      document.getElementById("post-img-preview").style.display = "none";
-      postImageBase64 = "";
-      msg.textContent = "Entrada publicada.";
+      resetPostForm();
       loadLists();
     });
 
-    // GUARDAR PROYECTO
+    // GUARDAR / ACTUALIZAR PROYECTO
     document.getElementById("btn-save-proj").addEventListener("click", async () => {
       const title = document.getElementById("proj-title").value.trim();
       const description = document.getElementById("proj-desc").value.trim();
@@ -212,19 +259,22 @@
       const msg = document.getElementById("proj-msg");
       if (!title) return (msg.textContent = "Ponle título al proyecto.");
 
-      await addDoc(collection(db, "projects"), {
-        title, description, url,
-        image: projImageBase64,
-        createdAt: serverTimestamp()
-      });
+      if (editingProjId) {
+        await updateDoc(doc(db, "projects", editingProjId), {
+          title, description, url,
+          image: projImageBase64
+        });
+        msg.textContent = "Proyecto actualizado.";
+      } else {
+        await addDoc(collection(db, "projects"), {
+          title, description, url,
+          image: projImageBase64,
+          createdAt: serverTimestamp()
+        });
+        msg.textContent = "Proyecto guardado.";
+      }
 
-      document.getElementById("proj-title").value = "";
-      document.getElementById("proj-desc").value = "";
-      document.getElementById("proj-url").value = "";
-      document.getElementById("proj-img-file").value = "";
-      document.getElementById("proj-img-preview").style.display = "none";
-      projImageBase64 = "";
-      msg.textContent = "Proyecto guardado.";
+      resetProjForm();
       loadLists();
     });
 
@@ -241,28 +291,85 @@
     async function loadLists() {
       // Posts
       const pSnap = await getDocs(query(collection(db, "posts"), orderBy("createdAt", "desc")));
+      postsCache = {};
       const pList = document.getElementById("posts-list");
-      pList.innerHTML = pSnap.docs.map(d => `
-        <div class="item-row">
-          <span><strong>${d.data().title}</strong></span>
-          <button class="btn-danger" data-col="posts" data-id="${d.id}">Borrar</button>
-        </div>
-      `).join("");
+      pList.innerHTML = pSnap.docs.map(d => {
+        postsCache[d.id] = d.data();
+        return `
+          <div class="item-row">
+            <span><strong>${d.data().title}</strong></span>
+            <div class="item-actions">
+              <button class="btn-edit" data-edit-col="posts" data-id="${d.id}">Editar</button>
+              <button class="btn-danger" data-del-col="posts" data-id="${d.id}">Borrar</button>
+            </div>
+          </div>
+        `;
+      }).join("");
 
       // Proyectos
       const prSnap = await getDocs(query(collection(db, "projects"), orderBy("createdAt", "desc")));
+      projsCache = {};
       const prList = document.getElementById("projs-list");
-      prList.innerHTML = prSnap.docs.map(d => `
-        <div class="item-row">
-          <span><strong>${d.data().title}</strong></span>
-          <button class="btn-danger" data-col="projects" data-id="${d.id}">Borrar</button>
-        </div>
-      `).join("");
+      prList.innerHTML = prSnap.docs.map(d => {
+        projsCache[d.id] = d.data();
+        return `
+          <div class="item-row">
+            <span><strong>${d.data().title}</strong></span>
+            <div class="item-actions">
+              <button class="btn-edit" data-edit-col="projects" data-id="${d.id}">Editar</button>
+              <button class="btn-danger" data-del-col="projects" data-id="${d.id}">Borrar</button>
+            </div>
+          </div>
+        `;
+      }).join("");
 
-      document.querySelectorAll("[data-col]").forEach(btn => {
+      // Listeners EDITAR
+      document.querySelectorAll("[data-edit-col]").forEach(btn => {
+        btn.addEventListener("click", () => {
+          const col = btn.dataset.editCol;
+          const id = btn.dataset.id;
+
+          if (col === "posts") {
+            const p = postsCache[id];
+            if (!p) return;
+            editingPostId = id;
+            postImageBase64 = p.image || "";
+            document.getElementById("blog-form-heading").textContent = "1. Editando Entrada de Blog";
+            document.getElementById("btn-save-post").textContent = "Actualizar entrada";
+            document.getElementById("btn-cancel-post").style.display = "inline-block";
+            document.getElementById("post-title").value = p.title || "";
+            document.getElementById("post-desc").value = p.description || "";
+            document.getElementById("post-content").value = p.content || "";
+            const prev = document.getElementById("post-img-preview");
+            if (postImageBase64) { prev.src = postImageBase64; prev.style.display = "block"; }
+            else { prev.style.display = "none"; }
+            document.getElementById("blog-card").scrollIntoView({ behavior: "smooth" });
+          } else {
+            const pr = projsCache[id];
+            if (!pr) return;
+            editingProjId = id;
+            projImageBase64 = pr.image || "";
+            document.getElementById("proj-form-heading").textContent = "2. Editando Proyecto";
+            document.getElementById("btn-save-proj").textContent = "Actualizar proyecto";
+            document.getElementById("btn-cancel-proj").style.display = "inline-block";
+            document.getElementById("proj-title").value = pr.title || "";
+            document.getElementById("proj-desc").value = pr.description || "";
+            document.getElementById("proj-url").value = pr.url || "";
+            const prev = document.getElementById("proj-img-preview");
+            if (projImageBase64) { prev.src = projImageBase64; prev.style.display = "block"; }
+            else { prev.style.display = "none"; }
+            document.getElementById("proj-card").scrollIntoView({ behavior: "smooth" });
+          }
+        });
+      });
+
+      // Listeners BORRAR
+      document.querySelectorAll("[data-del-col]").forEach(btn => {
         btn.addEventListener("click", async () => {
           if (!confirm("¿Seguro que quieres borrar esto?")) return;
-          await deleteDoc(doc(db, btn.dataset.col, btn.dataset.id));
+          await deleteDoc(doc(db, btn.dataset.delCol, btn.dataset.id));
+          if (btn.dataset.id === editingPostId) resetPostForm();
+          if (btn.dataset.id === editingProjId) resetProjForm();
           loadLists();
         });
       });
