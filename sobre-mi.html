@@ -3,399 +3,421 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Sobre Mí | Alex Daniel Castillo Texeira</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Montserrat:wght@800;900&display=swap" rel="stylesheet">
+  <title>SOBRE MÍ // ALEXCTEXEIRA</title>
+  <link rel="stylesheet" href="style.css?v=2" />
   <style>
-    :root {
-      --pastel-green: #e7f6ea;
-      --green-accent: #2e8b57;
-      --pastel-blue: #e5f1fc;
-      --blue-accent: #3b7dd8;
-      --pastel-lilac: #f1e9fc;
-      --lilac-accent: #7e57c2;
-      --pastel-coral: #fde8eb;
-      --coral-accent: #d9536f;
-
-      --text-dark: #141e30;
-      --text-muted: #475569;
-      --white: #ffffff;
+    .cv-band {
+      padding: 56px 24px;
+    }
+    .cv-band-black {
+      background-color: var(--bg-black);
+    }
+    .cv-band-olive {
+      background-color: var(--olive-dark);
+    }
+    .cv-inner {
+      max-width: 960px;
+      margin: 0 auto;
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      font-family: 'Inter', sans-serif;
-      background-color: var(--pastel-green);
-      color: var(--text-dark);
-      line-height: 1.65;
-    }
-
-    .nav-bar {
-      background-color: var(--pastel-green);
-      padding: 1.25rem 1.5rem;
+    .cv-section-header {
       display: flex;
-      justify-content: center;
       align-items: center;
-      flex-wrap: wrap;
-      gap: 0.75rem;
-    }
-    .nav-pill {
-      text-decoration: none;
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 800;
-      font-size: 0.82rem;
+      gap: 14px;
+      font-family: var(--font-mono);
+      font-size: 0.88rem;
+      letter-spacing: 1.5px;
+      color: #dcdcdc;
       text-transform: uppercase;
-      padding: 0.7rem 1.55rem;
-      border-radius: 999px;
-      background-color: #ffffff;
-      color: var(--text-dark);
-      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06);
-      transition: transform 0.15s, background-color 0.2s;
+      margin-bottom: 32px;
     }
-    .nav-pill:hover { transform: translateY(-2px); }
-    .nav-pill.active {
-      background-color: #4a90d9;
-      color: #ffffff;
+    .cv-section-header .dots-line {
+      flex: 1;
+      border-bottom: 2px dotted var(--olive-mid);
+      height: 1px;
+      transform: translateY(-2px);
     }
 
-    .band { padding: 3.25rem 1.5rem; }
-    .inner { max-width: 980px; margin: 0 auto; }
-    .band-title {
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 900;
-      font-size: clamp(1.75rem, 4vw, 2.35rem);
-      text-transform: uppercase;
-      text-align: center;
-      margin-bottom: 2rem;
-      letter-spacing: 0.02em;
-    }
-
-    /* 1. SOBRE MÍ */
-    .band-sobre-mi { background-color: var(--pastel-green); }
-    .band-sobre-mi .band-title { color: #1b4332; }
-
-    .asymmetric-top {
+    /* 1. BIO Y FOTO */
+    .cv-top-grid {
       display: grid;
-      grid-template-columns: 280px 1fr;
-      gap: 1.5rem;
+      grid-template-columns: 270px 1fr;
+      gap: 28px;
       align-items: stretch;
     }
-    @media (max-width: 760px) { .asymmetric-top { grid-template-columns: 1fr; } }
+    @media (max-width: 760px) {
+      .cv-top-grid { grid-template-columns: 1fr; }
+    }
 
-    .photo-card {
-      background-color: #ffffff;
-      border: 3px solid #b7e4c7;
-      border-radius: 28px;
-      min-height: 310px;
+    .cv-photo-box {
+      background: #0b0b0b;
+      border: 1px solid var(--olive-mid);
+      border-radius: 14px;
+      min-height: 300px;
       overflow: hidden;
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 8px 24px rgba(46, 139, 87, 0.1);
     }
-    .photo-card img { width: 100%; height: 100%; object-fit: cover; display: block; }
-    .photo-placeholder {
+    .cv-photo-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .cv-photo-placeholder {
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      color: var(--olive-text);
       text-align: center;
-      padding: 1.5rem;
-      color: var(--green-accent);
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 800;
-      font-size: 0.9rem;
+      padding: 20px;
     }
 
-    .bio-card {
-      background-color: #ffffff;
-      border: 3px solid #b7e4c7;
-      border-radius: 28px;
-      padding: 2rem 2.2rem;
+    .cv-bio-card {
+      background: #0b0b0b;
+      border: 1px solid #2c3b1e;
+      border-left: 4px solid var(--olive-mid);
+      border-radius: 14px;
+      padding: 28px;
       display: flex;
       flex-direction: column;
       justify-content: center;
-      box-shadow: 0 8px 24px rgba(46, 139, 87, 0.08);
     }
-    .bio-card h2 {
-      font-family: 'Montserrat', sans-serif;
+    .cv-bio-card h1 {
+      font-family: var(--font-display);
       font-weight: 900;
-      font-size: 1.5rem;
-      color: #1b4332;
-      margin-bottom: 0.35rem;
+      font-size: clamp(1.5rem, 3.5vw, 2.1rem);
+      text-transform: uppercase;
+      color: var(--white);
+      margin-bottom: 6px;
     }
-    .bio-role {
-      font-weight: 700;
-      color: var(--green-accent);
-      font-size: 0.95rem;
-      margin-bottom: 1rem;
+    .cv-role {
+      font-family: var(--font-mono);
+      font-size: 0.88rem;
+      color: var(--olive-text);
+      margin-bottom: 18px;
     }
-    .bio-card p { color: #2d3e34; font-size: 0.98rem; margin-bottom: 0.85rem; }
-    .bio-card p:last-child { margin-bottom: 0; }
+    .cv-bio-text p {
+      font-family: var(--font-mono);
+      font-size: 0.94rem;
+      line-height: 1.75;
+      color: #e4e4e4;
+      margin-bottom: 12px;
+    }
+    .cv-bio-text p:last-child { margin-bottom: 0; }
 
-    /* 2. FORMACIÓN ACADÉMICA */
-    .band-formacion { background-color: var(--pastel-blue); }
-    .band-formacion .band-title { color: #1e3a5f; }
-
-    .cards-three {
+    /* 2. FORMACIÓN */
+    .cv-cards-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(265px, 1fr));
-      gap: 1.35rem;
+      gap: 20px;
     }
-    .edu-card {
-      background-color: #ffffff;
-      border: 3px solid #bfdbfe;
-      border-radius: 26px;
-      padding: 1.85rem 1.55rem;
-      box-shadow: 0 8px 22px rgba(59, 125, 216, 0.08);
+    .cv-card {
+      background: rgba(0, 0, 0, 0.45);
+      border: 1px solid var(--olive-mid);
+      border-radius: 14px;
+      padding: 24px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
     }
-    .edu-tag {
+    .cv-tag {
       display: inline-block;
       align-self: flex-start;
-      background: var(--pastel-blue);
-      color: var(--blue-accent);
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 800;
-      font-size: 0.74rem;
-      padding: 0.25rem 0.75rem;
-      border-radius: 999px;
-      margin-bottom: 0.75rem;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
       text-transform: uppercase;
+      letter-spacing: 1px;
+      padding: 3px 10px;
+      border: 1px solid var(--olive-text);
+      color: #fce300;
+      border-radius: 4px;
+      margin-bottom: 12px;
     }
-    .edu-card h3 { font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 1.12rem; color: #1e3a5f; margin-bottom: 0.45rem; }
-    .edu-inst { font-weight: 700; font-size: 0.9rem; color: var(--blue-accent); margin-bottom: 0.65rem; }
-    .edu-card p { font-size: 0.91rem; color: var(--text-muted); }
+    .cv-card h3 {
+      font-family: var(--font-mono);
+      font-size: 1.1rem;
+      font-weight: normal;
+      text-transform: uppercase;
+      color: var(--white);
+      margin-bottom: 6px;
+    }
+    .cv-inst {
+      font-family: var(--font-mono);
+      font-size: 0.84rem;
+      color: var(--olive-text);
+      margin-bottom: 10px;
+    }
+    .cv-card p {
+      font-family: var(--font-mono);
+      font-size: 0.88rem;
+      line-height: 1.65;
+      color: #dcdcdc;
+    }
 
     /* 3. LIDERAZGO Y PROYECTOS */
-    .band-liderazgo { background-color: var(--pastel-lilac); }
-    .band-liderazgo .band-title { color: #3c1f6e; }
+    .cv-lead-list {
+      background: #0b0b0b;
+      border: 1px solid #2c3b1e;
+      border-radius: 14px;
+      padding: 24px 28px;
+    }
+    .cv-list-item {
+      padding-bottom: 16px;
+      margin-bottom: 16px;
+      border-bottom: 1px dotted #3c4d2d;
+    }
+    .cv-list-item:last-child {
+      padding-bottom: 0;
+      margin-bottom: 0;
+      border-bottom: none;
+    }
+    .cv-list-item h3 {
+      font-family: var(--font-mono);
+      font-size: 1rem;
+      font-weight: normal;
+      color: var(--white);
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+    .cv-list-item .cv-place {
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      color: #fce300;
+      margin-bottom: 6px;
+    }
+    .cv-list-item p {
+      font-family: var(--font-mono);
+      font-size: 0.88rem;
+      line-height: 1.65;
+      color: #cfcfcf;
+    }
 
-    .asymmetric-lead {
+    /* 4. CERTIFICACIONES */
+    .cv-cert-grid {
       display: grid;
-      grid-template-columns: 280px 1fr;
-      gap: 1.5rem;
-      align-items: stretch;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px;
+      margin-top: 28px;
     }
-    @media (max-width: 760px) { .asymmetric-lead { grid-template-columns: 1fr; } }
-    .lead-img-card {
-      background-color: #ffffff;
-      border: 3px solid #d8b4fe;
-      border-radius: 28px;
-      min-height: 260px;
-      overflow: hidden;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 8px 22px rgba(126, 87, 194, 0.1);
-    }
-    .lead-img-card img { width: 100%; height: 100%; object-fit: cover; display: block; }
-    .lead-text-card {
-      background-color: #ffffff;
-      border: 3px solid #d8b4fe;
-      border-radius: 28px;
-      padding: 1.9rem 2.1rem;
-      box-shadow: 0 8px 22px rgba(126, 87, 194, 0.08);
-    }
-    .lead-item { margin-bottom: 1.1rem; padding-bottom: 1.1rem; border-bottom: 1.5px solid #f3e8ff; }
-    .lead-item:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
-    .lead-item h3 { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 1.05rem; color: #3c1f6e; margin-bottom: 0.25rem; }
-    .lead-item p { font-size: 0.93rem; color: var(--text-muted); }
-
-    /* 4. EXPERIENCIA Y CERTIFICACIONES */
-    .band-experiencia { background-color: var(--pastel-coral); }
-    .band-experiencia .band-title { color: #6b1d2f; }
-
-    .exp-center-card {
-      max-width: 820px;
-      margin: 0 auto 2.75rem;
-      background-color: #ffffff;
-      border: 3px solid #fecdd3;
-      border-radius: 28px;
-      padding: 2rem 2.2rem;
-      box-shadow: 0 8px 24px rgba(217, 83, 111, 0.09);
-    }
-    .exp-row { margin-bottom: 1.15rem; padding-bottom: 1.15rem; border-bottom: 1.5px solid #ffe4e6; }
-    .exp-row:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
-    .exp-row h3 { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 1.05rem; color: #6b1d2f; }
-    .exp-place { font-size: 0.86rem; font-weight: 700; color: var(--coral-accent); margin-bottom: 0.3rem; }
-    .exp-row p { font-size: 0.93rem; color: var(--text-muted); }
-
-    .cert-pills-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 1.15rem;
-    }
-    .cert-capsule {
-      background-color: #ffffff;
-      border: 3px solid #fecdd3;
-      border-radius: 999px;
-      padding: 1.15rem 1.65rem;
+    .cv-cert-card {
+      background: rgba(0, 0, 0, 0.45);
+      border: 1px solid var(--olive-mid);
+      border-radius: 10px;
+      padding: 16px 20px;
       text-align: center;
-      box-shadow: 0 6px 18px rgba(217, 83, 111, 0.08);
     }
-    .cert-capsule h4 { font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 0.95rem; color: #6b1d2f; margin-bottom: 0.2rem; }
-    .cert-capsule span { font-size: 0.82rem; color: var(--coral-accent); font-weight: 600; }
+    .cv-cert-card h4 {
+      font-family: var(--font-mono);
+      font-size: 0.95rem;
+      font-weight: normal;
+      color: var(--white);
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+    .cv-cert-card span {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      color: var(--olive-text);
+    }
 
-    /* 5. HERRAMIENTAS */
-    .band-herramientas { background-color: var(--pastel-green); border-top: 3px solid #b7e4c7; }
-    .band-herramientas .band-title { color: #1b4332; margin-bottom: 0.45rem; }
-    .tools-hint { text-align: center; font-size: 0.92rem; color: #2d4a39; margin-bottom: 1.5rem; }
-
+    /* 5. HERRAMIENTAS FLOTANTES */
+    .tools-hint {
+      font-family: var(--font-mono);
+      font-size: 0.86rem;
+      color: var(--olive-text);
+      margin-bottom: 18px;
+    }
     .floating-arena {
       position: relative;
-      background-color: #ffffff;
-      border: 3px solid #b7e4c7;
-      border-radius: 28px;
-      min-height: 290px;
-      padding: 1.75rem;
+      background: #0a0a0a;
+      border: 1px solid var(--olive-mid);
+      border-radius: 14px;
+      min-height: 280px;
       overflow: hidden;
-      box-shadow: 0 8px 24px rgba(46, 139, 87, 0.08);
     }
-
     .float-word {
       position: absolute;
-      border: none;
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 800;
-      font-size: 0.86rem;
-      padding: 0.65rem 1.25rem;
-      border-radius: 999px;
+      background: #1d3310;
+      color: #ffffff;
+      border: 1px solid var(--olive-mid);
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      padding: 8px 16px;
+      border-radius: 6px;
       cursor: pointer;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-      transition: transform 0.2s, box-shadow 0.2s;
+      transition: background-color 0.2s, color 0.2s, border-color 0.2s;
       user-select: none;
     }
-    .float-word:hover { transform: scale(1.07); z-index: 10; }
-    .float-word.selected { outline: 3px solid #141e30; z-index: 12; }
-
-    .fw-green { background: #d8f3dc; color: #1b4332; }
-    .fw-blue  { background: #dbeafe; color: #1e3a8a; }
-    .fw-lilac { background: #f3e8ff; color: #581c87; }
-    .fw-coral { background: #ffe4e6; color: #881337; }
-
-    .tool-detail-popover {
-      margin-top: 1.25rem;
-      background-color: #ffffff;
-      border: 3px solid #4a90d9;
-      border-radius: 20px;
-      padding: 1.35rem 1.65rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 1rem;
-      box-shadow: 0 8px 24px rgba(59, 125, 216, 0.12);
+    .float-word:hover,
+    .float-word.selected {
+      background: #2c4c18;
+      border-color: #fce300;
+      color: #fce300;
+      z-index: 10;
     }
-    .tool-detail-popover h4 { font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 1.08rem; color: #1e3a5f; margin-bottom: 0.25rem; }
-    .tool-detail-popover p { font-size: 0.94rem; color: var(--text-muted); }
+    .tool-detail-box {
+      margin-top: 16px;
+      background: #0b0b0b;
+      border: 1px solid #2c3b1e;
+      border-left: 4px solid #fce300;
+      border-radius: 10px;
+      padding: 18px 22px;
+    }
+    .tool-detail-box h4 {
+      font-family: var(--font-mono);
+      font-size: 1rem;
+      font-weight: normal;
+      color: #fce300;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+    .tool-detail-box p {
+      font-family: var(--font-mono);
+      font-size: 0.88rem;
+      color: #e4e4e4;
+      line-height: 1.6;
+    }
 
-    .drive-row { text-align: center; margin-top: 2.25rem; }
-    .btn-drive-cv {
+    .drive-row {
+      text-align: center;
+      margin-top: 36px;
+    }
+    .btn-drive-dema {
       display: inline-block;
-      background-color: #1e3a5f;
-      color: #ffffff;
-      text-decoration: none;
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 800;
-      font-size: 0.85rem;
-      padding: 0.85rem 1.85rem;
-      border-radius: 999px;
-      box-shadow: 0 4px 14px rgba(30, 58, 95, 0.2);
-      transition: background-color 0.2s, transform 0.15s;
+      font-family: var(--font-mono);
+      font-size: 1rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--white);
+      border: 1px solid var(--olive-mid);
+      background: var(--olive-dark);
+      padding: 12px 28px;
+      border-radius: 6px;
+      transition: all 0.2s ease;
     }
-    .btn-drive-cv:hover { background-color: #2e5485; transform: translateY(-2px); }
-
-    footer { background-color: #1e3a5f; color: #ffffff; text-align: center; padding: 1.5rem 1rem; font-size: 0.86rem; }
+    .btn-drive-dema:hover {
+      border-color: #fce300;
+      color: #fce300;
+      transform: translateY(-2px);
+    }
   </style>
 </head>
 <body>
 
-  <nav class="nav-bar">
-    <a href="index.html" class="nav-pill">Inicio</a>
-    <a href="index.html?vista=blog" class="nav-pill">Blog</a>
-    <a href="sobre-mi.html" class="nav-pill active">Sobre Mí</a>
-  </nav>
+  <!-- HEADER UNIFICADO CON INDEX -->
+  <header class="site-header">
+    <nav class="top-nav">
+      <a href="https://instagram.com/alexctexeira" target="_blank" rel="noopener">INSTAGRAM</a>
+      <span>|</span>
+      <a href="https://twitter.com/alexctexeira" target="_blank" rel="noopener">TWITTER</a>
+      <span>|</span>
+      <a href="https://tiktok.com/@alexctexeira" target="_blank" rel="noopener">TIKTOK</a>
+      <span>|</span>
+      <a href="index.html">INDEX</a>
+    </nav>
+
+    <div class="brand-stack" aria-label="ALEXCTEXEIRA">
+      <span class="layer-top" aria-hidden="true">ALEXCTEXEIRA</span>
+      <span class="layer-main">ALEXCTEXEIRA</span>
+      <span class="layer-bottom" aria-hidden="true">ALEXCTEXEIRA</span>
+    </div>
+  </header>
 
   <!-- 1. SOBRE MÍ -->
-  <section class="band band-sobre-mi">
-    <div class="inner">
-      <h1 class="band-title">Sobre Mí</h1>
-      <div class="asymmetric-top">
-        <div class="photo-card" id="sm-photo-box">
-          <div class="photo-placeholder">Tu foto aquí<br><small>(Editable desde Pages CMS)</small></div>
+  <section class="cv-band cv-band-black">
+    <div class="cv-inner">
+      <div class="cv-section-header">
+        <span class="dots-line"></span>
+        <span>alexctexeira_documentos_cv_sobre.mi</span>
+      </div>
+
+      <div class="cv-top-grid">
+        <div class="cv-photo-box" id="sm-photo-box">
+          <div class="cv-photo-placeholder">[ SIN IMAGEN DE PERFIL ]<br>Súbela desde /admin.html</div>
         </div>
-        <div class="bio-card">
-          <h2 id="sm-nombre">Alex Daniel Castillo Texeira</h2>
-          <div class="bio-role" id="sm-rol">Licenciatura en Enfermería (La Salle Bajío) · Promoción y Educación para la Salud (UnADM)</div>
-          <div id="sm-bio-text">
-            <p>Originario de Guerrero y radicado en León, Guanajuato, combino la formación clínica en enfermería con la educación para la salud y la gestión de proyectos comunitarios.</p>
-            <p>Creo firmemente en la <strong>Inteligencia Artesanal</strong> y el cuidado humanizado: unir el rigor científico y técnico de la salud con el arte, la empatía y la comunicación clara para transformar la experiencia de pacientes y estudiantes.</p>
-          </div>
+        <div class="cv-bio-card">
+          <h1 id="sm-nombre">Alex Daniel Castillo Texeira</h1>
+          <div class="cv-role" id="sm-rol"></div>
+          <div id="sm-bio-text" class="cv-bio-text"></div>
         </div>
       </div>
     </div>
   </section>
 
   <!-- 2. FORMACIÓN ACADÉMICA -->
-  <section class="band band-formacion">
-    <div class="inner">
-      <h2 class="band-title">Formación Académica</h2>
-      <div class="cards-three" id="sm-formacion-grid"></div>
+  <section class="cv-band cv-band-olive">
+    <div class="cv-inner">
+      <div class="cv-section-header">
+        <span>01 // FORMACIÓN ACADÉMICA</span>
+        <span class="dots-line"></span>
+      </div>
+      <div class="cv-cards-grid" id="sm-formacion-grid"></div>
     </div>
   </section>
 
   <!-- 3. LIDERAZGO Y PROYECTOS -->
-  <section class="band band-liderazgo">
-    <div class="inner">
-      <h2 class="band-title">Liderazgo y Proyectos</h2>
-      <div class="asymmetric-lead">
-        <div class="lead-img-card" id="sm-lead-img-box">
-          <div class="photo-placeholder" style="color:#7e57c2;">Imagen de Proyectos<br><small>(Editable desde Pages CMS)</small></div>
+  <section class="cv-band cv-band-black">
+    <div class="cv-inner">
+      <div class="cv-section-header">
+        <span class="dots-line"></span>
+        <span>02 // LIDERAZGO Y PROYECTOS</span>
+      </div>
+      <div class="cv-top-grid">
+        <div class="cv-photo-box" id="sm-lead-img-box">
+          <div class="cv-photo-placeholder">[ IMAGEN DE PROYECTOS ]<br>Editable en /admin.html</div>
         </div>
-        <div class="lead-text-card" id="sm-liderazgo-list"></div>
+        <div class="cv-lead-list" id="sm-liderazgo-list"></div>
       </div>
     </div>
   </section>
 
   <!-- 4. EXPERIENCIA Y CERTIFICACIONES -->
-  <section class="band band-experiencia">
-    <div class="inner">
-      <h2 class="band-title">Experiencia</h2>
-      <div class="exp-center-card" id="sm-experiencia-list"></div>
-
-      <h2 class="band-title">Certificaciones</h2>
-      <div class="cert-pills-grid" id="sm-certificaciones-grid"></div>
+  <section class="cv-band cv-band-olive">
+    <div class="cv-inner">
+      <div class="cv-section-header">
+        <span>03 // EXPERIENCIA Y CERTIFICACIONES</span>
+        <span class="dots-line"></span>
+      </div>
+      <div class="cv-lead-list" style="background: rgba(0,0,0,0.45); border-color: var(--olive-mid);" id="sm-experiencia-list"></div>
+      <div class="cv-cert-grid" id="sm-certificaciones-grid"></div>
     </div>
   </section>
 
-  <!-- 5. HERRAMIENTAS -->
-  <section class="band band-herramientas">
-    <div class="inner">
-      <h2 class="band-title">Herramientas</h2>
-      <p class="tools-hint">Haz clic sobre cualquier palabra flotante para conocer cómo la aplico en proyectos clínicos, académicos y creativos.</p>
+  <!-- 5. HERRAMIENTAS Y CV -->
+  <section class="cv-band cv-band-black">
+    <div class="cv-inner">
+      <div class="cv-section-header">
+        <span class="dots-line"></span>
+        <span>04 // HERRAMIENTAS</span>
+      </div>
+      <p class="tools-hint">Selecciona cualquier etiqueta flotante para consultar su aplicación práctica:</p>
 
       <div class="floating-arena" id="floating-arena"></div>
 
-      <div class="tool-detail-popover" id="tool-detail-box">
-        <div>
-          <h4 id="td-title">Selecciona una herramienta</h4>
-          <p id="td-desc">Toca cualquiera de las etiquetas flotantes de arriba para ver detalles específicos de uso y experiencia.</p>
-        </div>
+      <div class="tool-detail-box">
+        <h4 id="td-title">Selecciona una herramienta</h4>
+        <p id="td-desc">Toca cualquiera de las etiquetas de arriba para ver los detalles.</p>
       </div>
 
       <div class="drive-row">
-        <a id="sm-cv-drive-link" href="https://drive.google.com/drive/folders/1RASHVD3x22W-XzG0zxi3o2xOJTJOP6Ub?usp=drive_link" target="_blank" rel="noopener" class="btn-drive-cv">
-          Descargar CV Ejecutivo (Google Drive)
+        <a id="sm-cv-drive-link" href="https://drive.google.com/drive/folders/1RASHVD3x22W-XzG0zxi3o2xOJTJOP6Ub?usp=drive_link" target="_blank" rel="noopener" class="btn-drive-dema">
+          DESCARGAR.CV.EJECUTIVO ↗
         </a>
       </div>
     </div>
   </section>
 
-  <footer>
-    <p>Alex Daniel Castillo Texeira · León, Guanajuato, México</p>
+  <!-- FOOTER UNIFICADO CON INDEX -->
+  <footer class="site-footer">
+    <p>© Alex C. Texeira</p>
+    <p>México - contacto@alexctexeira.com.mx</p>
   </footer>
 
-  <script>
+  <script type="module">
+    import { db } from "./firebase-config.js";
+    import { doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
     const defaultSobreMi = {
       nombre: "Alex Daniel Castillo Texeira",
       rol: "Licenciatura en Enfermería (La Salle Bajío) · Promoción y Educación para la Salud (UnADM)",
@@ -404,49 +426,18 @@
       biografia: "Originario de Guerrero y radicado en León, Guanajuato, enfoco mi desarrollo profesional en la intersección entre el cuidado clínico de enfermería, la educación para la salud y la gestión académica.\n\nImpulso la Inteligencia Artesanal y la arteterapia como intervención de enfermería, diseñando herramientas clínicas digitales, manuales operativos y brigadas comunitarias con rigor científico y calidez humana.",
       fotoProyectos: "",
       formacion: [
-        {
-          etiqueta: "En curso",
-          titulo: "Licenciatura en Enfermería",
-          institucion: "Universidad La Salle Bajío · Campus Campestre",
-          detalle: "Formación clínica hospitalaria y comunitaria, gestión de servicios de enfermería, cuidado crítico y tutoría académica entre pares."
-        },
-        {
-          etiqueta: "Antecedente técnico",
-          titulo: "Ingeniería Biomédica (6.º Semestre)",
-          institucion: "Universidad La Salle Bajío",
-          detalle: "Base analítica, instrumentación médica, fisiología cuantitativa y desarrollo de soluciones tecnológicas aplicadas al entorno clínico."
-        }
+        { etiqueta: "En curso", titulo: "Licenciatura en Enfermería", institucion: "Universidad La Salle Bajío · Campus Campestre", detalle: "Formación clínica hospitalaria y comunitaria, gestión de servicios de enfermería, cuidado crítico y tutoría académica entre pares." },
+        { etiqueta: "Antecedente técnico", titulo: "Ingeniería Biomédica (6.º Semestre)", institucion: "Universidad La Salle Bajío", detalle: "Base analítica, instrumentación médica, fisiología cuantitativa y desarrollo de soluciones tecnológicas aplicadas al entorno clínico." }
       ],
       liderazgo: [
-        {
-          titulo: "Fundador y Líder de Relaciones Públicas · MUSA",
-          descripcion: "Grupo estudiantil de Promoción y Educación en Salud a través de la Arteterapia como Intervención de Enfermería en la Universidad La Salle Bajío. Coordinación de brigadas comunitarias (Casa Hogar Amigo Daniel), talleres de salud mental y vinculación institucional."
-        },
-        {
-          titulo: "Secretario del Consejo Local Estudiantil",
-          descripcion: "Escuela de Medicina del Bajío (2024–2025). Organización logística de la Jornada Académica de Salud e Innovación y el hackathon MEDITHON."
-        },
-        {
-          titulo: "Tutor Par",
-          descripcion: "Tutor académico para estudiantes de nuevo ingreso en Enfermería (La Salle Bajío)."
-        }
+        { titulo: "Fundador y Líder de Relaciones Públicas · MUSA", descripcion: "Grupo estudiantil de Promoción y Educación en Salud a través de la Arteterapia como Intervención de Enfermería en la Universidad La Salle Bajío. Coordinación de brigadas comunitarias, talleres de salud mental y vinculación institucional." },
+        { titulo: "Secretario del Consejo Local Estudiantil", descripcion: "Escuela de Medicina del Bajío (2024–2025). Organización logística de la Jornada Académica de Salud e Innovación y el hackathon MEDITHON." },
+        { titulo: "Tutor Par", descripcion: "Tutor académico para estudiantes de nuevo ingreso en Enfermería (La Salle Bajío)." }
       ],
       experiencia: [
-        {
-          puesto: "Gestión y Administración en Enseñanza Clínica",
-          lugar: "Hospital de Especialidades Pediátrico León (HEPL)",
-          detalle: "Elaboración del Manual de Integración Clínica y Lineamientos Hospitalarios, así como el desarrollo de herramientas digitales de consulta rápida y dosificación pediátrica para estudiantes en rotación."
-        },
-        {
-          puesto: "Rotaciones Clínicas Hospitalarias y Comunitarias",
-          lugar: "Hospital General de León y Clínica Municipal Efraín Huerta",
-          detalle: "Práctica supervisada en Medicina Interna, Urgencias, Cirugía, Quirófano (instrumentista y circulante), Recuperación, Traumatología y Ortopedia, y Unidad de Quemados."
-        },
-        {
-          puesto: "Bilingual Customer & Provider Service Representative",
-          lugar: "Teleperformance · Ambetter Health (2022–2024)",
-          detalle: "Atención bilingüe (inglés-español) a asegurados y proveedores médicos en Estados Unidos, resolución de trámites clínicos, coberturas y orientación de servicios de salud."
-        }
+        { puesto: "Gestión y Administración en Enseñanza Clínica", lugar: "Hospital de Especialidades Pediátrico León (HEPL)", detalle: "Elaboración del Manual de Integración Clínica y Lineamientos Hospitalarios, así como el desarrollo de herramientas digitales de consulta rápida y dosificación pediátrica para estudiantes en rotación." },
+        { puesto: "Rotaciones Clínicas Hospitalarias y Comunitarias", lugar: "Hospital General de León y Clínica Municipal Efraín Huerta", detalle: "Práctica supervisada en Medicina Interna, Urgencias, Cirugía, Quirófano (instrumentista y circulante), Recuperación, Traumatología y Ortopedia, y Unidad de Quemados." },
+        { puesto: "Bilingual Customer & Provider Service Representative", lugar: "Teleperformance · Ambetter Health (2022–2024)", detalle: "Atención bilingüe (inglés-español) a asegurados y proveedores médicos en Estados Unidos, resolución de trámites clínicos, coberturas y orientación de servicios de salud." }
       ],
       certificaciones: [
         { nombre: "Cambridge English B2", emisor: "CELEEX · UAGro (2018)" },
@@ -454,14 +445,14 @@
         { nombre: "Primeros Auxilios", emisor: "Universidad La Salle Bajío (2023)" }
       ],
       herramientas: [
-        { palabra: "Google Workspace & Apps Script", color: "fw-blue", detalle: "Automatización de flujos administrativos, registros de asistencia, hojas de cálculo clínicas y gestión documental colaborativa." },
-        { palabra: "Canva Pro & Diseño Editorial", color: "fw-lilac", detalle: "Diseño de manuales hospitalarios, infografías clínicas, constancias institucionales y material visual para redes sociales." },
-        { palabra: "Adobe Photoshop", color: "fw-coral", detalle: "Edición fotográfica, montaje gráfico y preparación de recursos visuales en alta calidad." },
-        { palabra: "Desarrollo Web (HTML/CSS/JS)", color: "fw-green", detalle: "Creación de micrositios institucionales, calculadoras clínicas interactivas y portafolios autogestionables." },
-        { palabra: "Idioma Inglés (B2)", color: "fw-blue", detalle: "Comunicación fluida oral y escrita, terminología médica en inglés, docencia básica y atención a proveedores de salud." },
-        { palabra: "Idioma Portugués", color: "fw-green", detalle: "Nivel intermedio de comprensión y conversación para entornos académicos y culturales." },
-        { palabra: "Arteterapia", color: "fw-coral", detalle: "Diseño de talleres terapéuticos manuales (porcelana fría, kintsugi, encuadernación, pintura) aplicados a la educación para la salud." },
-        { palabra: "Microsoft Office", color: "fw-blue", detalle: "Dominio de Word, Excel y PowerPoint para informes académicos, análisis de datos y presentaciones ejecutivas." }
+        { palabra: "Google Workspace & Apps Script", detalle: "Automatización de flujos administrativos, registros de asistencia, hojas de cálculo clínicas y gestión documental colaborativa." },
+        { palabra: "Canva Pro & Diseño Editorial", detalle: "Diseño de manuales hospitalarios, infografías clínicas, constancias institucionales y material visual para redes sociales." },
+        { palabra: "Adobe Photoshop", detalle: "Edición fotográfica, montaje gráfico y preparación de recursos visuales en alta calidad." },
+        { palabra: "Desarrollo Web (HTML/CSS/JS)", detalle: "Creación de micrositios institucionales, calculadoras clínicas interactivas y portafolios autogestionables." },
+        { palabra: "Idioma Inglés (B2)", detalle: "Comunicación fluida oral y escrita, terminología médica en inglés, docencia básica y atención a proveedores de salud." },
+        { palabra: "Idioma Portugués", detalle: "Nivel intermedio de comprensión y conversación para entornos académicos y culturales." },
+        { palabra: "Arteterapia", detalle: "Diseño de talleres terapéuticos manuales aplicados a la educación para la salud." },
+        { palabra: "Microsoft Office", detalle: "Dominio de Word, Excel y PowerPoint para informes académicos, análisis de datos y presentaciones ejecutivas." }
       ]
     };
 
@@ -469,88 +460,85 @@
     let animFrameId = null;
 
     async function loadSobreMi() {
-      let sm = defaultSobreMi;
+      let sm = { ...defaultSobreMi };
       try {
-        const res = await fetch('datos.json?v=' + Date.now());
-        if (res.ok) {
-          const data = await res.json();
-          if (data.sobreMi) {
-            sm = { ...defaultSobreMi, ...data.sobreMi };
-          }
+        const snap = await getDoc(doc(db, "settings", "sobremi"));
+        if (snap.exists()) {
+          sm = { ...defaultSobreMi, ...snap.data() };
         }
-      } catch (e) { console.warn('Usando datos de respaldo en Sobre Mí:', e); }
-
-      document.getElementById('sm-nombre').textContent = sm.nombre || defaultSobreMi.nombre;
-      document.getElementById('sm-rol').textContent = sm.rol || defaultSobreMi.rol;
-      if (sm.enlaceDriveCV) document.getElementById('sm-cv-drive-link').href = sm.enlaceDriveCV;
-      if (sm.fotoPerfil) document.getElementById('sm-photo-box').innerHTML = `<img src="${sm.fotoPerfil}" alt="${sm.nombre}">`;
-      if (sm.biografia) {
-        document.getElementById('sm-bio-text').innerHTML = sm.biografia
-          .split('\n')
-          .filter(p => p.trim() !== '')
-          .map(p => `<p>${p}</p>`)
-          .join('');
+      } catch (e) {
+        console.warn("Usando datos de respaldo en Sobre Mí:", e);
       }
 
-      const formacionList = (Array.isArray(sm.formacion) && sm.formacion.length) ? sm.formacion : defaultSobreMi.formacion;
-      document.getElementById('sm-formacion-grid').innerHTML = formacionList.map(f => `
-        <article class="edu-card">
+      document.getElementById("sm-nombre").textContent = sm.nombre || defaultSobreMi.nombre;
+      document.getElementById("sm-rol").textContent = sm.rol || defaultSobreMi.rol;
+      if (sm.enlaceDriveCV) document.getElementById("sm-cv-drive-link").href = sm.enlaceDriveCV;
+      if (sm.fotoPerfil) document.getElementById("sm-photo-box").innerHTML = `<img src="${sm.fotoPerfil}" alt="${sm.nombre}">`;
+      if (sm.fotoProyectos) document.getElementById("sm-lead-img-box").innerHTML = `<img src="${sm.fotoProyectos}" alt="Proyectos">`;
+
+      document.getElementById("sm-bio-text").innerHTML = (sm.biografia || "")
+        .split("\n")
+        .filter(p => p.trim() !== "")
+        .map(p => `<p>${p}</p>`)
+        .join("");
+
+      const formacion = (Array.isArray(sm.formacion) && sm.formacion.length) ? sm.formacion : defaultSobreMi.formacion;
+      document.getElementById("sm-formacion-grid").innerHTML = formacion.map(f => `
+        <article class="cv-card">
           <div>
-            ${f.etiqueta ? `<span class="edu-tag">${f.etiqueta}</span>` : ''}
+            ${f.etiqueta ? `<span class="cv-tag">${f.etiqueta}</span>` : ""}
             <h3>${f.titulo}</h3>
-            <div class="edu-inst">${f.institucion}</div>
+            <div class="cv-inst">${f.institucion || ""}</div>
           </div>
-          <p>${f.detalle}</p>
+          <p>${f.detalle || ""}</p>
         </article>
-      `).join('');
+      `).join("");
 
-      if (sm.fotoProyectos) document.getElementById('sm-lead-img-box').innerHTML = `<img src="${sm.fotoProyectos}" alt="Liderazgo y Proyectos">`;
-      const liderazgoList = (Array.isArray(sm.liderazgo) && sm.liderazgo.length) ? sm.liderazgo : defaultSobreMi.liderazgo;
-      document.getElementById('sm-liderazgo-list').innerHTML = liderazgoList.map(l => `
-        <div class="lead-item">
+      const liderazgo = (Array.isArray(sm.liderazgo) && sm.liderazgo.length) ? sm.liderazgo : defaultSobreMi.liderazgo;
+      document.getElementById("sm-liderazgo-list").innerHTML = liderazgo.map(l => `
+        <div class="cv-list-item">
           <h3>${l.titulo}</h3>
-          <p>${l.descripcion}</p>
+          <p>${l.descripcion || ""}</p>
         </div>
-      `).join('');
+      `).join("");
 
-      const expList = (Array.isArray(sm.experiencia) && sm.experiencia.length) ? sm.experiencia : defaultSobreMi.experiencia;
-      document.getElementById('sm-experiencia-list').innerHTML = expList.map(ex => `
-        <div class="exp-row">
+      const experiencia = (Array.isArray(sm.experiencia) && sm.experiencia.length) ? sm.experiencia : defaultSobreMi.experiencia;
+      document.getElementById("sm-experiencia-list").innerHTML = experiencia.map(ex => `
+        <div class="cv-list-item">
           <h3>${ex.puesto}</h3>
-          <div class="exp-place">${ex.lugar}</div>
-          <p>${ex.detalle}</p>
+          <div class="cv-place">${ex.lugar || ""}</div>
+          <p>${ex.detalle || ""}</p>
         </div>
-      `).join('');
+      `).join("");
 
-      const certList = (Array.isArray(sm.certificaciones) && sm.certificaciones.length) ? sm.certificaciones : defaultSobreMi.certificaciones;
-      document.getElementById('sm-certificaciones-grid').innerHTML = certList.map(c => `
-        <div class="cert-capsule">
+      const certs = (Array.isArray(sm.certificaciones) && sm.certificaciones.length) ? sm.certificaciones : defaultSobreMi.certificaciones;
+      document.getElementById("sm-certificaciones-grid").innerHTML = certs.map(c => `
+        <div class="cv-cert-card">
           <h4>${c.nombre}</h4>
-          <span>${c.emisor}</span>
+          <span>${c.emisor || ""}</span>
         </div>
-      `).join('');
+      `).join("");
 
-      const toolsList = (Array.isArray(sm.herramientas) && sm.herramientas.length) ? sm.herramientas : defaultSobreMi.herramientas;
-      initFloatingWords(toolsList);
+      const tools = (Array.isArray(sm.herramientas) && sm.herramientas.length) ? sm.herramientas : defaultSobreMi.herramientas;
+      initFloatingWords(tools);
     }
 
     function initFloatingWords(tools) {
-      const arena = document.getElementById('floating-arena');
-      arena.innerHTML = '';
+      const arena = document.getElementById("floating-arena");
+      arena.innerHTML = "";
       floatingItems = [];
 
-      const colors = ['fw-green', 'fw-blue', 'fw-lilac', 'fw-coral'];
       const arenaW = arena.clientWidth || 860;
-      const arenaH = arena.clientHeight || 290;
+      const arenaH = arena.clientHeight || 280;
 
-      tools.forEach((tool, idx) => {
-        const btn = document.createElement('button');
-        btn.className = `float-word ${tool.color || colors[idx % colors.length]}`;
+      tools.forEach((tool) => {
+        const btn = document.createElement("button");
+        btn.className = "float-word";
         btn.textContent = tool.palabra;
         arena.appendChild(btn);
 
         const w = btn.offsetWidth || 160;
-        const h = btn.offsetHeight || 40;
+        const h = btn.offsetHeight || 38;
         const maxX = Math.max(10, arenaW - w - 16);
         const maxY = Math.max(10, arenaH - h - 16);
 
@@ -558,31 +546,29 @@
           el: btn,
           x: Math.random() * maxX,
           y: Math.random() * maxY,
-          vx: (Math.random() * 0.45 + 0.18) * (Math.random() < 0.5 ? 1 : -1),
-          vy: (Math.random() * 0.45 + 0.18) * (Math.random() < 0.5 ? 1 : -1),
+          vx: (Math.random() * 0.42 + 0.16) * (Math.random() < 0.5 ? 1 : -1),
+          vy: (Math.random() * 0.42 + 0.16) * (Math.random() < 0.5 ? 1 : -1),
           paused: false
         };
 
-        btn.style.left = item.x + 'px';
-        btn.style.top = item.y + 'px';
-
-        btn.addEventListener('mouseenter', () => { item.paused = true; });
-        btn.addEventListener('mouseleave', () => { item.paused = false; });
-
-        btn.addEventListener('click', () => {
-          document.querySelectorAll('.float-word').forEach(b => b.classList.remove('selected'));
-          btn.classList.add('selected');
-          document.getElementById('td-title').textContent = tool.palabra;
-          document.getElementById('td-desc').textContent = tool.detalle;
+        btn.style.left = item.x + "px";
+        btn.style.top = item.y + "px";
+        btn.addEventListener("mouseenter", () => { item.paused = true; });
+        btn.addEventListener("mouseleave", () => { item.paused = false; });
+        btn.addEventListener("click", () => {
+          document.querySelectorAll(".float-word").forEach(b => b.classList.remove("selected"));
+          btn.classList.add("selected");
+          document.getElementById("td-title").textContent = tool.palabra;
+          document.getElementById("td-desc").textContent = tool.detalle || "";
         });
 
         floatingItems.push(item);
       });
 
       if (tools.length > 0 && floatingItems[0]) {
-        floatingItems[0].el.classList.add('selected');
-        document.getElementById('td-title').textContent = tools[0].palabra;
-        document.getElementById('td-desc').textContent = tools[0].detalle;
+        floatingItems[0].el.classList.add("selected");
+        document.getElementById("td-title").textContent = tools[0].palabra;
+        document.getElementById("td-desc").textContent = tools[0].detalle || "";
       }
 
       if (animFrameId) cancelAnimationFrame(animFrameId);
@@ -590,7 +576,7 @@
     }
 
     function animateWords() {
-      const arena = document.getElementById('floating-arena');
+      const arena = document.getElementById("floating-arena");
       const arenaW = arena.clientWidth;
       const arenaH = arena.clientHeight;
 
@@ -598,17 +584,14 @@
         if (item.paused) return;
         const w = item.el.offsetWidth;
         const h = item.el.offsetHeight;
-
         item.x += item.vx;
         item.y += item.vy;
-
         if (item.x <= 8) { item.x = 8; item.vx *= -1; }
         if (item.x + w >= arenaW - 8) { item.x = Math.max(8, arenaW - w - 8); item.vx *= -1; }
         if (item.y <= 8) { item.y = 8; item.vy *= -1; }
         if (item.y + h >= arenaH - 8) { item.y = Math.max(8, arenaH - h - 8); item.vy *= -1; }
-
-        item.el.style.left = item.x + 'px';
-        item.el.style.top = item.y + 'px';
+        item.el.style.left = item.x + "px";
+        item.el.style.top = item.y + "px";
       });
 
       animFrameId = requestAnimationFrame(animateWords);
