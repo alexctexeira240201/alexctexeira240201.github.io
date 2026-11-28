@@ -65,14 +65,18 @@ Fique à vontade para explorar. O leste é para cima.</div>
     </div>
   </section>
 
-  <!-- CARRUSEL DE PROYECTOS (20s) -->
+  <!-- CARRUSEL DE PROYECTOS ESTILO TOP / DEMA (20s) -->
   <section id="projects-section" class="projects-section">
-    <div class="project-card">
-      <div id="project-thumb" class="project-thumb">imagen</div>
-      <div class="project-info">
-        <h2 id="project-title" class="project-title">ESPACIO PARA TÍTULO</h2>
-        <p id="project-desc" class="project-desc">Espacio para pequeña descripción sobre lo que se muestra aquí.</p>
-        <a id="project-link" class="btn-conocer" href="https://alexctexeira.com.mx" target="_blank" rel="noopener">conocer</a>
+    <div class="dema-project-card">
+      <div id="project-path" class="dema-file-path">alexctexeira_documentos_proyectos_cargando</div>
+
+      <div class="dema-project-body">
+        <h2 id="project-title" class="dema-project-title">NOMBRE DEL PROYECTO</h2>
+        <p id="project-desc" class="dema-project-desc">Espacio para descripción.</p>
+      </div>
+
+      <div class="dema-project-footer">
+        <a id="project-link" class="dema-btn-more" href="https://alexctexeira.com.mx" target="_blank" rel="noopener">CONOCER.MÁS</a>
       </div>
     </div>
     <div id="project-dots" class="carousel-dots"></div>
@@ -89,6 +93,16 @@ Fique à vontade para explorar. O leste é para cima.</div>
     import { collection, getDocs, query, orderBy, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
     const INTERVAL_MS = 20000; // 20 segundos
+
+    function formatDemaPath(title) {
+      const slug = (title || "proyecto")
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, ".")
+        .replace(/^\.+|\.+$/g, "");
+      return `alexctexeira_documentos_proyectos_${slug || "archivo"}`;
+    }
 
     // 1. Cargar Manifiesto
     async function loadManifesto() {
@@ -172,10 +186,10 @@ Fique à vontade para explorar. O leste é para cima.</div>
       resetTimer();
     }
 
-    // 3. Carrusel de Proyectos (20s)
+    // 3. Carrusel de Proyectos TOP / DEMA (20s)
     async function loadProjects() {
       const section = document.getElementById("projects-section");
-      const thumbEl = document.getElementById("project-thumb");
+      const pathEl = document.getElementById("project-path");
       const titleEl = document.getElementById("project-title");
       const descEl = document.getElementById("project-desc");
       const linkEl = document.getElementById("project-link");
@@ -198,15 +212,10 @@ Fique à vontade para explorar. O leste é para cima.</div>
       function renderProject(idx) {
         current = idx;
         const proj = projects[current];
+        pathEl.textContent = formatDemaPath(proj.title);
         titleEl.textContent = proj.title;
         descEl.textContent = proj.description || "";
         linkEl.href = proj.url || "https://alexctexeira.com.mx";
-
-        if (proj.image) {
-          thumbEl.innerHTML = `<img src="${proj.image}" alt="${proj.title}">`;
-        } else {
-          thumbEl.textContent = "imagen";
-        }
 
         dotsEl.innerHTML = projects.map((_, i) =>
           `<button class="carousel-dot ${i === current ? 'active' : ''}" aria-label="Proyecto ${i + 1}"></button>`
