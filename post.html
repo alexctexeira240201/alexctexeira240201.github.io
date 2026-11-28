@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Entrada | ALEXCTEXEIRA</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <header class="site-header" style="padding-bottom: 12px;">
+    <nav class="top-nav">
+      <a href="index.html">← VOLVER AL INICIO</a>
+    </nav>
+  </header>
+
+  <main class="post-wrapper">
+    <div id="post-date" class="post-date"></div>
+    <h1 id="post-title" class="post-title">Cargando archivo...</h1>
+    <img id="post-cover" class="post-cover" style="display: none;" alt="" />
+    <article id="post-content" class="post-content"></article>
+  </main>
+
+  <footer class="site-footer">
+    <p>© Alex C. Texeira</p>
+    <p>México - contacto@alexctexeira.com.mx</p>
+  </footer>
+
+  <script type="module">
+    import { db } from "./firebase-config.js";
+    import { doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get("id");
+
+    async function loadPost() {
+      if (!id) {
+        document.getElementById("post-title").textContent = "Archivo no encontrado";
+        return;
+      }
+
+      const snap = await getDoc(doc(db, "posts", id));
+      if (!snap.exists()) {
+        document.getElementById("post-title").textContent = "Este archivo ya no existe";
+        return;
+      }
+
+      const data = snap.data();
+      document.title = `${data.title} | ALEXCTEXEIRA`;
+      document.getElementById("post-title").textContent = data.title;
+      document.getElementById("post-content").textContent = data.content || "";
+
+      if (data.createdAt?.toDate) {
+        document.getElementById("post-date").textContent = data.createdAt.toDate().toLocaleDateString("es-MX", {
+          year: "numeric", month: "long", day: "numeric"
+        });
+      }
+
+      if (data.image) {
+        const img = document.getElementById("post-cover");
+        img.src = data.image;
+        img.alt = data.title;
+        img.style.display = "block";
+      }
+    }
+
+    loadPost();
+  </script>
+</body>
+</html>
