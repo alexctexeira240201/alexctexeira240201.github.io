@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Entrada | ALEXCTEXEIRA</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css?v=2" />
 </head>
 <body>
 
@@ -17,7 +17,15 @@
   <main class="post-wrapper">
     <div id="post-date" class="post-date"></div>
     <h1 id="post-title" class="post-title">Cargando archivo...</h1>
-    <img id="post-cover" class="post-cover" style="display: none;" alt="" />
+
+    <!-- CARRUSEL DE PORTADA -->
+    <div id="post-carousel" class="post-carousel" style="display: none;">
+      <img id="post-cover" class="post-cover" alt="" />
+      <button id="cover-prev" class="post-carousel-btn prev" style="display:none;" aria-label="Anterior">‹</button>
+      <button id="cover-next" class="post-carousel-btn next" style="display:none;" aria-label="Siguiente">›</button>
+      <div id="cover-dots" class="post-carousel-dots"></div>
+    </div>
+
     <article id="post-content" class="post-content"></article>
   </main>
 
@@ -32,6 +40,25 @@
 
     const params = new URLSearchParams(window.location.search);
     const id = params.get("id");
+
+    function escapeHtml(str) {
+      return str
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;");
+    }
+
+    function renderContentWithImages(rawText, inlineImages) {
+      const safe = escapeHtml(rawText || "");
+      return safe.replace(/\[IMG:(\d+)\]/g, (match, num) => {
+        const idx = parseInt(num, 10) - 1;
+        if (inlineImages && inlineImages[idx]) {
+          return `<img src="${inlineImages[idx]}" class="post-inline-img" alt="Imagen ${num}" loading="lazy" />`;
+        }
+        return "";
+      });
+    }
 
     async function loadPost() {
       if (!id) {
@@ -48,7 +75,7 @@
       const data = snap.data();
       document.title = `${data.title} | ALEXCTEXEIRA`;
       document.getElementById("post-title").textContent = data.title;
-      document.getElementById("post-content").textContent = data.content || "";
+      document.getElementById("post-content").innerHTML = renderContentWithImages(data.content, data.inlineImages || []);
 
       if (data.createdAt?.toDate) {
         document.getElementById("post-date").textContent = data.createdAt.toDate().toLocaleDateString("es-MX", {
@@ -56,11 +83,43 @@
         });
       }
 
-      if (data.image) {
-        const img = document.getElementById("post-cover");
-        img.src = data.image;
-        img.alt = data.title;
-        img.style.display = "block";
+      // Portada: soporta arreglo `images` o el campo anterior `image`
+      const covers = (Array.isArray(data.images) && data.images.length > 0)
+        ? data.images
+        : (data.image ? [data.image] : []);
+
+      if (covers.length > 0) {
+        const carousel = document.getElementById("post-carousel");
+        const imgEl = document.getElementById("post-cover");
+        const prevBtn = document.getElementById("cover-prev");
+        const nextBtn = document.getElementById("cover-next");
+        const dotsEl = document.getElementById("cover-dots");
+
+        carousel.style.display = "block";
+        let current = 0;
+
+        function showCover(idx) {
+          current = (idx + covers.length) % covers.length;
+          imgEl.src = covers[current];
+          imgEl.alt = `${data.title} (${current + 1}/${covers.length})`;
+          if (covers.length > 1) {
+            dotsEl.innerHTML = covers.map((_, i) =>
+              `<button class="carousel-dot ${i === current ? 'active' : ''}" aria-label="Imagen ${i + 1}"></button>`
+            ).join("");
+            dotsEl.querySelectorAll(".carousel-dot").forEach((b, i) => {
+              b.addEventListener("click", () => showCover(i));
+            });
+          }
+        }
+
+        if (covers.length > 1) {
+          prevBtn.style.display = "flex";
+          nextBtn.style.display = "flex";
+          prevBtn.addEventListener("click", () => showCover(current - 1));
+          nextBtn.addEventListener("click", () => showCover(current + 1));
+        }
+
+        showCover(0);
       }
     }
 
