@@ -11,7 +11,7 @@
 :root {
   --bg-black: #000000;
   --olive-mid: #4e6536;
-  --olive-dark: #223514;
+  --olive-dark: #1d3310;
   --olive-text: #8ba078;
   --gray-hero: #c6d0d9;
   --white: #ffffff;
@@ -120,7 +120,6 @@ a {
   overflow: hidden;
 }
 
-/* Degradado sutil para que el texto siempre se lea bien sobre cualquier foto */
 .blog-carousel::before {
   content: "";
   position: absolute;
@@ -249,85 +248,73 @@ a {
   white-space: pre-line;
 }
 
-/* ================= PROYECTOS (FRANJA VERDE) ================= */
+/* ================= PROYECTOS ESTILO TOP / DEMA ================= */
 .projects-section {
   background-color: var(--olive-dark);
-  padding: 52px 24px;
+  padding: 28px 6% 34px;
+  font-family: var(--font-mono);
 }
 
-.project-card {
-  max-width: 960px;
+.dema-project-card {
+  max-width: 1120px;
   margin: 0 auto;
-  display: grid;
-  grid-template-columns: 220px 1fr;
-  gap: 36px;
-  align-items: center;
-}
-
-.project-thumb {
-  width: 220px;
-  height: 250px;
-  border-radius: 32px;
-  background-color: var(--gray-hero);
-  background-size: cover;
-  background-position: center;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #000;
-  font-weight: 700;
-  overflow: hidden;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35);
-}
-
-.project-thumb img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
-
-.project-info {
+  min-height: 260px;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  justify-content: space-between;
 }
 
-.project-title {
-  font-family: var(--font-display);
-  font-weight: 900;
-  font-size: clamp(1.8rem, 4.2vw, 3rem);
-  line-height: 1.05;
+.dema-file-path {
+  text-align: right;
+  font-size: 0.92rem;
+  letter-spacing: 0.03em;
+  color: rgba(255, 255, 255, 0.92);
+  word-break: break-all;
+  margin-bottom: 26px;
+}
+
+.dema-project-body {
+  padding-left: 6%;
+  max-width: 760px;
+  margin-bottom: 42px;
+}
+
+.dema-project-title {
+  font-family: var(--font-mono);
+  font-size: clamp(1.2rem, 2.4vw, 1.55rem);
+  font-weight: normal;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--white);
+  margin-bottom: 14px;
+}
+
+.dema-project-desc {
+  font-family: var(--font-mono);
+  font-size: clamp(0.95rem, 1.5vw, 1.1rem);
+  line-height: 1.65;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.dema-project-footer {
+  text-align: center;
+  margin-top: auto;
+}
+
+.dema-btn-more {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 1.25rem;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--white);
-  margin-bottom: 10px;
+  padding: 6px 16px;
+  transition: color 0.2s ease, transform 0.2s ease;
 }
 
-.project-desc {
-  font-family: var(--font-display);
-  font-weight: 300;
-  font-size: 1rem;
-  line-height: 1.5;
-  color: var(--olive-text);
-  margin-bottom: 28px;
-}
-
-.btn-conocer {
-  display: inline-block;
-  background-color: var(--gray-hero);
-  color: var(--bg-black);
-  font-family: var(--font-display);
-  font-weight: 800;
-  font-size: 1rem;
-  padding: 12px 64px;
-  border-radius: 999px;
-  text-transform: lowercase;
-  transition: transform 0.2s ease, background-color 0.2s ease;
-}
-
-.btn-conocer:hover {
-  background-color: var(--white);
-  transform: translateY(-2px);
+.dema-btn-more:hover {
+  color: #fce300;
+  transform: scale(1.04);
 }
 
 /* ================= FOOTER ================= */
@@ -400,12 +387,11 @@ a {
   .blog-title-link {
     text-align: left;
   }
-  .project-card {
-    grid-template-columns: 1fr;
-    text-align: center;
-    justify-items: center;
+  .dema-file-path {
+    text-align: left;
+    font-size: 0.78rem;
   }
-  .project-info {
-    align-items: center;
+  .dema-project-body {
+    padding-left: 0;
   }
 }
