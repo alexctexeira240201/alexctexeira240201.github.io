@@ -1,0 +1,1395 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portal de Gestión y Comunicación Clínica para Enfermería | Alex Castillo Texeira</title>
+  <meta name="description" content="Plataforma web progresiva (PWA) para la comunicación continua y seguimiento de estudiantes de enfermería durante sus estancias hospitalarias." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Montserrat:wght@800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy-deep: #17224d;
+      --royal-blue: #27387a;
+      --sky-pill: #38b6ff;
+      --ice-blue: #b8d0eb;
+      --white: #ffffff;
+      --text-dark: #141e30;
+      --text-muted: #475569;
+      --danger: #dc2626;
+      --success: #16a34a;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--navy-deep);
+      color: var(--text-dark);
+      line-height: 1.65;
+      overflow-x: hidden;
+    }
+
+    .section-inner { max-width: 1020px; margin: 0 auto; }
+    .wave-divider { display: block; width: 100%; line-height: 0; font-size: 0; margin: -1px 0; }
+    .wave-divider svg { display: block; width: 100%; height: 52px; shape-rendering: geometricPrecision; }
+
+    /* BARRA SUPERIOR DEL PORTAFOLIO */
+    .portfolio-bar {
+      background: #0f1738;
+      color: #ffffff;
+      padding: 0.75rem 1.5rem;
+      border-bottom: 1px solid rgba(255,255,255,0.12);
+    }
+    .portfolio-bar-inner {
+      max-width: 1020px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+    .portfolio-brand {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 0.82rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: #bae6fd;
+      text-decoration: none;
+    }
+    .btn-back-site {
+      background: rgba(255,255,255,0.12);
+      color: #ffffff;
+      text-decoration: none;
+      border: 1px solid rgba(255,255,255,0.22);
+      padding: 0.42rem 0.95rem;
+      border-radius: 999px;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      transition: all 0.2s;
+    }
+    .btn-back-site:hover { background: var(--sky-pill); color: #0b192c; border-color: var(--sky-pill); }
+
+    /* HERO */
+    .hero-section { background-color: var(--navy-deep); color: #ffffff; padding: 3.4rem 1.5rem 2rem; }
+    .hero-badge {
+      display: inline-block;
+      background: rgba(56, 182, 255, 0.18);
+      color: #bae6fd;
+      border: 1px solid rgba(56, 182, 255, 0.45);
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 0.72rem;
+      padding: 0.32rem 0.9rem;
+      border-radius: 999px;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+    .hero-section h1 {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: clamp(1.85rem, 4.4vw, 2.85rem);
+      line-height: 1.15;
+      margin-bottom: 0.9rem;
+      text-transform: uppercase;
+    }
+    .hero-section p {
+      font-size: 1.06rem;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 0.9);
+      max-width: 780px;
+      margin-bottom: 1.5rem;
+    }
+    .hero-cta-row { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+    .pill-sky {
+      background-color: var(--sky-pill); color: #0b192c; text-decoration: none; border: none;
+      font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 0.8rem;
+      text-transform: uppercase; padding: 0.85rem 1.6rem; border-radius: 999px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25); cursor: pointer; display: inline-block;
+    }
+    .pill-white {
+      background-color: #ffffff; color: #0b192c; text-decoration: none; border: none;
+      font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 0.8rem;
+      text-transform: uppercase; padding: 0.85rem 1.6rem; border-radius: 999px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25); cursor: pointer; display: inline-block;
+    }
+
+    /* EXPLICACIÓN DEL PROYECTO */
+    .about-section { background-color: #ffffff; color: var(--navy-deep); padding: 2.25rem 1.5rem 2.5rem; }
+    .about-section h2 {
+      font-family: 'Montserrat', sans-serif; font-weight: 900;
+      font-size: clamp(1.65rem, 3.8vw, 2.2rem); margin-bottom: 0.75rem; text-transform: uppercase;
+    }
+    .about-lead { font-size: 1.02rem; color: #27364f; max-width: 850px; margin-bottom: 1.75rem; }
+    .roles-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    .role-card {
+      background: #f8fafc;
+      border: 1.5px solid #cbd5e1;
+      border-top: 6px solid var(--sky-pill);
+      border-radius: 16px;
+      padding: 1.35rem;
+    }
+    .role-card.admin-accent { border-top-color: var(--navy-deep); }
+    .role-card.docente-accent { border-top-color: #f59e0b; }
+    .role-card h3 {
+      font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 1rem;
+      color: var(--navy-deep); text-transform: uppercase; margin-bottom: 0.45rem;
+    }
+    .role-card p { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 0.75rem; }
+    .role-card ul { padding-left: 1.15rem; font-size: 0.86rem; color: var(--text-dark); }
+    .role-card li { margin-bottom: 0.3rem; }
+
+    .tech-strip {
+      display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center;
+      padding-top: 0.75rem; border-top: 1px solid #e2e8f0;
+    }
+    .tech-pill {
+      background: #e0f2fe; color: var(--navy-deep);
+      font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 0.72rem;
+      padding: 0.32rem 0.8rem; border-radius: 999px; text-transform: uppercase;
+    }
+
+    /* ZONA INTERACTIVA (SIMULADOR) */
+    .demo-section { background-color: var(--ice-blue); padding: 2.5rem 1.25rem 3.2rem; }
+    .demo-header { text-align: center; max-width: 780px; margin: 0 auto 1.5rem; }
+    .demo-header h2 {
+      font-family: 'Montserrat', sans-serif; font-weight: 900;
+      font-size: clamp(1.7rem, 4vw, 2.25rem); text-transform: uppercase; color: var(--navy-deep);
+      margin-bottom: 0.45rem;
+    }
+    .demo-header p { font-size: 0.96rem; color: #1e293b; }
+
+    .role-switcher {
+      display: flex; flex-wrap: wrap; justify-content: center; gap: 0.75rem; margin-bottom: 1.5rem;
+    }
+    .explore-btn {
+      border: none; background-color: #ffffff; color: var(--navy-deep);
+      font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 0.82rem;
+      padding: 0.85rem 1.55rem; border-radius: 999px; cursor: pointer;
+      box-shadow: 0 4px 12px rgba(23, 34, 77, 0.14); transition: all 0.2s;
+      text-transform: uppercase;
+    }
+    .explore-btn:hover { transform: translateY(-2px); }
+    .explore-btn.active { background-color: var(--navy-deep); color: #ffffff; }
+
+    /* MARCO DEL SIMULADOR */
+    .demo-shell {
+      background: #f1f5f9;
+      border-radius: 22px;
+      overflow: hidden;
+      box-shadow: 0 18px 45px rgba(23, 34, 77, 0.22);
+      border: 3px solid var(--navy-deep);
+    }
+    .demo-view { display: none; }
+    .demo-view.active { display: block; }
+
+    /* ESTILOS FIELES DEL PORTAL ORIGINAL */
+    .user-topbar {
+      background: #0f1738; color: #ffffff; padding: 0.75rem 1.25rem;
+      display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.75rem;
+      border-bottom: 1px solid rgba(255,255,255,0.12);
+    }
+    .user-chip { display: flex; align-items: center; gap: 0.65rem; }
+    .avatar-sm {
+      width: 36px; height: 36px; border-radius: 50%;
+      background: var(--sky-pill); color: var(--navy-deep);
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 0.82rem;
+      border: 2px solid var(--sky-pill); flex-shrink: 0;
+    }
+    .user-meta strong { display: block; font-size: 0.86rem; line-height: 1.2; }
+    .user-meta span { font-size: 0.74rem; color: #bae6fd; font-weight: 600; }
+    .topbar-actions { display: flex; gap: 0.45rem; flex-wrap: wrap; }
+    .btn-top {
+      background: rgba(255,255,255,0.12); color: #ffffff;
+      border: 1px solid rgba(255,255,255,0.22);
+      padding: 0.4rem 0.85rem; border-radius: 999px;
+      font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 0.7rem;
+      text-transform: uppercase; cursor: pointer;
+    }
+    .btn-top.sky { background: var(--sky-pill); color: #0b192c; border-color: var(--sky-pill); }
+    .btn-top.warn { background: #f59e0b; color: #1e293b; border-color: #f59e0b; }
+    .btn-top.green { background: #22c55e; color: #052e16; border-color: #22c55e; }
+
+    .demo-hero-mini {
+      background: var(--navy-deep); color: #ffffff; padding: 1.8rem 1.5rem 1.25rem;
+    }
+    .demo-hero-mini h3 {
+      font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 1.35rem; text-transform: uppercase;
+    }
+    .demo-hero-mini p { font-size: 0.9rem; color: #bae6fd; font-weight: 600; }
+
+    .demo-body-white { background: #ffffff; padding: 1.5rem; }
+    .demo-body-ice { background: #dbeafe; padding: 1.5rem; }
+    .demo-body-gray { background: #f1f5f9; padding: 1.5rem; }
+
+    .ann-header-row {
+      display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+    .ann-header-row h4 {
+      font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 1.08rem;
+      color: var(--navy-deep); text-transform: uppercase;
+    }
+    .pill-tag {
+      display: inline-block; padding: 0.22rem 0.65rem; border-radius: 999px;
+      font-size: 0.72rem; font-weight: 800; background: #e0f2fe; color: var(--navy-deep);
+    }
+    .badge-danger {
+      display: inline-block; background: #fee2e2; color: #b91c1c;
+      font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 0.68rem;
+      padding: 0.2rem 0.6rem; border-radius: 999px; text-transform: uppercase;
+    }
+    .badge-ok {
+      display: inline-block; background: #dcfce7; color: #166534;
+      font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 0.68rem;
+      padding: 0.2rem 0.6rem; border-radius: 999px; text-transform: uppercase;
+    }
+
+    .ann-card {
+      background: #f8fafc; border: 1.5px solid #cbd5e1; border-left: 6px solid var(--sky-pill);
+      border-radius: 14px; padding: 1.05rem 1.2rem; margin-bottom: 0.85rem;
+    }
+    .ann-card.asistencia { border-left-color: #f59e0b; background: #fffbeb; }
+    .ann-card.confirmed { border-left-color: var(--success); background: #f0fdf4; border-color: #bbf7d0; }
+    .ann-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 0.75rem; flex-wrap: wrap; margin-bottom: 0.35rem; }
+    .ann-top h5 { font-family: 'Montserrat', sans-serif; font-weight: 900; color: var(--navy-deep); font-size: 0.96rem; }
+    .ann-date { font-size: 0.74rem; font-weight: 700; color: var(--text-muted); }
+    .ann-msg { font-size: 0.9rem; color: var(--text-dark); white-space: pre-line; margin-bottom: 0.75rem; }
+    .ann-footer { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem; }
+    .btn-confirm-ann {
+      background: var(--navy-deep); color: #ffffff; border: none; padding: 0.48rem 1.05rem;
+      border-radius: 999px; font-family: 'Montserrat', sans-serif; font-weight: 800;
+      font-size: 0.72rem; text-transform: uppercase; cursor: pointer;
+    }
+    .badge-confirmed {
+      display: inline-block; background: #dcfce7; color: #166534;
+      font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 0.72rem;
+      padding: 0.35rem 0.85rem; border-radius: 999px; text-transform: uppercase;
+    }
+
+    /* MANUAL INTERACTIVO DENTRO DEL SIMULADOR */
+    .subtabs { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem; }
+    .subtab-btn {
+      border: 1.5px solid #cbd5e1; background: #ffffff; color: var(--navy-deep);
+      font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 0.76rem;
+      padding: 0.5rem 1rem; border-radius: 999px; cursor: pointer;
+    }
+    .subtab-btn.active { background: var(--navy-deep); border-color: var(--navy-deep); color: #ffffff; }
+    .manual-box {
+      background: #ffffff; border-radius: 16px; padding: 1.25rem;
+      box-shadow: 0 6px 18px rgba(23,34,77,0.08);
+    }
+    .manual-panel { display: none; }
+    .manual-panel.active { display: block; }
+
+    .interactive-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 0.75rem; margin-top: 0.65rem; }
+    .check-card {
+      background: #f8fafc; border: 1.5px solid #cbd5e1; border-radius: 12px;
+      padding: 0.85rem; cursor: pointer; transition: all 0.15s;
+    }
+    .check-card.done { background: #f0fdf4; border-color: #22c55e; }
+    .check-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.3rem; }
+    .badge-num { background: var(--navy-deep); color: #ffffff; font-family: 'Montserrat', sans-serif; font-size: 0.68rem; font-weight: 800; padding: 0.18rem 0.55rem; border-radius: 999px; }
+    .check-status { font-size: 0.72rem; font-weight: 800; color: #64748b; }
+    .check-card.done .check-status { color: #15803d; }
+    .check-card h5 { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 0.88rem; color: var(--navy-deep); margin-bottom: 0.2rem; }
+    .check-card p { font-size: 0.82rem; color: var(--text-muted); }
+
+    .color-selector { display: flex; flex-wrap: wrap; gap: 0.45rem; margin-bottom: 0.9rem; }
+    .color-pill {
+      display: inline-flex; align-items: center; gap: 0.35rem; background: #f1f5f9;
+      border: 1.5px solid #cbd5e1; color: var(--text-dark);
+      font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 0.74rem;
+      padding: 0.45rem 0.8rem; border-radius: 999px; cursor: pointer;
+    }
+    .color-pill.active { background: var(--navy-deep); border-color: var(--navy-deep); color: #ffffff; }
+    .dot { width: 9px; height: 9px; border-radius: 50%; display: inline-block; }
+    .detail-panel { background: #f8fafc; border: 1.5px solid #cbd5e1; border-left: 6px solid #2563eb; border-radius: 12px; padding: 1.05rem; }
+    .detail-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(185px, 1fr)); gap: 0.75rem; margin-top: 0.65rem; }
+    .detail-cell { background: #ffffff; border: 1px solid #e2e8f0; border-radius: 10px; padding: 0.75rem; font-size: 0.85rem; }
+    .detail-cell span.label { display: block; font-family: 'Montserrat', sans-serif; font-size: 0.68rem; font-weight: 800; text-transform: uppercase; color: var(--royal-blue); margin-bottom: 0.2rem; }
+
+    .calc-form { display: grid; grid-template-columns: repeat(auto-fit, minmax(165px, 1fr)); gap: 0.75rem; background: #f1f5f9; border: 1px solid #cbd5e1; padding: 1rem; border-radius: 12px; margin-bottom: 0.9rem; }
+    .form-group label { display: block; font-family: 'Montserrat', sans-serif; font-size: 0.7rem; font-weight: 800; color: var(--navy-deep); text-transform: uppercase; margin-bottom: 0.25rem; }
+    .form-group input, .form-group select { width: 100%; padding: 0.58rem 0.72rem; border: 1.5px solid #cbd5e1; border-radius: 10px; font-family: 'Inter', sans-serif; font-size: 0.88rem; background: #ffffff; }
+    .result-metrics { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 0.75rem; }
+    .metric-box { background: #e0f2fe; padding: 0.75rem; border-radius: 10px; text-align: center; }
+    .metric-box span.m-title { display: block; font-size: 0.68rem; font-weight: 800; color: var(--royal-blue); text-transform: uppercase; }
+    .metric-box strong.m-val { font-family: 'Montserrat', sans-serif; font-size: 1.2rem; font-weight: 900; color: var(--navy-deep); }
+
+    /* TABLAS Y CARDS DE ADMIN / DOCENTE */
+    .admin-tabs { display: flex; gap: 0.55rem; flex-wrap: wrap; margin-bottom: 1.1rem; }
+    .admin-tab-btn {
+      background: #ffffff; color: var(--navy-deep); border: 2px solid #cbd5e1;
+      padding: 0.55rem 1.1rem; border-radius: 999px;
+      font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 0.74rem;
+      text-transform: uppercase; cursor: pointer;
+    }
+    .admin-tab-btn.active { background: var(--navy-deep); color: #ffffff; border-color: var(--navy-deep); }
+    .admin-section { display: none; }
+    .admin-section.active { display: block; }
+    .admin-card { background: #ffffff; border-radius: 16px; padding: 1.25rem; box-shadow: 0 4px 14px rgba(23,34,77,0.07); margin-bottom: 1rem; }
+    .admin-card h4 { font-family: 'Montserrat', sans-serif; font-weight: 900; color: var(--navy-deep); font-size: 0.94rem; margin-bottom: 0.85rem; text-transform: uppercase; }
+    .admin-grid-form { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 0.75rem; margin-bottom: 0.85rem; }
+    .admin-card label { display: block; font-family: 'Montserrat', sans-serif; font-size: 0.7rem; font-weight: 800; text-transform: uppercase; color: var(--navy-deep); margin-bottom: 0.25rem; }
+    .admin-card input, .admin-card select, .admin-card textarea { width: 100%; padding: 0.6rem 0.75rem; border: 1.5px solid #cbd5e1; border-radius: 10px; font-family: 'Inter', sans-serif; font-size: 0.88rem; }
+    .admin-card textarea { min-height: 76px; resize: vertical; }
+    .btn-primary {
+      background: var(--navy-deep); color: #ffffff; border: none; padding: 0.68rem 1.25rem;
+      border-radius: 999px; font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 0.74rem;
+      text-transform: uppercase; cursor: pointer;
+    }
+    .btn-sm { padding: 0.35rem 0.72rem; border-radius: 999px; border: none; font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 0.68rem; text-transform: uppercase; cursor: pointer; }
+    .btn-info { background: #e0f2fe; color: var(--navy-deep); }
+    .btn-del { background: #fee2e2; color: #b91c1c; }
+
+    .table-wrap { overflow-x: auto; }
+    table.admin-table { width: 100%; border-collapse: collapse; font-size: 0.84rem; }
+    table.admin-table th, table.admin-table td { padding: 0.7rem 0.6rem; border-bottom: 1px solid #e2e8f0; text-align: left; vertical-align: middle; }
+    table.admin-table th { font-family: 'Montserrat', sans-serif; font-size: 0.7rem; text-transform: uppercase; color: var(--royal-blue); background: #f8fafc; }
+
+    /* MODAL */
+    .modal-backdrop {
+      position: fixed; inset: 0; background: rgba(15, 23, 42, 0.72);
+      z-index: 10000; display: none; align-items: center; justify-content: center; padding: 1rem;
+    }
+    .modal-backdrop.open { display: flex; }
+    .modal-box {
+      background: #ffffff; border-radius: 20px; max-width: 540px; width: 100%;
+      padding: 1.65rem; box-shadow: 0 25px 60px rgba(0,0,0,0.35);
+      max-height: 90vh; overflow-y: auto;
+    }
+    .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
+    .modal-header h3 { font-family: 'Montserrat', sans-serif; font-weight: 900; color: var(--navy-deep); font-size: 1rem; text-transform: uppercase; }
+    .modal-close { background: #e2e8f0; border: none; width: 32px; height: 32px; border-radius: 50%; font-weight: 900; cursor: pointer; color: var(--navy-deep); }
+    .profile-field { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 0.6rem 0.85rem; margin-bottom: 0.5rem; }
+    .profile-field small { display: block; font-size: 0.68rem; font-weight: 800; text-transform: uppercase; color: var(--royal-blue); }
+    .profile-field strong { font-size: 0.9rem; color: var(--text-dark); }
+    .report-form { background: #f8fafc; border: 1.5px solid #cbd5e1; border-radius: 12px; padding: 0.95rem; margin: 0.85rem 0; }
+    .report-form label { display: block; font-family: 'Montserrat', sans-serif; font-size: 0.68rem; font-weight: 800; text-transform: uppercase; color: var(--navy-deep); margin: 0.45rem 0 0.2rem; }
+    .report-form select, .report-form textarea { width: 100%; padding: 0.55rem 0.7rem; border: 1.5px solid #cbd5e1; border-radius: 10px; font-family: 'Inter', sans-serif; font-size: 0.86rem; background: #fff; }
+    .report-item { background: #f8fafc; border: 1.5px solid #cbd5e1; border-left: 6px solid var(--sky-pill); border-radius: 12px; padding: 0.8rem 0.95rem; margin-bottom: 0.6rem; font-size: 0.85rem; }
+    .report-item.supervision { border-left-color: var(--danger); background: #fef2f2; border-color: #fecaca; }
+
+    /* SECCIÓN ARQUITECTURA */
+    .features-section { background-color: var(--navy-deep); color: #ffffff; padding: 2.5rem 1.5rem 2.75rem; }
+    .features-section h2 {
+      font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: clamp(1.6rem, 3.8vw, 2.15rem);
+      text-transform: uppercase; text-align: center; margin-bottom: 1.5rem;
+    }
+    .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; }
+    .feat-card {
+      background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.16);
+      border-radius: 16px; padding: 1.2rem;
+    }
+    .feat-card h4 { font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 0.92rem; color: var(--sky-pill); text-transform: uppercase; margin-bottom: 0.35rem; }
+    .feat-card p { font-size: 0.86rem; color: rgba(255,255,255,0.88); }
+
+    /* SECCIÓN COMERCIAL / COTIZACIÓN */
+    .sales-section { background-color: #ffffff; color: var(--navy-deep); padding: 2.75rem 1.5rem 3rem; }
+    .sales-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      align-items: start;
+    }
+    .sales-badge {
+      display: inline-block;
+      background: #e0f2fe;
+      color: var(--navy-deep);
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 0.72rem;
+      padding: 0.3rem 0.85rem;
+      border-radius: 999px;
+      text-transform: uppercase;
+      margin-bottom: 0.8rem;
+    }
+    .sales-info h2 {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: clamp(1.65rem, 3.8vw, 2.2rem);
+      text-transform: uppercase;
+      line-height: 1.15;
+      margin-bottom: 0.75rem;
+    }
+    .sales-info p.sales-lead { font-size: 0.96rem; color: var(--text-muted); margin-bottom: 1.25rem; }
+    .sales-perks { list-style: none; margin-bottom: 1.35rem; }
+    .sales-perks li {
+      position: relative;
+      padding-left: 1.65rem;
+      margin-bottom: 0.65rem;
+      font-size: 0.9rem;
+      color: var(--text-dark);
+    }
+    .sales-perks li::before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      top: 0;
+      color: var(--sky-pill);
+      font-weight: 900;
+      font-size: 1rem;
+    }
+    .sales-direct-box {
+      background: #f8fafc;
+      border: 1.5px solid #cbd5e1;
+      border-left: 5px solid var(--navy-deep);
+      border-radius: 12px;
+      padding: 0.9rem 1.1rem;
+      font-size: 0.86rem;
+    }
+    .sales-direct-box a { color: var(--royal-blue); font-weight: 800; text-decoration: none; }
+
+    .quote-card {
+      background: #f8fafc;
+      border: 1.5px solid #cbd5e1;
+      border-top: 7px solid var(--sky-pill);
+      border-radius: 20px;
+      padding: 1.6rem;
+      box-shadow: 0 12px 30px rgba(23, 34, 77, 0.08);
+    }
+    .quote-card h3 {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 1.02rem;
+      color: var(--navy-deep);
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+    .quote-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 0.75rem; }
+    .quote-group { margin-bottom: 0.8rem; }
+    .quote-group label {
+      display: block;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      color: var(--navy-deep);
+      margin-bottom: 0.25rem;
+    }
+    .quote-group input, .quote-group select, .quote-group textarea {
+      width: 100%;
+      padding: 0.65rem 0.8rem;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 10px;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.88rem;
+      background: #ffffff;
+    }
+    .quote-group textarea { min-height: 82px; resize: vertical; }
+
+    /* FOOTER */
+    .footer-credits { background-color: #ffffff; color: var(--navy-deep); text-align: center; border-top: 1px solid #e2e8f0; }
+    .footer-inner { padding: 1.4rem 1rem 2rem; font-size: 0.9rem; font-weight: 800; }
+    .footer-inner small { display: block; font-weight: 600; color: var(--text-muted); margin-top: 0.25rem; }
+    .footer-inner a { color: var(--royal-blue); text-decoration: none; }
+  </style>
+</head>
+<body>
+
+  <!-- BARRA PORTAFOLIO -->
+  <nav class="portfolio-bar">
+    <div class="portfolio-bar-inner">
+      <a href="https://alexctexeira.com.mx" class="portfolio-brand">alexctexeira.com.mx · Portafolio</a>
+      <a href="https://alexctexeira.com.mx" class="btn-back-site">← Volver al inicio</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <header class="hero-section">
+    <div class="section-inner">
+      <span class="hero-badge">Solución Web · Gestión Clínica y Educación en Enfermería</span>
+      <h1>Portal de Comunicación y Gestión para Estudiantes de Enfermería</h1>
+      <p>Una aplicación web progresiva (PWA) diseñada para mantener comunicación continua, trazabilidad académica y acceso inmediato a protocolos clínicos durante las estancias y prácticas hospitalarias.</p>
+      <div class="hero-cta-row">
+        <button class="pill-sky" onclick="document.getElementById('simulador').scrollIntoView({behavior:'smooth'})">Probar Simulador Interactivo</button>
+        <a href="#cotizar" class="pill-white">Cotizar para mi Institución</a>
+      </div>
+    </div>
+  </header>
+
+  <div class="wave-divider" style="background-color: #17224d;">
+    <svg viewBox="0 0 1440 70" preserveAspectRatio="none"><path fill="#ffffff" d="M0,45 C360,0 1080,75 1440,25 L1440,72 L0,72 Z"></path></svg>
+  </div>
+
+  <!-- EXPLICACIÓN DEL PORTAL -->
+  <section class="about-section">
+    <div class="section-inner">
+      <h2>¿Para qué sirve este portal?</h2>
+      <p class="about-lead">
+        Durante las rotaciones clínicas y el servicio social en un hospital, la comunicación entre el <strong>Departamento de Enseñanza</strong>, los <strong>estudiantes de enfermería</strong> y sus <strong>docentes universitarios</strong> suele dispersarse en grupos informales de mensajería y hojas impresas. Este portal centraliza toda la estancia hospitalaria en un solo entorno instalable en el celular, asegurando que cada aviso se lea, cada incidencia tenga seguimiento y cada estudiante lleve sus protocolos de seguridad en el bolsillo.
+      </p>
+
+      <div class="roles-grid">
+        <div class="role-card">
+          <h3>1. Perfil Estudiante</h3>
+          <p>Acompaña al practicante o pasante durante toda su rotación hospitalaria.</p>
+          <ul>
+            <li>Recibe avisos de sesiones y comunicados en vivo (incluso con pantalla bloqueada).</li>
+            <li>Confirma lectura o asistencia con registro automático de fecha y hora.</li>
+            <li>Consulta manuales interactivos: lavado de manos, códigos, aislamientos y cálculo de dosis.</li>
+          </ul>
+        </div>
+
+        <div class="role-card docente-accent">
+          <h3>2. Perfil Docente / Asesor</h3>
+          <p>Conecta a la universidad directamente con el desempeño de sus alumnos en campo clínico.</p>
+          <ul>
+            <li>Visualiza únicamente la lista de estudiantes inscritos de su propia institución.</li>
+            <li>Consulta en tiempo real cuántos reportes o incidencias acumula cada estudiante.</li>
+            <li>Recibe alertas inmediatas cuando un reporte requiere revisión en Enseñanza.</li>
+          </ul>
+        </div>
+
+        <div class="role-card admin-accent">
+          <h3>3. Perfil Administrador (Enseñanza)</h3>
+          <p>Panel de control total para la jefatura de enseñanza hospitalaria.</p>
+          <ul>
+            <li>Da de alta y baja a estudiantes y docentes con envío automático de credenciales.</li>
+            <li>Segmenta avisos para todos, por universidad o por estudiante individual.</li>
+            <li>Registra reportes/incidencias y edita contenidos del manual sin tocar código.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="tech-strip">
+        <span class="tech-pill">PWA Instalable (Android & iOS)</span>
+        <span class="tech-pill">Notificaciones Push en Tiempo Real</span>
+        <span class="tech-pill">100% Personalizable</span>
+        <span class="tech-pill">Control por Roles</span>
+        <span class="tech-pill">Soporte en Línea</span>
+      </div>
+    </div>
+  </section>
+
+  <div class="wave-divider" style="background-color: #ffffff;">
+    <svg viewBox="0 0 1440 70" preserveAspectRatio="none"><path fill="#b8d0eb" d="M0,25 C420,75 1020,0 1440,45 L1440,72 L0,72 Z"></path></svg>
+  </div>
+
+  <!-- ZONA INTERACTIVA: SIMULADOR DE 3 VISTAS -->
+  <section id="simulador" class="demo-section">
+    <div class="section-inner">
+      <div class="demo-header">
+        <h2>Explora las 3 Vistas en Vivo</h2>
+        <p>Este simulador funciona en memoria (no guarda datos reales). <strong>Pruébalo:</strong> registra un estudiante, crea un aviso o levanta un reporte con supervisión en la vista de <em>Administrador</em> y cambia a la vista de <em>Estudiante</em> o <em>Docente</em> para ver cómo se refleja al instante.</p>
+      </div>
+
+      <div class="role-switcher">
+        <button class="explore-btn active" onclick="switchDemoRole('student', this)">Vista Estudiante</button>
+        <button class="explore-btn" onclick="switchDemoRole('docente', this)">Vista Docente / Asesor</button>
+        <button class="explore-btn" onclick="switchDemoRole('admin', this)">Vista Administrador</button>
+      </div>
+
+      <div class="demo-shell">
+
+        <!-- ==================== VISTA 1: ESTUDIANTE ==================== -->
+        <div id="demo-view-student" class="demo-view active">
+          <div class="user-topbar">
+            <div class="user-chip">
+              <div class="avatar-sm">SM</div>
+              <div class="user-meta">
+                <strong>Sofía Martínez López</strong>
+                <span>Practicante · EST2041 · Universidad del Bajío</span>
+              </div>
+            </div>
+            <div class="topbar-actions">
+              <button class="btn-top green" onclick="showToast('Notificaciones Push', 'Permiso simulado activado. Los avisos llegarán directo a tu celular.')">Activar Notificaciones</button>
+              <button class="btn-top warn" id="demo-student-jump" onclick="document.getElementById('demo-student-ann-list').scrollIntoView({behavior:'smooth'})">Avisos (0)</button>
+            </div>
+          </div>
+
+          <div class="demo-hero-mini">
+            <h3>Portal de Practicantes y Pasantes de Enfermería</h3>
+            <p>Hospital General de Simulación Clínica · Departamento de Enseñanza</p>
+          </div>
+
+          <div class="demo-body-white">
+            <div class="ann-header-row">
+              <h4>Avisos de Enseñanza e Investigación</h4>
+              <span class="pill-tag" id="demo-student-pending-badge"></span>
+            </div>
+            <div id="demo-student-ann-list"></div>
+          </div>
+
+          <div class="demo-body-ice">
+            <div class="ann-header-row">
+              <h4>Manual de Integración Clínica (Interactivo)</h4>
+              <span class="pill-tag" style="background:#ffffff;">Acceso Rápido</span>
+            </div>
+            <div class="subtabs">
+              <button class="subtab-btn active" onclick="switchManualTab('momentos', this)">5 Momentos</button>
+              <button class="subtab-btn" onclick="switchManualTab('codigos', this)">Códigos de Emergencia</button>
+              <button class="subtab-btn" onclick="switchManualTab('aislamientos', this)">Aislamientos</button>
+              <button class="subtab-btn" onclick="switchManualTab('dosis', this)">Calculadora de Dosis</button>
+            </div>
+
+            <div class="manual-box">
+              <div id="manual-tab-momentos" class="manual-panel active">
+                <p style="font-size:0.86rem; color:var(--text-muted);">Toca cada momento de higiene de manos para marcarlo como verificado (<strong id="demo-mom-count">0 / 5</strong>).</p>
+                <div class="interactive-grid" id="demo-momentos-grid"></div>
+              </div>
+
+              <div id="manual-tab-codigos" class="manual-panel">
+                <div class="color-selector">
+                  <button class="color-pill active" onclick="showDemoCode('azul', this)"><span class="dot" style="background:#2563eb;"></span>Código Azul</button>
+                  <button class="color-pill" onclick="showDemoCode('rojo', this)"><span class="dot" style="background:#dc2626;"></span>Código Rojo</button>
+                  <button class="color-pill" onclick="showDemoCode('ambar', this)"><span class="dot" style="background:#f97316;"></span>Código Ámbar</button>
+                  <button class="color-pill" onclick="showDemoCode('violeta', this)"><span class="dot" style="background:#7c3aed;"></span>Código Violeta</button>
+                </div>
+                <div id="demo-code-detail" class="detail-panel"></div>
+              </div>
+
+              <div id="manual-tab-aislamientos" class="manual-panel">
+                <div class="color-selector">
+                  <button class="color-pill active" onclick="showDemoIso('amarilla', this)"><span class="dot" style="background:#eab308;"></span>Contacto</button>
+                  <button class="color-pill" onclick="showDemoIso('verde', this)"><span class="dot" style="background:#16a34a;"></span>Gotas</button>
+                  <button class="color-pill" onclick="showDemoIso('azul', this)"><span class="dot" style="background:#2563eb;"></span>Vía Aérea</button>
+                  <button class="color-pill" onclick="showDemoIso('gris', this)"><span class="dot" style="background:#64748b;"></span>Inverso</button>
+                </div>
+                <div id="demo-iso-detail" class="detail-panel"></div>
+              </div>
+
+              <div id="manual-tab-dosis" class="manual-panel">
+                <div class="calc-form">
+                  <div class="form-group">
+                    <label>Medicamento</label>
+                    <select id="demo-med" onchange="calcDemoDose()">
+                      <option value="paracetamol">Paracetamol (15 mg/kg/dosis)</option>
+                      <option value="amoxicilina">Amoxicilina (50 mg/kg/día ÷ 3)</option>
+                      <option value="ceftriaxona">Ceftriaxona IV (50 mg/kg/día ÷ 2)</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label>Peso del Paciente (kg)</label>
+                    <input type="number" id="demo-weight" value="14" min="1" max="100" step="0.5" oninput="calcDemoDose()" />
+                  </div>
+                </div>
+                <div class="result-metrics" id="demo-dose-result"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ==================== VISTA 2: DOCENTE / ASESOR ==================== -->
+        <div id="demo-view-docente" class="demo-view">
+          <div class="user-topbar">
+            <div class="user-chip">
+              <div class="avatar-sm" style="background:#f59e0b; border-color:#f59e0b;">LG</div>
+              <div class="user-meta">
+                <strong>Mtra. Laura Gómez Ruiz</strong>
+                <span>Docente / Asesor · Universidad del Bajío</span>
+              </div>
+            </div>
+            <div class="topbar-actions">
+              <button class="btn-top green" onclick="showToast('Alertas de Supervisión Activas', 'Recibirás una notificación push inmediata si alguno de tus estudiantes recibe un reporte que requiera revisión.')">Alertas Activas</button>
+            </div>
+          </div>
+
+          <div class="demo-hero-mini">
+            <h3>Seguimiento Académico en Campo Clínico</h3>
+            <p>Vista exclusiva para asesores · Filtrado automático por institución</p>
+          </div>
+
+          <div class="demo-body-white">
+            <div class="ann-header-row">
+              <h4>Mis Estudiantes · Universidad del Bajío</h4>
+              <span class="pill-tag" id="demo-docente-count">0 estudiantes</span>
+            </div>
+            <p style="font-size:0.86rem; color:var(--text-muted); margin-bottom:1rem;">
+              El asesor visualiza únicamente a los estudiantes registrados bajo su misma universidad, junto con su conteo de reportes/incidencias y alertas de supervisión en Enseñanza.
+            </p>
+            <div class="table-wrap">
+              <table class="admin-table">
+                <thead>
+                  <tr><th>Estudiante</th><th>Usuario</th><th>Perfil</th><th>Reportes / Incidencias</th><th>Acción</th></tr>
+                </thead>
+                <tbody id="demo-docente-tbody"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- ==================== VISTA 3: ADMINISTRADOR ==================== -->
+        <div id="demo-view-admin" class="demo-view">
+          <div class="user-topbar">
+            <div class="user-chip">
+              <div class="avatar-sm" style="background:#ffffff; border-color:#ffffff;">AD</div>
+              <div class="user-meta">
+                <strong>Panel de Administración · Enseñanza</strong>
+                <span>Gestión de Estudiantes, Docentes, Reportes y Avisos</span>
+              </div>
+            </div>
+            <div class="topbar-actions">
+              <span class="pill-tag" style="background:rgba(56,182,255,0.2); color:#bae6fd;">Modo Demo Interactivo</span>
+            </div>
+          </div>
+
+          <div class="demo-body-gray">
+            <div class="admin-tabs">
+              <button class="admin-tab-btn active" onclick="switchDemoAdminTab('students', this)">Estudiantes y Reportes</button>
+              <button class="admin-tab-btn" onclick="switchDemoAdminTab('asesores', this)">Docentes / Asesores</button>
+              <button class="admin-tab-btn" onclick="switchDemoAdminTab('announcements', this)">Anuncios y Avisos</button>
+            </div>
+
+            <!-- ADMIN TAB 1: ESTUDIANTES -->
+            <div id="demo-admin-tab-students" class="admin-section active">
+              <div class="admin-card">
+                <h4>Registrar Nuevo Estudiante (Demo)</h4>
+                <div class="admin-grid-form">
+                  <div><label>Nombre completo</label><input type="text" id="demo-est-nombre" placeholder="Ej. Andrea Morales" /></div>
+                  <div><label>Correo electrónico</label><input type="email" id="demo-est-correo" placeholder="andrea@ejemplo.edu.mx" /></div>
+                  <div>
+                    <label>Universidad</label>
+                    <select id="demo-est-escuela">
+                      <option value="Universidad del Bajío">Universidad del Bajío</option>
+                      <option value="Instituto de Ciencias de la Salud">Instituto de Ciencias de la Salud</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label>Perfil</label>
+                    <select id="demo-est-perfil">
+                      <option value="Practicante">Practicante</option>
+                      <option value="Pasante">Pasante</option>
+                    </select>
+                  </div>
+                </div>
+                <button class="btn-primary" onclick="addDemoStudent()">Registrar Estudiante</button>
+              </div>
+
+              <div class="admin-card">
+                <h4>Estudiantes Registrados (Haz clic en "Ver Perfil / Reportes" para levantar una incidencia)</h4>
+                <div class="table-wrap">
+                  <table class="admin-table">
+                    <thead>
+                      <tr><th>Estudiante</th><th>Usuario</th><th>Perfil</th><th>Universidad</th><th>Reportes</th><th>Acción</th></tr>
+                    </thead>
+                    <tbody id="demo-admin-students-tbody"></tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            <!-- ADMIN TAB 2: ASESORES -->
+            <div id="demo-admin-tab-asesores" class="admin-section">
+              <div class="admin-card">
+                <h4>Registrar Nuevo Docente / Asesor (Demo)</h4>
+                <div class="admin-grid-form">
+                  <div><label>Nombre completo</label><input type="text" id="demo-ase-nombre" placeholder="Ej. Dr. Carlos Méndez" /></div>
+                  <div><label>Correo institucional</label><input type="email" id="demo-ase-correo" placeholder="carlos@universidad.edu.mx" /></div>
+                  <div>
+                    <label>Universidad</label>
+                    <select id="demo-ase-escuela">
+                      <option value="Universidad del Bajío">Universidad del Bajío</option>
+                      <option value="Instituto de Ciencias de la Salud">Instituto de Ciencias de la Salud</option>
+                    </select>
+                  </div>
+                </div>
+                <button class="btn-primary" onclick="addDemoAsesor()">Registrar Asesor</button>
+              </div>
+
+              <div class="admin-card">
+                <h4>Docentes / Asesores Activos</h4>
+                <div class="table-wrap">
+                  <table class="admin-table">
+                    <thead><tr><th>Docente / Asesor</th><th>Usuario</th><th>Universidad Asignada</th></tr></thead>
+                    <tbody id="demo-admin-asesores-tbody"></tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            <!-- ADMIN TAB 3: ANUNCIOS -->
+            <div id="demo-admin-tab-announcements" class="admin-section">
+              <div class="admin-card">
+                <h4>Publicar Nuevo Aviso en Vivo</h4>
+                <div class="admin-grid-form">
+                  <div><label>Título</label><input type="text" id="demo-ann-titulo" placeholder="Ej. Sesión Clínica de Seguridad" /></div>
+                  <div>
+                    <label>Tipo de confirmación</label>
+                    <select id="demo-ann-tipo">
+                      <option value="leido">Confirmar de leído</option>
+                      <option value="asistencia">Confirmar asistencia</option>
+                    </select>
+                  </div>
+                </div>
+                <div style="margin-bottom:0.75rem;">
+                  <label>Mensaje</label>
+                  <textarea id="demo-ann-msg" placeholder="Escribe fecha, hora, lugar e indicaciones..."></textarea>
+                </div>
+                <button class="btn-primary" onclick="addDemoAnnouncement()">Publicar y Enviar Notificación</button>
+              </div>
+
+              <div class="admin-card">
+                <h4>Anuncios Publicados y Confirmaciones</h4>
+                <div id="demo-admin-ann-list"></div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <div class="wave-divider" style="background-color: #b8d0eb;">
+    <svg viewBox="0 0 1440 70" preserveAspectRatio="none"><path fill="#17224d" d="M0,25 C420,75 1020,0 1440,45 L1440,72 L0,72 Z"></path></svg>
+  </div>
+
+  <!-- ARQUITECTURA Y BENEFICIOS -->
+  <section id="arquitectura" class="features-section">
+    <div class="section-inner">
+      <h2>Arquitectura y Valor en Campo Clínico</h2>
+      <div class="features-grid">
+        <div class="feat-card">
+          <h4>App Instalable (PWA)</h4>
+          <p>Se instala directamente desde Chrome o Safari sin pasar por tiendas de aplicaciones ni consumir espacio del dispositivo.</p>
+        </div>
+        <div class="feat-card">
+          <h4>Notificaciones Push</h4>
+          <p>Integración con OneSignal para alertar a estudiantes y asesores por escuela o usuario específico, incluso con el celular bloqueado.</p>
+        </div>
+        <div class="feat-card">
+          <h4>Trazabilidad Institucional</h4>
+          <p>Cada confirmación de lectura, asistencia o reporte queda respaldada con fecha y hora en base de datos administrada por Enseñanza.</p>
+        </div>
+        <div class="feat-card">
+          <h4>Cero Costo de Servidores</h4>
+          <p>Desplegado sobre infraestructura serverless ligera, permitiendo mantenimiento sencillo y accesible para cualquier institución de salud.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="wave-divider" style="background-color: #17224d;">
+    <svg viewBox="0 0 1440 70" preserveAspectRatio="none"><path fill="#ffffff" d="M0,45 C360,0 1080,75 1440,25 L1440,72 L0,72 Z"></path></svg>
+  </div>
+
+  <!-- SECCIÓN COMERCIAL: INTÉGRALO EN TU INSTITUCIÓN -->
+  <section id="cotizar" class="sales-section">
+    <div class="section-inner">
+      <div class="sales-grid">
+        <div class="sales-info">
+          <span class="sales-badge">Solución Llave en Mano</span>
+          <h2>Intégralo en tu Institución</h2>
+          <p class="sales-lead">
+            Lleva este portal a tu hospital, clínica o facultad de enfermería y profesionaliza el seguimiento de tus practicantes y pasantes desde el primer día.
+          </p>
+          <ul class="sales-perks">
+            <li><strong>100% Personalizable:</strong> Adaptamos logotipo, paleta de colores, dominio institucional, manuales clínicos y formularios a tus protocolos internos.</li>
+            <li><strong>Atención y Soporte en Línea:</strong> Acompañamiento técnico continuo, resolución de dudas y actualizaciones directas.</li>
+            <li><strong>Capacitación Incluida:</strong> Inducción práctica para tu Departamento de Enseñanza, coordinadores y docentes asesores.</li>
+            <li><strong>Implementación Rápida y Accesible:</strong> Despliegue ágil sin rentas mensuales costosas de servidores ni trámites en tiendas de apps.</li>
+          </ul>
+          <div class="sales-direct-box">
+            ¿Prefieres escribir directamente?<br>
+            Contáctame en <a href="mailto:contacto@alexctexeira.com.mx">contacto@alexctexeira.com.mx</a>
+          </div>
+        </div>
+
+        <div class="quote-card">
+          <h3>Solicita una Cotización</h3>
+          <form id="quote-form" onsubmit="sendQuoteRequest(event)">
+            <div class="quote-row">
+              <div class="quote-group">
+                <label>Nombre y cargo *</label>
+                <input type="text" id="q-nombre" placeholder="Ej. Lic. Ana Pérez · Jefa de Enseñanza" required />
+              </div>
+              <div class="quote-group">
+                <label>Institución / Hospital *</label>
+                <input type="text" id="q-institucion" placeholder="Nombre del hospital o universidad" required />
+              </div>
+            </div>
+
+            <div class="quote-row">
+              <div class="quote-group">
+                <label>Correo electrónico *</label>
+                <input type="email" id="q-correo" placeholder="correo@institucion.mx" required />
+              </div>
+              <div class="quote-group">
+                <label>Teléfono / WhatsApp</label>
+                <input type="tel" id="q-telefono" placeholder="Ej. 477 000 0000" />
+              </div>
+            </div>
+
+            <div class="quote-row">
+              <div class="quote-group">
+                <label>Tipo de institución</label>
+                <select id="q-tipo">
+                  <option value="Hospital Público">Hospital Público</option>
+                  <option value="Hospital / Clínica Privada">Hospital / Clínica Privada</option>
+                  <option value="Universidad / Facultad">Universidad / Facultad</option>
+                  <option value="Otro">Otro</option>
+                </select>
+              </div>
+              <div class="quote-group">
+                <label>Estudiantes aproximados</label>
+                <select id="q-volumen">
+                  <option value="Menos de 50">Menos de 50</option>
+                  <option value="50 a 150">50 a 150</option>
+                  <option value="150 a 300">150 a 300</option>
+                  <option value="Más de 300">Más de 300</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="quote-group">
+              <label>¿Qué módulos o personalizaciones necesitas?</label>
+              <textarea id="q-detalles" placeholder="Cuéntame brevemente si necesitas carga de manuales propios, dominio institucional, roles adicionales o fecha estimada de arranque..."></textarea>
+            </div>
+
+            <button type="submit" class="btn-primary" style="width:100%; padding:0.85rem; font-size:0.8rem;">Enviar Solicitud de Cotización</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer-credits">
+    <div class="footer-inner">
+      Diseñado y desarrollado por Alex Daniel Castillo Texeira
+      <small><a href="https://alexctexeira.com.mx">alexctexeira.com.mx</a> · <a href="mailto:contacto@alexctexeira.com.mx">contacto@alexctexeira.com.mx</a></small>
+    </div>
+  </footer>
+
+  <!-- MODAL DEMO (PERFIL + REPORTES) -->
+  <div id="demo-modal" class="modal-backdrop">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3 id="demo-modal-title">Perfil del Estudiante</h3>
+        <button class="modal-close" onclick="closeDemoModal()">✕</button>
+      </div>
+      <div id="demo-modal-body"></div>
+    </div>
+  </div>
+
+  <script>
+    // ================= ESTADO COMPARTIDO DEL SIMULADOR =================
+    const demoState = {
+      activeStudentUser: "EST2041",
+      activeDocenteSchool: "Universidad del Bajío",
+      students: [
+        { usuario: "EST2041", nombre: "Sofía Martínez López", correo: "sofia.martinez@ejemplo.edu.mx", perfil: "Practicante", escuela: "Universidad del Bajío" },
+        { usuario: "EST2042", nombre: "Diego Ramírez Torres", correo: "diego.ramirez@ejemplo.edu.mx", perfil: "Pasante", escuela: "Universidad del Bajío" },
+        { usuario: "EST2043", nombre: "Valeria Cruz Herrera", correo: "valeria.cruz@ejemplo.edu.mx", perfil: "Practicante", escuela: "Instituto de Ciencias de la Salud" }
+      ],
+      asesores: [
+        { usuario: "ASE1011", nombre: "Mtra. Laura Gómez Ruiz", correo: "laura.gomez@ejemplo.edu.mx", escuela: "Universidad del Bajío" },
+        { usuario: "ASE1012", nombre: "Lic. Roberto Díaz Vega", correo: "roberto.diaz@ejemplo.edu.mx", escuela: "Instituto de Ciencias de la Salud" }
+      ],
+      announcements: [
+        {
+          id: "anu_1",
+          titulo: "Sesión Clínica: Seguridad en la Medicación",
+          mensaje: "Se convoca a todos los practicantes y pasantes este viernes a las 10:00 AM en el Auditorio Principal. Favor de confirmar asistencia.",
+          tipo: "asistencia",
+          fecha: "Hoy · 08:30",
+          confirmados: ["EST2042"]
+        },
+        {
+          id: "anu_2",
+          titulo: "Actualización de Rol de Servicios",
+          mensaje: "Ya se encuentra disponible el rol de rotación para el próximo mes. Revisen su servicio asignado y confirmen de enterado.",
+          tipo: "leido",
+          fecha: "Ayer · 14:15",
+          confirmados: ["EST2041", "EST2042"]
+        }
+      ],
+      reports: [
+        {
+          id: "rep_1",
+          usuario: "EST2042",
+          tipo: "Reporte",
+          motivo: "Retardo reiterado en entrega de turno matutino.",
+          accion: "Llamado de atención verbal y seguimiento en puntualidad.",
+          requiere_supervision: "No",
+          fecha: "Ayer · 07:45"
+        }
+      ]
+    };
+
+    // ================= CAMBIO DE VISTAS PRINCIPALES =================
+    function switchDemoRole(role, btn) {
+      document.querySelectorAll(".role-switcher .explore-btn").forEach(b => b.classList.remove("active"));
+      if (btn) btn.classList.add("active");
+      document.querySelectorAll(".demo-view").forEach(v => v.classList.remove("active"));
+      document.getElementById("demo-view-" + role).classList.add("active");
+      renderAllDemoViews();
+    }
+
+    function switchDemoAdminTab(tab, btn) {
+      document.querySelectorAll(".admin-tab-btn").forEach(b => b.classList.remove("active"));
+      document.querySelectorAll(".admin-section").forEach(s => s.classList.remove("active"));
+      btn.classList.add("active");
+      document.getElementById("demo-admin-tab-" + tab).classList.add("active");
+    }
+
+    function switchManualTab(tab, btn) {
+      document.querySelectorAll(".subtab-btn").forEach(b => b.classList.remove("active"));
+      document.querySelectorAll(".manual-panel").forEach(p => p.classList.remove("active"));
+      btn.classList.add("active");
+      document.getElementById("manual-tab-" + tab).classList.add("active");
+    }
+
+    function getInitials(name) {
+      return (name || "U").trim().split(/\s+/).slice(0, 2).map(w => w[0]).join("").toUpperCase();
+    }
+
+    function showToast(title, msg) {
+      const toast = document.createElement("div");
+      toast.style.cssText = `
+        position:fixed; top:16px; right:16px; left:16px; max-width:430px; margin:0 auto;
+        background:#17224d; color:#fff; border-left:6px solid #38b6ff; border-radius:14px;
+        padding:0.95rem 1.1rem; box-shadow:0 15px 35px rgba(0,0,0,0.35); z-index:20000;
+        cursor:pointer; font-family:'Inter',sans-serif;
+      `;
+      toast.innerHTML = `
+        <div style="font-family:'Montserrat',sans-serif; font-size:0.7rem; color:#38b6ff; font-weight:900; text-transform:uppercase;">Notificación en Vivo</div>
+        <strong style="display:block; font-size:0.92rem; margin:0.2rem 0;">${title}</strong>
+        <div style="font-size:0.82rem; opacity:0.92;">${msg}</div>
+      `;
+      toast.onclick = () => toast.remove();
+      document.body.appendChild(toast);
+      setTimeout(() => toast.remove(), 6500);
+    }
+
+    // ================= RENDER DE LAS 3 VISTAS =================
+    function renderAllDemoViews() {
+      renderDemoStudentAnnouncements();
+      renderDemoDocenteTable();
+      renderDemoAdminStudents();
+      renderDemoAdminAsesores();
+      renderDemoAdminAnnouncements();
+    }
+
+    function renderDemoStudentAnnouncements() {
+      const u = demoState.activeStudentUser;
+      const pending = demoState.announcements.filter(a => !a.confirmados.includes(u)).length;
+      const jumpBtn = document.getElementById("demo-student-jump");
+      const badge = document.getElementById("demo-student-pending-badge");
+      jumpBtn.textContent = pending > 0 ? `Avisos (${pending})` : "Avisos al día";
+      badge.textContent = pending > 0 ? `${pending} pendiente${pending > 1 ? "s" : ""}` : "Todo confirmado";
+
+      document.getElementById("demo-student-ann-list").innerHTML = demoState.announcements.map(a => {
+        const done = a.confirmados.includes(u);
+        const isAsist = a.tipo === "asistencia";
+        const cardClass = done ? "ann-card confirmed" : (isAsist ? "ann-card asistencia" : "ann-card");
+        return `
+          <div class="${cardClass}">
+            <div class="ann-top"><h5>${a.titulo}</h5><span class="ann-date">${a.fecha}</span></div>
+            <div class="ann-msg">${a.mensaje}</div>
+            <div class="ann-footer">
+              <span class="pill-tag" style="background:#e2e8f0;">${isAsist ? "Sesión / Capacitación" : "Aviso Informativo"}</span>
+              ${done
+                ? `<span class="badge-confirmed">${isAsist ? "✓ Asistencia Confirmada" : "✓ Confirmado de Leído"}</span>`
+                : `<button class="btn-confirm-ann" onclick="confirmDemoAnn('${a.id}')">${isAsist ? "Confirmar Asistencia" : "Confirmar de Leído"}</button>`
+              }
+            </div>
+          </div>
+        `;
+      }).join("");
+    }
+
+    function confirmDemoAnn(id) {
+      const a = demoState.announcements.find(x => x.id === id);
+      if (a && !a.confirmados.includes(demoState.activeStudentUser)) {
+        a.confirmados.push(demoState.activeStudentUser);
+        renderAllDemoViews();
+        showToast("Confirmación Registrada", `Tu confirmación en "${a.titulo}" ya es visible en el Panel Admin.`);
+      }
+    }
+
+    function renderDemoDocenteTable() {
+      const myStudents = demoState.students.filter(s => s.escuela === demoState.activeDocenteSchool);
+      document.getElementById("demo-docente-count").textContent = `${myStudents.length} estudiantes`;
+      document.getElementById("demo-docente-tbody").innerHTML = myStudents.map(s => {
+        const reps = demoState.reports.filter(r => r.usuario === s.usuario);
+        const hasSup = reps.some(r => r.requiere_supervision === "Sí");
+        const repBadge = reps.length === 0
+          ? `<span class="badge-ok">0 reportes</span>`
+          : `<span class="${hasSup ? "badge-danger" : "pill-tag"}">${reps.length} reporte${reps.length > 1 ? "s" : ""}${hasSup ? " · Requiere Supervisión" : ""}</span>`;
+        return `
+          <tr>
+            <td><div style="display:flex; align-items:center; gap:0.55rem;"><div class="avatar-sm" style="width:30px; height:30px; font-size:0.7rem;">${getInitials(s.nombre)}</div><div><strong>${s.nombre}</strong><br><small style="color:var(--text-muted);">${s.correo}</small></div></div></td>
+            <td><strong>${s.usuario}</strong></td>
+            <td><span class="pill-tag">${s.perfil}</span></td>
+            <td>${repBadge}</td>
+            <td><button class="btn-sm btn-info" onclick="openStudentModal('${s.usuario}', false)">Ver Perfil y Reportes</button></td>
+          </tr>
+        `;
+      }).join("");
+    }
+
+    function renderDemoAdminStudents() {
+      document.getElementById("demo-admin-students-tbody").innerHTML = demoState.students.map(s => {
+        const reps = demoState.reports.filter(r => r.usuario === s.usuario);
+        const hasSup = reps.some(r => r.requiere_supervision === "Sí");
+        const repBadge = reps.length === 0 ? `<span class="badge-ok">0</span>` : `<span class="${hasSup ? "badge-danger" : "pill-tag"}">${reps.length}</span>`;
+        return `
+          <tr>
+            <td><div style="display:flex; align-items:center; gap:0.55rem;"><div class="avatar-sm" style="width:30px; height:30px; font-size:0.7rem;">${getInitials(s.nombre)}</div><div><strong>${s.nombre}</strong><br><small style="color:var(--text-muted);">${s.correo}</small></div></div></td>
+            <td><strong>${s.usuario}</strong></td>
+            <td><span class="pill-tag">${s.perfil}</span></td>
+            <td>${s.escuela}</td>
+            <td>${repBadge}</td>
+            <td><button class="btn-sm btn-info" onclick="openStudentModal('${s.usuario}', true)">Ver Perfil / Reportes</button></td>
+          </tr>
+        `;
+      }).join("");
+    }
+
+    function renderDemoAdminAsesores() {
+      document.getElementById("demo-admin-asesores-tbody").innerHTML = demoState.asesores.map(a => `
+        <tr>
+          <td><strong>${a.nombre}</strong><br><small style="color:var(--text-muted);">${a.correo}</small></td>
+          <td><strong>${a.usuario}</strong></td>
+          <td><span class="pill-tag">${a.escuela}</span></td>
+        </tr>
+      `).join("");
+    }
+
+    function renderDemoAdminAnnouncements() {
+      document.getElementById("demo-admin-ann-list").innerHTML = demoState.announcements.map(a => `
+        <div style="background:#f8fafc; border:1px solid #cbd5e1; border-radius:12px; padding:0.9rem; margin-bottom:0.65rem;">
+          <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.5rem; margin-bottom:0.35rem;">
+            <div>
+              <strong style="color:var(--navy-deep); font-size:0.92rem;">${a.titulo}</strong>
+              <div style="font-size:0.74rem; color:var(--text-muted);">${a.fecha} · ${a.tipo === "asistencia" ? "Asistencia" : "Lectura"}</div>
+            </div>
+            <span class="pill-tag">Confirmados: ${a.confirmados.length}</span>
+          </div>
+          <p style="font-size:0.84rem; color:var(--text-dark);">${a.mensaje}</p>
+        </div>
+      `).join("");
+    }
+
+    // ================= ACCIONES INTERACTIVAS DEL ADMIN =================
+    function addDemoStudent() {
+      const nombre = document.getElementById("demo-est-nombre").value.trim();
+      const correo = document.getElementById("demo-est-correo").value.trim();
+      const escuela = document.getElementById("demo-est-escuela").value;
+      const perfil = document.getElementById("demo-est-perfil").value;
+      if (!nombre || !correo) { alert("Escribe nombre y correo del estudiante."); return; }
+
+      const usuario = "EST" + Math.floor(1000 + Math.random() * 9000);
+      demoState.students.unshift({ usuario, nombre, correo, perfil, escuela });
+      document.getElementById("demo-est-nombre").value = "";
+      document.getElementById("demo-est-correo").value = "";
+      renderAllDemoViews();
+      showToast("Estudiante Registrado", `${nombre} (${usuario}) agregado. Si elegiste Universidad del Bajío, ya aparece también en la Vista Docente.`);
+    }
+
+    function addDemoAsesor() {
+      const nombre = document.getElementById("demo-ase-nombre").value.trim();
+      const correo = document.getElementById("demo-ase-correo").value.trim();
+      const escuela = document.getElementById("demo-ase-escuela").value;
+      if (!nombre || !correo) { alert("Escribe nombre y correo del asesor."); return; }
+      const usuario = "ASE" + Math.floor(1000 + Math.random() * 9000);
+      demoState.asesores.unshift({ usuario, nombre, correo, escuela });
+      document.getElementById("demo-ase-nombre").value = "";
+      document.getElementById("demo-ase-correo").value = "";
+      renderAllDemoViews();
+      showToast("Asesor Registrado", `Se generó el usuario ${usuario} para ${nombre} (${escuela}).`);
+    }
+
+    function addDemoAnnouncement() {
+      const titulo = document.getElementById("demo-ann-titulo").value.trim();
+      const mensaje = document.getElementById("demo-ann-msg").value.trim();
+      const tipo = document.getElementById("demo-ann-tipo").value;
+      if (!titulo || !mensaje) { alert("Escribe el título y el mensaje del aviso."); return; }
+      demoState.announcements.unshift({
+        id: "anu_" + Date.now(),
+        titulo, mensaje, tipo, fecha: "Ahora mismo", confirmados: []
+      });
+      document.getElementById("demo-ann-titulo").value = "";
+      document.getElementById("demo-ann-msg").value = "";
+      renderAllDemoViews();
+      showToast("Aviso Publicado", `"${titulo}" ya aparece en vivo en la Vista Estudiante.`);
+    }
+
+    function openStudentModal(usuario, canAddReport) {
+      const s = demoState.students.find(x => x.usuario === usuario);
+      if (!s) return;
+      const reps = demoState.reports.filter(r => r.usuario === s.usuario);
+      document.getElementById("demo-modal-title").textContent = canAddReport ? "Perfil y Reportes (Admin)" : "Perfil y Seguimiento (Docente)";
+
+      const formHtml = canAddReport ? `
+        <div class="report-form">
+          <strong style="font-family:'Montserrat',sans-serif; font-size:0.78rem; color:var(--navy-deep); text-transform:uppercase;">Agregar Reporte o Incidencia</strong>
+          <label>Tipo</label>
+          <select id="demo-rep-tipo"><option value="Reporte">Reporte</option><option value="Incidencia">Incidencia</option></select>
+          <label>Motivo</label>
+          <textarea id="demo-rep-motivo" placeholder="Ej. Incumplimiento de protocolo de bioseguridad..."></textarea>
+          <label>Acción tomada</label>
+          <textarea id="demo-rep-accion" placeholder="Ej. Retroalimentación inmediata y cita en Enseñanza..."></textarea>
+          <label>¿Requiere supervisión en Enseñanza?</label>
+          <select id="demo-rep-sup">
+            <option value="No">No</option>
+            <option value="Sí">Sí (Notificar al Asesor de ${s.escuela})</option>
+          </select>
+          <button class="btn-primary" style="margin-top:0.75rem; width:100%;" onclick="addDemoReport('${s.usuario}')">Guardar Reporte</button>
+        </div>
+      ` : "";
+
+      const repsHtml = reps.length ? reps.map(r => `
+        <div class="report-item ${r.requiere_supervision === "Sí" ? "supervision" : ""}">
+          <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.4rem; margin-bottom:0.3rem;">
+            <strong>${r.tipo} · <span style="font-weight:600; color:var(--text-muted); font-size:0.76rem;">${r.fecha}</span></strong>
+            ${r.requiere_supervision === "Sí" ? `<span class="badge-danger">Requiere Supervisión</span>` : `<span class="badge-ok">Sin supervisión</span>`}
+          </div>
+          <div><strong>Motivo:</strong> ${r.motivo}</div>
+          <div><strong>Acción:</strong> ${r.accion}</div>
+        </div>
+      `).join("") : `<p style="font-size:0.84rem; color:var(--text-muted); text-align:center; padding:0.5rem 0;">Sin reportes ni incidencias registradas.</p>`;
+
+      document.getElementById("demo-modal-body").innerHTML = `
+        <div class="profile-field"><small>Nombre completo</small><strong>${s.nombre}</strong></div>
+        <div class="profile-field"><small>Usuario y Perfil</small><strong>${s.usuario} · ${s.perfil}</strong></div>
+        <div class="profile-field"><small>Universidad</small><strong>${s.escuela}</strong></div>
+        <h4 style="font-family:'Montserrat',sans-serif; font-size:0.86rem; color:var(--navy-deep); text-transform:uppercase; margin:1rem 0 0.5rem;">Reportes e Incidencias (${reps.length})</h4>
+        ${formHtml}
+        ${repsHtml}
+      `;
+      document.getElementById("demo-modal").classList.add("open");
+    }
+
+    function addDemoReport(usuario) {
+      const s = demoState.students.find(x => x.usuario === usuario);
+      const tipo = document.getElementById("demo-rep-tipo").value;
+      const motivo = document.getElementById("demo-rep-motivo").value.trim();
+      const accion = document.getElementById("demo-rep-accion").value.trim();
+      const reqSup = document.getElementById("demo-rep-sup").value;
+      if (!motivo || !accion) { alert("Completa el motivo y la acción."); return; }
+
+      demoState.reports.unshift({
+        id: "rep_" + Date.now(),
+        usuario, tipo, motivo, accion, requiere_supervision: reqSup, fecha: "Ahora mismo"
+      });
+      renderAllDemoViews();
+      openStudentModal(usuario, true);
+
+      if (reqSup === "Sí") {
+        showToast("Push enviado al Asesor", `Un Estudiante Ha Recibido Un Reporte/Incidencia y Requiere Revisarlo (${s.nombre}). Cambia a la Vista Docente para verlo.`);
+      } else {
+        showToast("Reporte Guardado", `Incidencia agregada al historial de ${s.nombre}.`);
+      }
+    }
+
+    function closeDemoModal() { document.getElementById("demo-modal").classList.remove("open"); }
+
+    // ================= FORMULARIO DE COTIZACIÓN =================
+    function sendQuoteRequest(e) {
+      e.preventDefault();
+      const nombre = document.getElementById("q-nombre").value.trim();
+      const institucion = document.getElementById("q-institucion").value.trim();
+      const correo = document.getElementById("q-correo").value.trim();
+      const telefono = document.getElementById("q-telefono").value.trim() || "No especificado";
+      const tipo = document.getElementById("q-tipo").value;
+      const volumen = document.getElementById("q-volumen").value;
+      const detalles = document.getElementById("q-detalles").value.trim() || "Sin comentarios adicionales";
+
+      const subject = encodeURIComponent(`Cotización Portal de Enfermería · ${institucion}`);
+      const body = encodeURIComponent(
+        `Hola Alex,\n\nMe interesa integrar el Portal de Enfermería en nuestra institución. Aquí están los datos para cotizar:\n\n` +
+        `• Nombre y cargo: ${nombre}\n` +
+        `• Institución: ${institucion} (${tipo})\n` +
+        `• Correo: ${correo}\n` +
+        `• Teléfono / WhatsApp: ${telefono}\n` +
+        `• Volumen estimado de estudiantes: ${volumen}\n` +
+        `• Detalles / Personalizaciones: ${detalles}\n\n` +
+        `Quedo atento(a) a la propuesta.`
+      );
+
+      window.location.href = `mailto:contacto@alexctexeira.com.mx?subject=${subject}&body=${body}`;
+      showToast("Solicitud Lista", "Se abrió tu app de correo con la cotización prellenada hacia contacto@alexctexeira.com.mx.");
+    }
+
+    // ================= MÓDULOS CLÍNICOS INTERACTIVOS =================
+    const demoMomentos = [
+      { num: "Momento 1", t: "Antes de tocar al paciente", d: "Protege al paciente de gérmenes en las manos." },
+      { num: "Momento 2", t: "Antes de tarea aséptica", d: "Previene entrada de microorganismos en accesos o heridas." },
+      { num: "Momento 3", t: "Tras riesgo de fluidos", d: "Protección personal ante líquidos corporales." },
+      { num: "Momento 4", t: "Después de tocar al paciente", d: "Al concluir la valoración o atención directa." },
+      { num: "Momento 5", t: "Tras contacto con el entorno", d: "Al tocar cama, monitor o bomba sin tocar al paciente." }
+    ];
+
+    function initDemoMomentos() {
+      document.getElementById("demo-momentos-grid").innerHTML = demoMomentos.map((m, i) => `
+        <div class="check-card" id="dm-${i}" onclick="toggleDemoMom(${i})">
+          <div class="check-top"><span class="badge-num">${m.num}</span><span class="check-status" id="dm-st-${i}">Pendiente</span></div>
+          <h5>${m.t}</h5><p>${m.d}</p>
+        </div>
+      `).join("");
+    }
+    function toggleDemoMom(i) {
+      const c = document.getElementById("dm-" + i);
+      c.classList.toggle("done");
+      document.getElementById("dm-st-" + i).textContent = c.classList.contains("done") ? "✓ Verificado" : "Pendiente";
+      document.getElementById("demo-mom-count").textContent = `${document.querySelectorAll("#demo-momentos-grid .check-card.done").length} / 5`;
+    }
+
+    const demoCodes = {
+      azul: { t: "Código Azul — Paro Cardiorrespiratorio", c: "#2563eb", det: "Paro cardiorrespiratorio intrahospitalario.", acc: "RCP de alta calidad, Carro Rojo y desfibrilador.", rol: "Apoyo en registro de tiempos e insumos bajo supervisión." },
+      rojo: { t: "Código Rojo — Fuego o Incendio", c: "#dc2626", det: "Fuego, humo o conato de incendio.", acc: "Protocolo RACE, despejar pasillos, sin elevadores.", rol: "Resguardo y apoyo en rutas de evacuación." },
+      ambar: { t: "Código Ámbar — Extravío o Sustracción", c: "#f97316", det: "Paciente extraviado o sustraído.", acc: "Cierre inmediato de accesos y alerta a seguridad.", rol: "Verificar pacientes asignados y reportar." },
+      violeta: { t: "Código Violeta — Sismo", c: "#7c3aed", det: "Movimiento telúrico y revisión estructural.", acc: "Repliegue en zona segura y dictamen posterior.", rol: "Asegurar frenos de camas/cunas y resguardar pacientes." }
+    };
+    function showDemoCode(key, btn) {
+      if (btn) { btn.parentElement.querySelectorAll(".color-pill").forEach(b => b.classList.remove("active")); btn.classList.add("active"); }
+      const d = demoCodes[key];
+      const box = document.getElementById("demo-code-detail");
+      box.style.borderLeftColor = d.c;
+      box.innerHTML = `<h5 style="font-family:'Montserrat',sans-serif; font-weight:900; color:var(--navy-deep);">${d.t}</h5><div class="detail-grid"><div class="detail-cell"><span class="label">Detonante</span>${d.det}</div><div class="detail-cell"><span class="label">Acción Inmediata</span>${d.acc}</div><div class="detail-cell"><span class="label">Rol del Estudiante</span>${d.rol}</div></div>`;
+    }
+
+    const demoIsos = {
+      amarilla: { t: "Tarjeta Amarilla — Contacto", c: "#eab308", mec: "Contacto directo o indirecto con secreciones o superficies.", epp: "Guantes y bata limpia al ingresar; higiene de manos estricta." },
+      verde: { t: "Tarjeta Verde — Gotas", c: "#16a34a", mec: "Gotitas respiratorias a menos de 1.5 metros.", epp: "Cubrebocas quirúrgico y protección ocular." },
+      azul: { t: "Tarjeta Azul — Vía Aérea", c: "#2563eb", mec: "Núcleos suspendidos en el aire.", epp: "Respirador N95/KN95 colocado antes de ingresar y puerta cerrada." },
+      gris: { t: "Tarjeta Gris — Aislamiento Inverso", c: "#64748b", mec: "Protección a pacientes inmunocomprometidos.", epp: "Higiene estricta, cubrebocas, bata limpia y guantes previo al ingreso." }
+    };
+    function showDemoIso(key, btn) {
+      if (btn) { btn.parentElement.querySelectorAll(".color-pill").forEach(b => b.classList.remove("active")); btn.classList.add("active"); }
+      const d = demoIsos[key];
+      const box = document.getElementById("demo-iso-detail");
+      box.style.borderLeftColor = d.c;
+      box.innerHTML = `<h5 style="font-family:'Montserrat',sans-serif; font-weight:900; color:var(--navy-deep);">${d.t}</h5><div class="detail-grid"><div class="detail-cell"><span class="label">Mecanismo</span>${d.mec}</div><div class="detail-cell"><span class="label">Barreras (EPP)</span>${d.epp}</div></div>`;
+    }
+
+    function calcDemoDose() {
+      const med = document.getElementById("demo-med").value;
+      const kg = parseFloat(document.getElementById("demo-weight").value) || 0;
+      let mgToma = 0, mlToma = 0, presTxt = "";
+      if (med === "paracetamol") {
+        mgToma = kg * 15; mlToma = (mgToma * 5) / 160; presTxt = "Jarabe 160 mg / 5 mL";
+      } else if (med === "amoxicilina") {
+        mgToma = (kg * 50) / 3; mlToma = (mgToma * 5) / 250; presTxt = "Susp. 250 mg / 5 mL";
+      } else {
+        mgToma = (kg * 50) / 2; mlToma = (mgToma * 10) / 1000; presTxt = "IV 1 g / 10 mL";
+      }
+      document.getElementById("demo-dose-result").innerHTML = `
+        <div class="metric-box"><span class="m-title">Dosis por Toma</span><strong class="m-val">${mgToma.toFixed(1)} mg</strong></div>
+        <div class="metric-box"><span class="m-title">Volumen (${presTxt})</span><strong class="m-val">${mlToma.toFixed(2)} mL</strong></div>
+      `;
+    }
+
+    // INIT
+    initDemoMomentos();
+    showDemoCode("azul");
+    showDemoIso("amarilla");
+    calcDemoDose();
+    renderAllDemoViews();
+  </script>
+</body>
+</html>
