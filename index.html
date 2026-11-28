@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ALEXCTEXEIRA</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="site-header">
+    <nav class="top-nav">
+      <a href="https://instagram.com" target="_blank" rel="noopener">INSTAGRAM</a>
+      <span>|</span>
+      <a href="https://twitter.com" target="_blank" rel="noopener">TWITTER</a>
+      <span>|</span>
+      <a href="https://tiktok.com" target="_blank" rel="noopener">TIKTOK</a>
+      <span>|</span>
+      <a href="https://alexctexeira.com.mx">SOBRE MÍ</a>
+    </nav>
+
+    <div class="brand-stack" aria-label="ALEXCTEXEIRA">
+      <span class="layer-top" aria-hidden="true">ALEXCTEXEIRA</span>
+      <span class="layer-main">ALEXCTEXEIRA</span>
+      <span class="layer-bottom" aria-hidden="true">ALEXCTEXEIRA</span>
+    </div>
+  </header>
+
+  <!-- CARRUSEL DE BLOG (20s) -->
+  <section id="blog-carousel" class="blog-carousel">
+    <div class="blog-slide-content">
+      <a id="blog-title" class="blog-title-link" href="#">CARGANDO...</a>
+      <p id="blog-desc" class="blog-desc">Cargando publicaciones recientes...</p>
+    </div>
+    <div id="blog-dots" class="carousel-dots"></div>
+  </section>
+
+  <!-- MANIFIESTO ESTILO DMAORG -->
+  <section class="manifesto-section">
+    <div class="manifesto-container">
+      <div class="dotted-header">
+        <span class="dots-line"></span>
+        <span id="manifesto-date">026 11MOON 27</span>
+      </div>
+
+      <div id="manifesto-body" class="manifesto-body">Se você encontrou este arquivo, significa que conseguiu atravessar o silêncio.
+
+Lá dentro, tudo é cinza e previsível. Eles querem que a gente siga a mesma rotina, que a gente se encaixe nas mesmas caixas e apague qualquer faísca que saia do padrão. Mas a mente não foi feita para viver cercada por muros altos e luzes de néon frias.
+
+Esta página é o meu refúgio fora da cidade. É a minha trincheira.
+
+Criei este espaço para deixar a criatividade correr solta, sem filtros, sem censura e sem ninguém vigiando. Aqui é onde eu me expresso de verdade — onde ideias quebradas viram arte, pensamentos ganham forma e o caos finalmente faz sentido. Cada palavra, imagem ou projeto que você encontrar por aqui é uma tentativa de respirar, de criar algo real e de lembrar que ainda estamos vivos.
+
+Não procure perfeição neste lugar. Procure movimento. Procure faíscas.
+
+Eles podem tentar conter o barulho, mas nunca vão conseguir silenciar o que a gente cria.
+
+Fique à vontade para explorar. O leste é para cima.</div>
+
+      <div class="dotted-footer">
+        <span id="manifesto-sign">— Mantendo a chama acesa.</span>
+        <span class="dots-line"></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- CARRUSEL DE PROYECTOS (20s) -->
+  <section id="projects-section" class="projects-section">
+    <div class="project-card">
+      <div id="project-thumb" class="project-thumb">imagen</div>
+      <div class="project-info">
+        <h2 id="project-title" class="project-title">ESPACIO PARA TÍTULO</h2>
+        <p id="project-desc" class="project-desc">Espacio para pequeña descripción sobre lo que se muestra aquí.</p>
+        <a id="project-link" class="btn-conocer" href="https://alexctexeira.com.mx" target="_blank" rel="noopener">conocer</a>
+      </div>
+    </div>
+    <div id="project-dots" class="carousel-dots"></div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <p>© Alex C. Texeira</p>
+    <p>México - contacto@alexctexeira.com.mx</p>
+  </footer>
+
+  <script type="module">
+    import { db } from "./firebase-config.js";
+    import { collection, getDocs, query, orderBy, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+    const INTERVAL_MS = 20000; // 20 segundos
+
+    // 1. Cargar Manifiesto
+    async function loadManifesto() {
+      try {
+        const snap = await getDoc(doc(db, "settings", "manifesto"));
+        if (snap.exists()) {
+          const data = snap.data();
+          if (data.date) document.getElementById("manifesto-date").textContent = data.date;
+          if (data.body) document.getElementById("manifesto-body").textContent = data.body;
+          if (data.signature) document.getElementById("manifesto-sign").textContent = data.signature;
+        }
+      } catch (err) {
+        console.error("Error cargando manifiesto:", err);
+      }
+    }
+
+    // 2. Carrusel de Blog (más nuevo a más antiguo)
+    async function loadBlog() {
+      const container = document.getElementById("blog-carousel");
+      const titleEl = document.getElementById("blog-title");
+      const descEl = document.getElementById("blog-desc");
+      const dotsEl = document.getElementById("blog-dots");
+
+      let posts = [];
+      try {
+        const q = query(collection(db, "posts"), orderBy("createdAt", "desc"));
+        const snap = await getDocs(q);
+        posts = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+      } catch (err) {
+        console.error("Error cargando blog:", err);
+      }
+
+      if (posts.length === 0) {
+        titleEl.textContent = "ESPACIO PARA TÍTULO";
+        titleEl.href = "#";
+        descEl.textContent = "Aún no hay publicaciones. Sube la primera desde /admin.html";
+        return;
+      }
+
+      let current = 0;
+      let timer = null;
+
+      function renderSlide(idx) {
+        current = idx;
+        const post = posts[current];
+        titleEl.textContent = post.title;
+        titleEl.href = `post.html?id=${post.id}`;
+        descEl.textContent = post.description || "";
+
+        if (post.image) {
+          container.style.backgroundImage = `url('${post.image}')`;
+          container.classList.add("has-image");
+        } else {
+          container.style.backgroundImage = "none";
+          container.classList.remove("has-image");
+        }
+
+        dotsEl.innerHTML = posts.map((_, i) =>
+          `<button class="carousel-dot ${i === current ? 'active' : ''}" aria-label="Slide ${i + 1}"></button>`
+        ).join("");
+
+        dotsEl.querySelectorAll(".carousel-dot").forEach((btn, i) => {
+          btn.addEventListener("click", () => {
+            renderSlide(i);
+            resetTimer();
+          });
+        });
+      }
+
+      function resetTimer() {
+        clearInterval(timer);
+        if (posts.length > 1) {
+          timer = setInterval(() => renderSlide((current + 1) % posts.length), INTERVAL_MS);
+        }
+      }
+
+      container.addEventListener("mouseenter", () => clearInterval(timer));
+      container.addEventListener("mouseleave", resetTimer);
+
+      renderSlide(0);
+      resetTimer();
+    }
+
+    // 3. Carrusel de Proyectos (20s)
+    async function loadProjects() {
+      const section = document.getElementById("projects-section");
+      const thumbEl = document.getElementById("project-thumb");
+      const titleEl = document.getElementById("project-title");
+      const descEl = document.getElementById("project-desc");
+      const linkEl = document.getElementById("project-link");
+      const dotsEl = document.getElementById("project-dots");
+
+      let projects = [];
+      try {
+        const q = query(collection(db, "projects"), orderBy("createdAt", "desc"));
+        const snap = await getDocs(q);
+        projects = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+      } catch (err) {
+        console.error("Error cargando proyectos:", err);
+      }
+
+      if (projects.length === 0) return;
+
+      let current = 0;
+      let timer = null;
+
+      function renderProject(idx) {
+        current = idx;
+        const proj = projects[current];
+        titleEl.textContent = proj.title;
+        descEl.textContent = proj.description || "";
+        linkEl.href = proj.url || "https://alexctexeira.com.mx";
+
+        if (proj.image) {
+          thumbEl.innerHTML = `<img src="${proj.image}" alt="${proj.title}">`;
+        } else {
+          thumbEl.textContent = "imagen";
+        }
+
+        dotsEl.innerHTML = projects.map((_, i) =>
+          `<button class="carousel-dot ${i === current ? 'active' : ''}" aria-label="Proyecto ${i + 1}"></button>`
+        ).join("");
+
+        dotsEl.querySelectorAll(".carousel-dot").forEach((btn, i) => {
+          btn.addEventListener("click", () => {
+            renderProject(i);
+            resetTimer();
+          });
+        });
+      }
+
+      function resetTimer() {
+        clearInterval(timer);
+        if (projects.length > 1) {
+          timer = setInterval(() => renderProject((current + 1) % projects.length), INTERVAL_MS);
+        }
+      }
+
+      section.addEventListener("mouseenter", () => clearInterval(timer));
+      section.addEventListener("mouseleave", resetTimer);
+
+      renderProject(0);
+      resetTimer();
+    }
+
+    loadManifesto();
+    loadBlog();
+    loadProjects();
+  </script>
+</body>
+</html>
